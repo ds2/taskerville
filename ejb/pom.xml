@@ -1,0 +1,59 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd"
+>
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>taskerville</artifactId>
+		<groupId>ds2.taskerville</groupId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>ds2.taskerville</groupId>
+	<artifactId>taskerville-ejb</artifactId>
+	<packaging>ejb</packaging>
+	<name>TaskerVille EJB</name>
+	<version>0.0.1-SNAPSHOT</version>
+	<description>Thin wrapper for the business logic implementation.</description>
+	<dependencies>
+		<dependency>
+			<groupId>ds2.taskerville</groupId>
+			<artifactId>taskerville-business</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.ejb</groupId>
+			<artifactId>ejb-api</artifactId>
+			<version>3.0</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+			<type>jar</type>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+					<clientIncludes>
+						<clientInclude>**/*Ws.class</clientInclude>
+						<clientInclude>**/package-info.class</clientInclude>
+					</clientIncludes>
+					<generateClient>true</generateClient>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

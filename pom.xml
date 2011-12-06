@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>ds2.taskerville</groupId>
+  <artifactId>taskerville</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>TaskerVille</name>
+  <description>Another task management solution by DS/2.</description>
+  <url>http://ds-2.de/taskerville/</url>
+  <issueManagement>
+    <system>taskerville</system>
+    <url>http://dev.kaeto23.de/tsk/</url>
+  </issueManagement>
+  <ciManagement>
+    <system>hudson</system>
+    <url>http://dev.kaeto23.de/hudson/taskerville</url>
+  </ciManagement>
+  <inceptionYear>2009</inceptionYear>
+  <organization>
+    <name>DS/2</name>
+    <url>http://ds-2.de</url>
+  </organization>
+  <dependencies>
+  </dependencies>
+  <modules>
+    <module>api</module>
+    <module>connectors</module>
+    <module>ear</module>
+    <module>persistence</module>
+    <module>web</module>
+    <module>export</module>
+    <module>import</module>
+    <module>ejb</module>
+    <module>bridges</module>
+    <module>business</module>
+    <module>i18n</module>
+  </modules>
+  <parent>
+    <groupId>ds2.base.proprietary</groupId>
+    <artifactId>jee-base</artifactId>
+    <version>0.41</version>
+  </parent>
+  <scm>
+    <connection>scm:svn:https://dev.cerberus.ds2/repos/projects/taskerville/trunk</connection>
+    <developerConnection>scm:svn:https://dev.cerberus.ds2/repos/projects/taskerville/trunk</developerConnection>
+    <url>https://dev.cerberus.ds2/repos/projects/taskerville/trunk</url>
+  </scm>
+</project>

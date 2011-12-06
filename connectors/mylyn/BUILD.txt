@@ -1,0 +1,1 @@
+mvn eclipse:to-maven -DeclipseDir=/opt/eclipseV3.5/ -DstripQualifier=true -DdeployTo=local::default::file:///Users/kaeto23/eclipseRepo

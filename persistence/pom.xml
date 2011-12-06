@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>taskerville</artifactId>
+    <groupId>ds2.taskerville</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>ds2.taskerville</groupId>
+  <artifactId>taskerville-persistence</artifactId>
+  <name>TaskerVille Persistence</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <description>Die Persistenzschicht von TaskerVille</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>ds2.taskerville</groupId>
+  		<artifactId>taskerville-api</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.persistence</groupId>
+  		<artifactId>persistence-api</artifactId>
+  		<version>1.0</version>
+  		<type>jar</type>
+  		<scope>provided</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google.inject</groupId>
+  		<artifactId>guice</artifactId>
+  	</dependency>
+  </dependencies>
+</project>

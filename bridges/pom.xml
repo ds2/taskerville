@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>taskerville</artifactId>
+    <groupId>ds2.taskerville</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>ds2.taskerville</groupId>
+  <artifactId>taskerville-bridges</artifactId>
+  <name>TaskerVille Bridges</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <description>The bridges to other task-oriented solutions.</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>ds2.taskerville</groupId>
+  		<artifactId>taskerville-api</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.google.inject</groupId>
+  		<artifactId>guice</artifactId>
+  	</dependency>
+  </dependencies>
+  <modules>
+  	<module>bugzilla</module>
+  	<module>jira</module>
+  	<module>redmine</module>
+  	<module>googlecode</module>
+  </modules>
+</project>
