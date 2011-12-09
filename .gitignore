@@ -1,0 +1,102 @@
+
+# /
+/.project
+/target
+
+# /api/
+/api/.project
+/api/.settings
+/api/.classpath
+/api/target
+
+# /bridges/
+/bridges/.project
+/bridges/.settings
+
+# /bridges/bugzilla/
+/bridges/bugzilla/target
+/bridges/bugzilla/.settings
+/bridges/bugzilla/.classpath
+/bridges/bugzilla/.project
+
+# /bridges/googlecode/
+/bridges/googlecode/.project
+/bridges/googlecode/.settings
+/bridges/googlecode/.classpath
+/bridges/googlecode/target
+
+# /bridges/jira/
+/bridges/jira/.classpath
+/bridges/jira/.project
+/bridges/jira/target
+/bridges/jira/.settings
+
+# /bridges/redmine/
+/bridges/redmine/target
+/bridges/redmine/.project
+/bridges/redmine/.classpath
+/bridges/redmine/.settings
+
+# /business/
+/business/target
+/business/.project
+/business/.classpath
+/business/.settings
+
+# /connectors/
+/connectors/.settings
+/connectors/target
+/connectors/.project
+
+# /connectors/mylyn/
+/connectors/mylyn/target
+/connectors/mylyn/.settings
+/connectors/mylyn/.classpath
+/connectors/mylyn/.project
+
+# /connectors/netbeans/
+/connectors/netbeans/target
+/connectors/netbeans/.project
+/connectors/netbeans/.settings
+/connectors/netbeans/.classpath
+
+# /ear/
+/ear/.project
+/ear/.settings
+/ear/target
+
+# /ejb/
+/ejb/.project
+/ejb/.settings
+/ejb/target
+/ejb/.classpath
+
+# /export/
+/export/.project
+/export/target
+/export/.classpath
+/export/.settings
+
+# /i18n/
+/i18n/target
+/i18n/.settings
+/i18n/.classpath
+/i18n/.project
+
+# /import/
+/import/.classpath
+/import/.settings
+/import/target
+/import/.project
+
+# /persistence/
+/persistence/.classpath
+/persistence/target
+/persistence/.settings
+/persistence/.project
+
+# /web/
+/web/.classpath
+/web/.project
+/web/.settings
+/web/target
