@@ -3,35 +3,26 @@
  */
 package ds2.taskerville.business.impl;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import org.junit.Before;
-import org.junit.Test;
-
-
 import ds2.taskerville.api.TimeAmount;
 import ds2.taskerville.api.remote.TimeAmountDto;
 import ds2.taskerville.api.svc.TimeAmountService;
+import javax.inject.Inject;
+import org.testng.Assert;
+import org.testng.annotations.Guice;
+import org.testng.annotations.Test;
 
 /**
  * @author kaeto23
  *
  */
+@Guice(modules = TestInjectionPlan.class)
 public class TimeAmountServiceImplTest {
 
   /**
    * The time amount service to test.
    */
-  private TimeAmountService to = null;
-
-  /**
-   * @throws java.lang.Exception
-   */
-  @Before
-  public void setUp() throws Exception {
-    //to = ij.getInstance(TimeAmountService.class);
-  }
+  @Inject
+  private TimeAmountService to;
 
   /**
    * Test method for
@@ -41,14 +32,14 @@ public class TimeAmountServiceImplTest {
   @Test
   public final void testCreateTimeAmount() {
     TimeAmount ta = to.createTimeAmount(0, null, null, null);
-    assertNotNull(ta);
-    assertEquals(new TimeAmountDto(0, 1, 0, 0), to.createTimeAmount(60,
+    Assert.assertNotNull(ta);
+    Assert.assertEquals(new TimeAmountDto(0, 1, 0, 0), to.createTimeAmount(60,
         null, null, null));
-    assertEquals(new TimeAmountDto(1, 1, 0, 0), to.createTimeAmount(61,
+    Assert.assertEquals(new TimeAmountDto(1, 1, 0, 0), to.createTimeAmount(61,
         null, null, null));
-    assertEquals(new TimeAmountDto(0, 1, 1, 0), to.createTimeAmount(0, 9,
+    Assert.assertEquals(new TimeAmountDto(0, 1, 1, 0), to.createTimeAmount(0, 9,
         null, null));
-    assertEquals(new TimeAmountDto(0, 0, 1, 1), to.createTimeAmount(0, 0,
+    Assert.assertEquals(new TimeAmountDto(0, 0, 1, 1), to.createTimeAmount(0, 0,
         6, 0));
   }
 
