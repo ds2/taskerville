@@ -29,8 +29,6 @@
     <module>ear</module>
     <module>persistence</module>
     <module>web</module>
-    <module>export</module>
-    <module>import</module>
     <module>ejb</module>
     <module>bridges</module>
     <module>business</module>

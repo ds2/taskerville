@@ -10,7 +10,7 @@
   <artifactId>taskerville-bridges</artifactId>
   <name>TaskerVille Bridges</name>
   <packaging>pom</packaging>
-  <description>The bridges to other task-oriented solutions.</description>
+  <description>The bridges to other task-oriented solutions. Used to synchronize any given taskerville project with another task repository. Known examples are jira, bugzilla, redmine and google code. Bridges can also be used to synchronize this taskerville repo with another repo.</description>
   <dependencies>
     <dependency>
       <groupId>ds2.taskerville</groupId>
