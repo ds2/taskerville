@@ -33,6 +33,7 @@
     <module>bridges</module>
     <module>business</module>
     <module>i18n</module>
+    <module>rs-v1</module>
   </modules>
   <parent>
     <groupId>ds2.base.proprietary</groupId>

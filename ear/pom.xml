@@ -31,6 +31,12 @@
       <type>ejb</type>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>taskerville-rest-v1</artifactId>
+      <version>${project.version}</version>
+      <type>war</type>
+    </dependency>
   </dependencies>
   <build>
     <plugins>
@@ -43,4 +49,7 @@
       </plugin>
     </plugins>
   </build>
+  <properties>
+    <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+  </properties>
 </project>
