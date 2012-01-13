@@ -2,4 +2,6 @@
 target
 .settings
 .classpath
+nb-configuration.xml
+.checkstyle
 
