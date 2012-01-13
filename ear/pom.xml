@@ -44,7 +44,25 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-ear-plugin</artifactId>
         <configuration>
+          <applicationName>Taskerville</applicationName>
+          <version>6</version>
           <defaultLibBundleDir>lib</defaultLibBundleDir>
+          <modules>
+            <ejbModule>
+              <groupId>ds2.taskerville</groupId>
+              <artifactId>taskerville-ejb</artifactId>
+            </ejbModule>
+            <webModule>
+              <groupId>ds2.taskerville</groupId>
+              <artifactId>taskerville-rest-v1</artifactId>
+              <contextRoot>/trs</contextRoot>
+            </webModule>
+            <webModule>
+              <groupId>ds2.taskerville</groupId>
+              <artifactId>taskerville-web</artifactId>
+              <contextRoot>/tsk</contextRoot>
+            </webModule>
+          </modules>
         </configuration>
       </plugin>
     </plugins>
