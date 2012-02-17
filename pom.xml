@@ -39,7 +39,7 @@
   <parent>
     <groupId>ds2.base.proprietary</groupId>
     <artifactId>jee-base</artifactId>
-    <version>0.45</version>
+    <version>0.49</version>
   </parent>
   <scm>
     <connection>scm:svn:https://dev.cerberus.ds2/repos/projects/taskerville/trunk</connection>
