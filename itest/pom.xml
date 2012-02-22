@@ -35,6 +35,7 @@
       <artifactId>taskerville-persistence</artifactId>
       <version>0.0.1-SNAPSHOT</version>
       <scope>test</scope>
+      <type>ejb</type>
     </dependency>
   </dependencies>
   <dependencyManagement>
