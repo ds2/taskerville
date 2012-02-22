@@ -1,24 +1,24 @@
 /**
- * 
+ *
  */
 package ds2.taskerville.api.processmanagement;
 
+import ds2.taskerville.api.PersistableObject;
 import java.util.List;
 
 /**
  * The state of a process.
- * 
+ *
  * @author kaeto23
- * 
+ *
  */
-public interface ProcessState {
-	long getId();
+public interface ProcessState extends PersistableObject {
 
-	String getName();
+  String getName();
 
-	String getDescription();
+  String getDescription();
 
-	List<ProcessState> getNextStates();
+  List<ProcessState> getNextStates();
 
-	long getRequiredTaskState();
+  long getRequiredTaskState();
 }

@@ -3,6 +3,7 @@
  */
 package ds2.taskerville.persistence.api;
 
+import ds2.taskerville.api.PersistableObject;
 import javax.persistence.EntityManager;
 
 import ds2.taskerville.persistence.PersistenceServiceImpl;

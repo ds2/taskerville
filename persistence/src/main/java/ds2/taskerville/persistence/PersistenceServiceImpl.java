@@ -3,10 +3,10 @@
  */
 package ds2.taskerville.persistence;
 
+import ds2.taskerville.api.PersistableObject;
 import javax.persistence.EntityManager;
 
 
-import ds2.taskerville.persistence.api.PersistableObject;
 import ds2.taskerville.persistence.api.PersistenceService;
 import javax.inject.Inject;
 import javax.inject.Singleton;

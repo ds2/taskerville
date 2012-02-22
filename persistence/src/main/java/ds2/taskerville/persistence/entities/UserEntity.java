@@ -15,7 +15,6 @@ import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.user.Team;
 import ds2.taskerville.api.user.User;
 import ds2.taskerville.api.user.UserRole;
-import ds2.taskerville.persistence.api.PersistableObject;
 
 /**
  * @author kaeto23
@@ -23,7 +22,7 @@ import ds2.taskerville.persistence.api.PersistableObject;
  */
 @Entity
 @Table(name = "TSK_USERS")
-public class UserEntity implements PersistableObject, User {
+public class UserEntity implements User {
 
   /**
    * The svuid.
