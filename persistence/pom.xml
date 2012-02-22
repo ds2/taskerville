@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>taskerville</artifactId>
@@ -10,14 +10,6 @@
   <artifactId>taskerville-persistence</artifactId>
   <name>TaskerVille Persistence</name>
   <description>Die Persistenzschicht von TaskerVille</description>
-  <repositories>
-    <repository>
-      <url>http://download.eclipse.org/rt/eclipselink/maven.repo/</url>
-      <id>eclipselink</id>
-      <layout>default</layout>
-      <name>Repository for library Library[eclipselink]</name>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>ds2.taskerville</groupId>
@@ -63,4 +55,7 @@
     </dependency>
   </dependencies>
   <packaging>ejb</packaging>
+  <properties>
+    <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
+  </properties>
 </project>

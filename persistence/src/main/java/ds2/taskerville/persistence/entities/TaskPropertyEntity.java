@@ -5,6 +5,7 @@
 package ds2.taskerville.persistence.entities;
 
 import ds2.taskerville.api.TaskProperty;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -20,15 +21,19 @@ public class TaskPropertyEntity implements TaskProperty {
   private static final long serialVersionUID = 1L;
   @Id
   private long id;
+  @Column(name = "name", nullable = false)
+  private String name;
+  @Column(name = "parser_id", nullable = false, updatable = true)
+  private int typeParserId;
 
   @Override
   public String getName() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return name;
   }
 
   @Override
   public int getTypeParserId() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return typeParserId;
   }
 
   @Override
