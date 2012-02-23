@@ -26,6 +26,28 @@ public class TaskPropertyEntity implements TaskProperty {
   @Column(name = "parser_id", nullable = false, updatable = true)
   private int typeParserId;
 
+  public TaskPropertyEntity() {
+  }
+
+  public TaskPropertyEntity(int i, String process, int i0) {
+    this();
+    id = i;
+    name = process;
+    typeParserId = i0;
+  }
+
+  public void setId(long id) {
+    this.id = id;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setTypeParserId(int typeParserId) {
+    this.typeParserId = typeParserId;
+  }
+
   @Override
   public String getName() {
     return name;
