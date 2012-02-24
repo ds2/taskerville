@@ -9,6 +9,15 @@
   <name>TaskerVille</name>
   <description>Another task management solution by DS/2.</description>
   <url>http://ds-2.de/taskerville/</url>
+  <properties>
+    <license.header.year>2012</license.header.year>
+    <issueTrackerId>TV</issueTrackerId>
+    <license.header.author>Dirk Strauss</license.header.author>
+    <license.header.projectName>TaskerVille</license.header.projectName>
+    <licenseHeaderTemplate>/oss/lgpl-v3-header.txt</licenseHeaderTemplate>
+    <license.header.description>issue and project management</license.header.description>
+    <siteProjectName>taskerville</siteProjectName>
+  </properties>
   <issueManagement>
     <system>taskerville</system>
     <url>http://dev.kaeto23.de/tsk/</url>
@@ -37,13 +46,34 @@
     <module>itest</module>
   </modules>
   <parent>
-    <groupId>ds2.base.proprietary</groupId>
+    <groupId>ds2.base.oss</groupId>
     <artifactId>jee-base</artifactId>
     <version>0.50</version>
   </parent>
+  <licenses>
+    <license>
+      <name>LGPLv3</name>
+      <url>${oss.licenseurl.lgplv3}</url>
+      <distribution>repo</distribution>
+      <comments>affects mostly the backend components, unless otherwise specified</comments>
+    </license>
+    <license>
+      <name>GPLv3</name>
+      <url>${oss.licenseurl.gplv3}</url>
+      <distribution>repo</distribution>
+      <comments>only the frontend components</comments>
+    </license>
+  </licenses>
   <scm>
-    <connection>scm:svn:https://dev.cerberus.ds2/repos/projects/taskerville/trunk</connection>
-    <developerConnection>scm:svn:https://dev.cerberus.ds2/repos/projects/taskerville/trunk</developerConnection>
-    <url>https://dev.cerberus.ds2/repos/projects/taskerville/trunk</url>
+    <connection>scm:git:ssh://tv-dev@sources.ds2/home/tv-dev/tv</connection>
+    <developerConnection>scm:git:ssh://tv-dev@sources.ds2/home/tv-dev/tv</developerConnection>
+    <url>http://sources.ds2/vs/git/tv/</url>
   </scm>
+  <distributionManagement>
+    <site>
+      <id>${siteDeployId}</id>
+      <name>${siteDeployName}</name>
+      <url>${siteDeployUrl}</url>
+    </site>
+  </distributionManagement>
 </project>
