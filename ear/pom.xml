@@ -10,10 +10,8 @@
     <groupId>ds2.taskerville</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <groupId>ds2.taskerville</groupId>
   <artifactId>taskerville-ear</artifactId>
   <name>TaskerVille EAR</name>
-  <version>0.0.1-SNAPSHOT</version>
   <packaging>ear</packaging>
   <description>Das EAR zum Projekt, zum Deployen in den JEE-Server</description>
   <dependencies>
@@ -34,7 +32,7 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>taskerville-rest-v1</artifactId>
-      <version>${project.version}</version>
+      <version>0.0.1-SNAPSHOT</version>
       <type>war</type>
     </dependency>
   </dependencies>
