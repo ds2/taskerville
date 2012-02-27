@@ -15,12 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
-
-import java.io.Serializable;
 
 /**
  * The priority of a task.
@@ -28,10 +23,18 @@ import java.io.Serializable;
  * @author kaeto23
  * 
  */
-public interface Priority extends Serializable {
-	long getId();
-
-	String getTitle();
-
-	String getDescription();
+public interface Priority extends PersistableObject {
+    /**
+     * Returns the title of the priority.
+     * 
+     * @return the title
+     */
+    String getTitle();
+    
+    /**
+     * Returns the description of this priority.
+     * 
+     * @return the description
+     */
+    String getDescription();
 }

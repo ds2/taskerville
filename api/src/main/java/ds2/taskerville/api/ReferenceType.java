@@ -15,23 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api;
-
-import java.io.Serializable;
 
 /**
  * A type of a reference between two tasks. This can be something like
  * DUPLICATE, SUBTASK or something like that.
- *
+ * 
  * @author kaeto23
- *
+ * 
  */
 public interface ReferenceType extends PersistableObject {
-
-  String getTitle();
-
-  String getOppositeTitle();
+    
+    String getTitle();
+    
+    String getOppositeTitle();
 }

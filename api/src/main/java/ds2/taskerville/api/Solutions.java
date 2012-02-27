@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
 
 /**
@@ -27,5 +24,29 @@ package ds2.taskerville.api;
  * 
  */
 public enum Solutions {
-	Fixed, WontFix, Done, New, InProgress, Analyzing;
+    /**
+     * The task is fixed. Usually a solution for bug tasks.
+     */
+    Fixed,
+    /**
+     * The task cannot be fixed (now).
+     */
+    WontFix,
+    /**
+     * The task is done. Similar to {@link #Fixed} but this solution is mostly
+     * meant for configuration purpose or feature tasks.
+     */
+    Done,
+    /**
+     * The task is new. Initial state.
+     */
+    New,
+    /**
+     * The task is currently in progress.
+     */
+    InProgress,
+    /**
+     * The task is being analyzed.
+     */
+    Analyzing;
 }

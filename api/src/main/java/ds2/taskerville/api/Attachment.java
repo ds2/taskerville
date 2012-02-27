@@ -21,30 +21,48 @@ import java.util.Date;
 
 import javax.activation.MimeType;
 
+import ds2.taskerville.api.release.Version;
+
 /**
  * A file attachment to a task. Usually screenshots, or documents. Whatever you
  * need.
- *
+ * 
  * @author kaeto23
- *
+ * 
  */
 public interface Attachment extends PersistableObject {
-
-  Date getUploadDate();
-
-  /**
-   * @deprecated Use the attachment service to get the byte stream of the
-   * attachment.
-   * @return the content
-   */
-  @Deprecated
-  byte[] getContent();
-
-  MimeType getType();
-
-  String getFileName();
-
-  String getVersion();
-
-  String getDescription();
+    /**
+     * Returns the upload date for this attachment.
+     * 
+     * @return the upload date
+     */
+    Date getUploadDate();
+    
+    /**
+     * Returns the possible mime type for this attachment.
+     * 
+     * @return the mime type
+     */
+    MimeType getType();
+    
+    /**
+     * Returns the possible file name for this attachment.
+     * 
+     * @return the file name
+     */
+    String getFileName();
+    
+    /**
+     * Returns the version of this attachment.
+     * 
+     * @return the version
+     */
+    Version getVersion();
+    
+    /**
+     * Returns the plain text description of this attachment.
+     * 
+     * @return the description.
+     */
+    String getDescription();
 }

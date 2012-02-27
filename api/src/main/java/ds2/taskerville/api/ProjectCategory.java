@@ -15,12 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
-
-import java.io.Serializable;
 
 /**
  * Definition of a project category. A project category contains a set of
@@ -29,33 +24,29 @@ import java.io.Serializable;
  * @author kaeto23
  * @version 1.0
  */
-public interface ProjectCategory extends Serializable,
-		Comparable<ProjectCategory> {
-	/**
-	 * Returns the id of the entry.
-	 * 
-	 * @return the id of the entry
-	 */
-	long getId();
-
-	/**
-	 * Returns the title of the category.
-	 * 
-	 * @return the title of the category
-	 */
-	String getTitle();
-
-	/**
-	 * Returns a description of the category.
-	 * 
-	 * @return a description
-	 */
-	String getDescription();
-
-	/**
-	 * Returns the entry state of the category.
-	 * 
-	 * @return the entry state
-	 */
-	EntryStates getEntryState();
+public interface ProjectCategory
+    extends
+    PersistableObject,
+    Comparable<ProjectCategory> {
+    
+    /**
+     * Returns the title of the category.
+     * 
+     * @return the title of the category
+     */
+    String getTitle();
+    
+    /**
+     * Returns a description of the category.
+     * 
+     * @return a description
+     */
+    String getDescription();
+    
+    /**
+     * Returns the entry state of the category.
+     * 
+     * @return the entry state
+     */
+    EntryStates getEntryState();
 }
