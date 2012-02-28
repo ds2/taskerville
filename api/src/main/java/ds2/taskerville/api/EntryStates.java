@@ -17,6 +17,9 @@
  */
 package ds2.taskerville.api;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * A list of entry states.
  * 
@@ -43,6 +46,10 @@ public enum EntryStates {
      * the state id.
      */
     private int stateId;
+    /**
+     * A caching state map.
+     */
+    private static Map<Integer, EntryStates> statesMap = new HashMap<>();
     
     /**
      * Creates a constant.
@@ -61,5 +68,22 @@ public enum EntryStates {
      */
     public int getStateId() {
         return stateId;
+    }
+    
+    /**
+     * Returns the entry state with the given id.
+     * 
+     * @param stateId2
+     *            the id of the state
+     * @return the state, or null if unknown
+     */
+    public static EntryStates getById(int stateId2) {
+        return statesMap.get(Integer.valueOf(stateId2));
+    }
+    
+    static {
+        statesMap.put(Valid.getStateId(), Valid);
+        statesMap.put(Locked.getStateId(), Locked);
+        statesMap.put(Deleted.getStateId(), Deleted);
     }
 }

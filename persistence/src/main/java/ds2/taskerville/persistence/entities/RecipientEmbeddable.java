@@ -23,47 +23,64 @@ package ds2.taskerville.persistence.entities;
 
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.EntryStates;
+import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.user.Recipient;
+
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 /**
- *
+ * 
  * @author kaeto23
  */
 @Embeddable
 public class RecipientEmbeddable implements Recipient {
-
-  private static final long serialVersionUID = 1L;
-  @Id
-  private long id;
-  private EntryStates state;
-  private String emailAddress;
-  private String name;
-  private Attachment profilePhoto;
-
-  @Override
-  public String getEmailAddress() {
-    return emailAddress;
-  }
-
-  @Override
-  public String getName() {
-    return name;
-  }
-
-  @Override
-  public Attachment getProfilePhoto() {
-    return profilePhoto;
-  }
-
-  @Override
-  public EntryStates getState() {
-    return state;
-  }
-
-  @Override
-  public long getId() {
-    return id;
-  }
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    private long id;
+    @Transient
+    private EntryStates state;
+    @Column(name = "state_id", updatable = true, nullable = false)
+    private int stateId;
+    @Column(name = "email_address")
+    private String emailAddress;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Transient
+    private Attachment profilePhoto;
+    @Transient
+    private HostingSpace hostingSpace;
+    
+    @Override
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+    
+    @Override
+    public Attachment getProfilePhoto() {
+        return profilePhoto;
+    }
+    
+    @Override
+    public EntryStates getState() {
+        return EntryStates.getById(stateId);
+    }
+    
+    @Override
+    public long getId() {
+        return id;
+    }
+    
+    @Override
+    public HostingSpace getHostingSpace() {
+        return hostingSpace;
+    }
 }

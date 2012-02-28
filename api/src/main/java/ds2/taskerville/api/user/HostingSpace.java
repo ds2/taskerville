@@ -22,6 +22,7 @@ package ds2.taskerville.api.user;
 
 import java.util.List;
 
+import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.PersistableObject;
 import ds2.taskerville.api.ProjectCategory;
 
@@ -60,4 +61,11 @@ public interface HostingSpace extends PersistableObject {
      * @return all project categories for this space
      */
     List<ProjectCategory> getCategories();
+    
+    /**
+     * Returns the state of the space.
+     * 
+     * @return the state
+     */
+    EntryStates getState();
 }
