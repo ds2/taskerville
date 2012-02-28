@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
@@ -39,13 +40,16 @@ public class HostingSpaceEntity implements HostingSpace {
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen1")
     private long id;
+    /**
+     * The name of the space.
+     */
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Transient
+    @OneToMany(targetEntity = UserEntity.class)
     private List<User> users;
-    @Transient
+    @OneToMany(targetEntity = TeamEntity.class)
     private List<Team> teams;
-    @Transient
+    @OneToMany(targetEntity = ProjectCategoryEntity.class)
     private List<ProjectCategory> categories;
     @Embedded
     private EntryStateEmbeddable state;

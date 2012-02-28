@@ -33,6 +33,7 @@ import org.junit.runner.RunWith;
 import ds2.taskerville.persistence.JpaSupport;
 import ds2.taskerville.persistence.api.PersistenceService;
 import ds2.taskerville.persistence.entities.HostingSpaceEntity;
+import ds2.taskerville.persistence.entities.ProjectCategoryEntity;
 import ds2.taskerville.persistence.entities.RecipientEmbeddable;
 import ds2.taskerville.persistence.entities.TaskPropertyEntity;
 import ds2.taskerville.persistence.entities.TaskStateEntity;
@@ -124,6 +125,13 @@ public class StorageTest {
         e.setState(EntryStates.Valid);
         db.persistObject(e);
         LOG.info("e is now " + e);
-        
+    }
+    
+    @Test
+    public void testProjectCategory() {
+        ProjectCategoryEntity e = new ProjectCategoryEntity();
+        e.setTitle("Mutual 1");
+        e.setEntryState(EntryStates.Valid);
+        db.persistObject(e);
     }
 }

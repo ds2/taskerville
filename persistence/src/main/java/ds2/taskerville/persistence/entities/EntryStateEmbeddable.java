@@ -55,4 +55,23 @@ public class EntryStateEmbeddable {
         }
         return state;
     }
+    
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("EntryStateEmbeddable (stateId=");
+        builder.append(stateId);
+        builder.append(", ");
+        if (state != null) {
+            builder.append("state=");
+            builder.append(state);
+        }
+        builder.append(")");
+        return builder.toString();
+    }
+    
 }
