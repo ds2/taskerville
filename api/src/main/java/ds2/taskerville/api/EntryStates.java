@@ -41,7 +41,11 @@ public enum EntryStates {
     /**
      * The entry is valid
      */
-    Valid(1);
+    Valid(1),
+    /**
+     * The entry has just been created. Perhaps needs approval.
+     */
+    Initial(0);
     /**
      * the state id.
      */
@@ -82,6 +86,7 @@ public enum EntryStates {
     }
     
     static {
+        statesMap.put(Initial.getStateId(), Initial);
         statesMap.put(Valid.getStateId(), Valid);
         statesMap.put(Locked.getStateId(), Locked);
         statesMap.put(Deleted.getStateId(), Deleted);

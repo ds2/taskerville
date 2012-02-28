@@ -30,7 +30,7 @@ public class EntryStateEmbeddable {
      * 
      */
     public EntryStateEmbeddable() {
-        // TODO Auto-generated constructor stub
+        setEntryState(EntryStates.Initial);
     }
     
     /**

@@ -8,8 +8,11 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 import ds2.taskerville.api.EntryStates;
@@ -26,6 +29,7 @@ import ds2.taskerville.api.user.User;
  */
 @Entity(name = "hostingSpace")
 @Table(name = "TSK_HOSTINGSPACE")
+@TableGenerator(name = "tableGen1", allocationSize = 5, initialValue = 1)
 public class HostingSpaceEntity implements HostingSpace {
     /**
      * The svuid.
@@ -33,6 +37,7 @@ public class HostingSpaceEntity implements HostingSpace {
     private static final long serialVersionUID = -3530810480980031127L;
     @Id
     @Column(name = "id", nullable = false, unique = true)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen1")
     private long id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
@@ -49,7 +54,7 @@ public class HostingSpaceEntity implements HostingSpace {
      * 
      */
     public HostingSpaceEntity() {
-        // TODO Auto-generated constructor stub
+        state = new EntryStateEmbeddable();
     }
     
     @Override
@@ -80,6 +85,60 @@ public class HostingSpaceEntity implements HostingSpace {
     @Override
     public EntryStates getState() {
         return state.getEntryState();
+    }
+    
+    /**
+     * @param name
+     *            the name to set
+     */
+    public synchronized void setName(String name) {
+        this.name = name;
+    }
+    
+    /**
+     * @param state
+     *            the state to set
+     */
+    public synchronized void setState(EntryStates state) {
+        this.state.setEntryState(state);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append("HostingSpaceEntity (id=");
+        builder.append(id);
+        builder.append(", ");
+        if (name != null) {
+            builder.append("name=");
+            builder.append(name);
+            builder.append(", ");
+        }
+        if (users != null) {
+            builder.append("users=");
+            builder.append(users);
+            builder.append(", ");
+        }
+        if (teams != null) {
+            builder.append("teams=");
+            builder.append(teams);
+            builder.append(", ");
+        }
+        if (categories != null) {
+            builder.append("categories=");
+            builder.append(categories);
+            builder.append(", ");
+        }
+        if (state != null) {
+            builder.append("state=");
+            builder.append(state);
+        }
+        builder.append(")");
+        return builder.toString();
     }
     
 }
