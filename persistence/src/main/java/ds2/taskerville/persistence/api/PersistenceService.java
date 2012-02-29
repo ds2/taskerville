@@ -20,10 +20,10 @@
  */
 package ds2.taskerville.persistence.api;
 
+import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.PersistableObject;
-import javax.persistence.EntityManager;
-
-import ds2.taskerville.persistence.PersistenceServiceImpl;
+import ds2.taskerville.api.StateAware;
+import ds2.taskerville.persistence.entities.HostingSpaceEntity;
 
 /**
  * A service for managing database entities.
@@ -69,4 +69,10 @@ public interface PersistenceService {
    * @return null if an error occurred, otherwise the updated entity
    */
   <E extends PersistableObject> E updateObject(E e);
+
+  /**
+   * Updates a new entry.
+   */
+  <E extends PersistableObject, StateAware> E setEntryState(Class<E> aClass,
+      long id, EntryStates newState);
 }

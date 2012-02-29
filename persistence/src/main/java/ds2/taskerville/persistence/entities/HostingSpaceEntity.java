@@ -55,12 +55,15 @@ public class HostingSpaceEntity implements HostingSpace {
   private List<ProjectCategory> categories;
   @Embedded
   private StateAwareEmbed state;
+  @Embedded
+  private TimeAwareEmbed time;
 
   /**
    *
    */
   public HostingSpaceEntity() {
     state = new StateAwareEmbed();
+    time = new TimeAwareEmbed();
   }
 
   @Override
@@ -93,13 +96,6 @@ public class HostingSpaceEntity implements HostingSpace {
    */
   public synchronized void setName(String name) {
     this.name = name;
-  }
-
-  /**
-   * @param state the state to set
-   */
-  public synchronized void setState(EntryStates state) {
-    this.state.setEntryState(state);
   }
 
   /*
@@ -141,26 +137,26 @@ public class HostingSpaceEntity implements HostingSpace {
 
   @Override
   public EntryStates getEntryState() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return state.getEntryState();
   }
 
   @Override
   public void setEntryState(EntryStates s) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    state.setEntryState(s);
   }
 
   @Override
   public Date getCreated() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return time.getCreated();
   }
 
   @Override
   public Date getModified() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return time.getModified();
   }
 
   @Override
   public Date getDeleted() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return time.getDeleted();
   }
 }

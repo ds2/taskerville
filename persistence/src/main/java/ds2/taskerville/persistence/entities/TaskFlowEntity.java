@@ -4,9 +4,13 @@
  */
 package ds2.taskerville.persistence.entities;
 
+import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.Project;
 import ds2.taskerville.api.flow.TaskFlow;
 import ds2.taskerville.api.flow.TaskState;
+import java.util.Date;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +19,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 /**
  *
@@ -22,11 +27,12 @@ import javax.persistence.Table;
  */
 @Entity(name = "taskFlow")
 @Table(name = "TSK_FLOW")
+@TableGenerator(name = "taskFlowGen", table = "TSK_ID", valueColumnName = "next", pkColumnName = "pk", pkColumnValue = "taskFlow")
 public class TaskFlowEntity implements TaskFlow {
 
   private static final long serialVersionUID = 1L;
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.TABLE, generator = "taskFlowGen")
   private long id;
   @ManyToOne(targetEntity = ProjectEntity.class)
   @JoinTable(name = "TSK_J_FLOWPROJECT", joinColumns =
@@ -34,6 +40,20 @@ public class TaskFlowEntity implements TaskFlow {
   inverseJoinColumns =
   @JoinColumn(name = "PROJECT_ID"))
   private Project project;
+  @Embedded
+  private TimeAwareEmbed time;
+  @Embedded
+  private StateAwareEmbed entryState;
+  @Column(name = "name", nullable = false)
+  private String name;
+  @ManyToOne(targetEntity = TaskStateEntity.class)
+  @JoinColumn(name = "start_state_id")
+  private TaskState startState;
+
+  public TaskFlowEntity() {
+    time = new TimeAwareEmbed();
+    entryState = new StateAwareEmbed();
+  }
 
   @Override
   public long getId() {
@@ -71,16 +91,53 @@ public class TaskFlowEntity implements TaskFlow {
 
   @Override
   public String getName() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return name;
   }
 
   @Override
   public TaskState getStartState() {
-    throw new UnsupportedOperationException("Not supported yet.");
+    return startState;
   }
 
   @Override
   public Project getProject() {
     return project;
+  }
+
+  @Override
+  public Date getCreated() {
+    return time.getCreated();
+  }
+
+  @Override
+  public Date getModified() {
+    return time.getModified();
+  }
+
+  @Override
+  public Date getDeleted() {
+    return time.getDeleted();
+  }
+
+  @Override
+  public EntryStates getEntryState() {
+    return entryState.getEntryState();
+  }
+
+  @Override
+  public void setEntryState(EntryStates s) {
+    entryState.setEntryState(s);
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
+  }
+
+  public void setStartState(TaskState startState) {
+    this.startState = startState;
   }
 }

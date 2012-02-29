@@ -122,7 +122,7 @@ public class StorageTest {
     public void testHostingspace() {
         HostingSpaceEntity e = new HostingSpaceEntity();
         e.setName("My Company 2");
-        e.setState(EntryStates.Valid);
+        e.setEntryState(EntryStates.Valid);
         db.persistObject(e);
         LOG.info("e is now " + e);
     }
