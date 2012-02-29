@@ -22,11 +22,15 @@
 package ds2.taskerville.persistence.entities;
 
 import ds2.taskerville.api.flow.NextStatePolicy;
+import ds2.taskerville.api.flow.TaskFlow;
 import ds2.taskerville.api.flow.TaskState;
 import ds2.taskerville.api.user.Recipient;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -40,6 +44,12 @@ public class NextStatePolicyEntity implements NextStatePolicy {
   private static final long serialVersionUID = 1L;
   @Id
   private long id;
+  @ManyToOne(targetEntity = TaskFlowEntity.class)
+  @JoinTable(name = "TSK_J_POLICYFLOW", joinColumns =
+  @JoinColumn(name = "POLICY_ID"),
+  inverseJoinColumns =
+  @JoinColumn(name = "FLOW_ID"))
+  private TaskFlow flow;
 
   @Override
   public TaskState getCurrentState() {
@@ -64,5 +74,10 @@ public class NextStatePolicyEntity implements NextStatePolicy {
   @Override
   public long getId() {
     return id;
+  }
+
+  @Override
+  public TaskFlow getFlow() {
+    return flow;
   }
 }

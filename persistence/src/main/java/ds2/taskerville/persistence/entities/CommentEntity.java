@@ -15,10 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.persistence.entities;
 
 import java.util.Date;
@@ -32,65 +28,92 @@ import javax.persistence.Table;
 import ds2.taskerville.api.Comment;
 import ds2.taskerville.api.ContentType;
 import ds2.taskerville.api.EntryStates;
+import ds2.taskerville.api.TimeAware;
 import ds2.taskerville.api.user.User;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.JoinTable;
 
 /**
- * 
+ *
  * @author kaeto23
  */
 @Entity(name = "comment")
 @Table(name = "TSK_COMMENT")
 public class CommentEntity implements Comment {
-    
-    private static final long serialVersionUID = 1L;
-    @Id
-    private long id;
-    @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "author_id")
-    private User author;
-    
-    @Override
-    public User getAuthor() {
-        return author;
-    }
-    
-    @Override
-    public String getComment() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public ContentType getContentType() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public Date getCreated() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public Date getDeleted() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public User getEditor() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public Date getModified() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public EntryStates getState() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public long getId() {
-        return id;
-    }
+
+  private static final long serialVersionUID = 1L;
+  @Id
+  private long id;
+  @ManyToOne(targetEntity = UserEntity.class)
+  @JoinTable(name = "TSK_J_COMMENTAUTHOR", joinColumns =
+  @JoinColumn(name = "COMMENT_ID"), inverseJoinColumns =
+  @JoinColumn(name = "USER_ID"))
+  private User author;
+  @Embedded
+  private TimeAwareEmbed time;
+  @Column(name = "comment", length = 2000, nullable = false)
+  private String comment;
+  @ManyToOne(targetEntity = UserEntity.class)
+  @JoinTable(name = "TSK_J_COMMENTEDITOR", joinColumns =
+  @JoinColumn(name = "COMMENT_ID"), inverseJoinColumns =
+  @JoinColumn(name = "USER_ID"))
+  private User editor;
+  @Embedded
+  private StateAwareEmbed state;
+
+  public CommentEntity() {
+    time = new TimeAwareEmbed();
+    state = new StateAwareEmbed();
+  }
+
+  @Override
+  public User getAuthor() {
+    return author;
+  }
+
+  @Override
+  public String getComment() {
+    return comment;
+  }
+
+  @Override
+  public ContentType getContentType() {
+    throw new UnsupportedOperationException("Not supported yet.");
+  }
+
+  @Override
+  public Date getCreated() {
+    return time.getCreated();
+  }
+
+  @Override
+  public Date getDeleted() {
+    return time.getDeleted();
+  }
+
+  @Override
+  public User getEditor() {
+    return editor;
+  }
+
+  @Override
+  public Date getModified() {
+    return time.getModified();
+  }
+
+  @Override
+  public long getId() {
+    return id;
+  }
+
+  @Override
+  public EntryStates getEntryState() {
+    return state.getEntryState();
+  }
+
+  @Override
+  public void setEntryState(EntryStates s) {
+    state.setEntryState(s);
+  }
 }

@@ -36,13 +36,13 @@ public class ProjectCategoryEntity implements ProjectCategory {
     @Column(name = "description")
     private String description;
     @Embedded
-    private EntryStateEmbeddable entryState;
+    private StateAwareEmbed entryState;
     
     /**
      * 
      */
     public ProjectCategoryEntity() {
-        entryState = new EntryStateEmbeddable();
+        entryState = new StateAwareEmbed();
     }
     
     /*
