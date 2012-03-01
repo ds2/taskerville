@@ -60,6 +60,9 @@ public class TeamEntity implements Team {
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(generator = "teamGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
     @Embedded
     private RecipientEmbeddable recipient;

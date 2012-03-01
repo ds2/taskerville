@@ -52,8 +52,10 @@ import ds2.taskerville.api.user.Recipient;
 import ds2.taskerville.api.user.User;
 
 /**
+ * A task entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "task")
 @Table(name = "TSK_TASK")
@@ -216,5 +218,13 @@ public class TaskEntity implements Task {
     @Override
     public long getId() {
         return id;
+    }
+    
+    @Override
+    public void setDeleted(Date d) {
+    }
+    
+    @Override
+    public void touchModified() {
     }
 }

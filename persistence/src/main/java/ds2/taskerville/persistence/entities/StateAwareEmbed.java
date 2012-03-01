@@ -75,7 +75,7 @@ public class StateAwareEmbed implements StateAware {
     
     @Override
     public final String toString() {
-        return Objects.toStringHelper(StateAwareEmbed.class)
-            .add("stateId", stateId).add("state", state).toString();
+        return Objects.toStringHelper(this).add("stateId", stateId)
+            .add("state", state).toString();
     }
 }

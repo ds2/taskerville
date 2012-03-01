@@ -166,4 +166,14 @@ public class TaskFlowEntity implements TaskFlow {
     public void setStartState(TaskState startState) {
         this.startState = startState;
     }
+    
+    @Override
+    public void setDeleted(Date d) {
+        time.setDeleted(d);
+    }
+    
+    @Override
+    public void touchModified() {
+        time.touchModified();
+    }
 }

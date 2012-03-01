@@ -18,11 +18,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.0"
+  xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
   <persistence-unit name="taskervillePU">
-  	<description>the taskerville JPA layer</description>
+    <description>the taskerville JPA layer</description>
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>db/taskerville</jta-data-source>
     <class>ds2.taskerville.persistence.entities.AttachmentEntity</class>
@@ -49,8 +49,13 @@
       <property name="eclipselink.logging.level" value="INFO" />
       <property name="eclipselink.target-database" value="MySQL" />
       <property name="eclipselink.jdbc.batch-writing" value="Buffered" />
-      <property name="eclipselink.exclude-eclipselink-orm" value="true" />
+      <property name="eclipselink.exclude-eclipselink-orm"
+        value="true" />
       <property name="eclipselink.jdbc.cache-statements" value="true" />
+      <property name="eclipselink.create-ddl-jdbc-file-name"
+        value="taskerville_ddl.sql" />
+      <property name="eclipselink.drop-ddl-jdbc-file-name"
+        value="taskerville_drop_ddl.sql" />
     </properties>
   </persistence-unit>
 </persistence>
