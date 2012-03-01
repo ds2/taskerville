@@ -1,3 +1,20 @@
+/*
+ * TaskerVille - issue and project management
+ * Copyright (C) 2012  Dirk Strauss
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /**
  *
  */
@@ -12,6 +29,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -25,7 +44,8 @@ import ds2.taskerville.api.user.User;
 /**
  * The entity for the hosting space.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 @Entity(name = "hostingSpace")
@@ -42,6 +62,9 @@ public class HostingSpaceEntity implements HostingSpace {
      * The svuid.
      */
     private static final long serialVersionUID = -3530810480980031127L;
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "id", nullable = false, unique = true)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "spaceGen")
@@ -51,27 +74,50 @@ public class HostingSpaceEntity implements HostingSpace {
      */
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+    /**
+     * The users who belong to this space.
+     */
     @OneToMany(targetEntity = UserEntity.class)
+    @JoinTable(name = "TSK_J_HOSTINGSPACE_USERS", joinColumns = @JoinColumn(
+        name = "SPACE_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID"))
     private List<User> users;
+    /**
+     * The teams that belong to this space.
+     */
     @OneToMany(targetEntity = TeamEntity.class)
+    @JoinTable(name = "TSK_J_HOSTINGSPACE_TEAMS", joinColumns = @JoinColumn(
+        name = "SPACE_ID"), inverseJoinColumns = @JoinColumn(name = "TEAM_ID"))
     private List<Team> teams;
+    /**
+     * The categories for this space.
+     */
     @OneToMany(targetEntity = ProjectCategoryEntity.class)
+    @JoinTable(
+        name = "TSK_J_HOSTINGSPACE_PROJECTCATEGORY",
+        joinColumns = @JoinColumn(name = "SPACE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "PROJECTCATEGORY_ID"))
     private List<ProjectCategory> categories;
+    /**
+     * The state embeddable.
+     */
     @Embedded
     private StateAwareEmbed state;
+    /**
+     * The time embeddable.
+     */
     @Embedded
     private TimeAwareEmbed time;
     
     /**
-   *
-   */
+     * Inits the entity.
+     */
     public HostingSpaceEntity() {
         state = new StateAwareEmbed();
         time = new TimeAwareEmbed();
     }
     
     @Override
-    public long getId() {
+    public final long getId() {
         return id;
     }
     
@@ -96,10 +142,12 @@ public class HostingSpaceEntity implements HostingSpace {
     }
     
     /**
+     * Sets the name of the space.
+     * 
      * @param name
      *            the name to set
      */
-    public synchronized void setName(String name) {
+    public final synchronized void setName(final String name) {
         this.name = name;
     }
     
@@ -107,8 +155,8 @@ public class HostingSpaceEntity implements HostingSpace {
      * (non-Javadoc) @see java.lang.Object#toString()
      */
     @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
+    public final String toString() {
+        final StringBuilder builder = new StringBuilder();
         builder.append("HostingSpaceEntity (id=");
         builder.append(id);
         builder.append(", ");
@@ -141,27 +189,37 @@ public class HostingSpaceEntity implements HostingSpace {
     }
     
     @Override
-    public EntryStates getEntryState() {
+    public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
     @Override
-    public void setEntryState(EntryStates s) {
+    public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);
     }
     
     @Override
-    public Date getCreated() {
+    public final Date getCreated() {
         return time.getCreated();
     }
     
     @Override
-    public Date getModified() {
+    public final Date getModified() {
         return time.getModified();
     }
     
     @Override
-    public Date getDeleted() {
+    public final Date getDeleted() {
         return time.getDeleted();
+    }
+    
+    @Override
+    public final void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    @Override
+    public final void touchModified() {
+        time.touchModified();
     }
 }

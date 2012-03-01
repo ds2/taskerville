@@ -20,7 +20,8 @@ package ds2.taskerville.api.flow;
 import java.util.List;
 
 import ds2.taskerville.api.PersistableObject;
-import ds2.taskerville.api.user.Recipient;
+import ds2.taskerville.api.user.Team;
+import ds2.taskerville.api.user.User;
 
 /**
  * The nextState policy for a task state.
@@ -59,10 +60,17 @@ public interface NextStatePolicy extends PersistableObject {
     String getSwitchTitle();
     
     /**
-     * Returns the authorities that are able to perform this task state switch.
-     * If empty or null, anyone can do (anyone who is logged in).
+     * Returns the users that are able to perform this task state switch. If
+     * empty or null, anyone can do (anyone who is logged in).
      * 
      * @return the recipients, that are allowed to perform this state switch.
      */
-    List<Recipient> getRequiredAuthorities();
+    List<User> getRequiredAuthorityUsers();
+    
+    /**
+     * Returns the teams that are allowed to switch to this next state.
+     * 
+     * @return the teams
+     */
+    List<Team> getRequiredAuthorityTeams();
 }

@@ -15,10 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.persistence.entities;
 
 import javax.persistence.Column;
@@ -33,58 +29,85 @@ import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.user.Recipient;
 
 /**
+ * The recipients entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Embeddable
 public class RecipientEmbeddable implements Recipient {
     
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The state.
+     */
     @Embedded
     private StateAwareEmbed state;
+    /**
+     * The email address.
+     */
     @Column(name = "email_address")
     private String emailAddress;
+    /**
+     * The name of the recipient.
+     */
     @Column(name = "name", nullable = false)
     private String name;
+    /**
+     * A profile photo.
+     */
     @ManyToOne(targetEntity = AttachmentEntity.class)
     @JoinColumn(name = "PHOTO_ID", nullable = true, updatable = true)
     private Attachment profilePhoto;
+    /**
+     * The hosting space.
+     */
     @ManyToOne(targetEntity = HostingSpaceEntity.class)
     @JoinColumn(name = "space_id", nullable = false, updatable = false)
     private HostingSpace hostingSpace;
     
+    /**
+     * Inits the embeddable.
+     */
+    public RecipientEmbeddable() {
+        state = new StateAwareEmbed();
+    }
+    
     @Override
-    public String getEmailAddress() {
+    public final String getEmailAddress() {
         return emailAddress;
     }
     
     @Override
-    public String getName() {
+    public final String getName() {
         return name;
     }
     
     @Override
-    public Attachment getProfilePhoto() {
+    public final Attachment getProfilePhoto() {
         return profilePhoto;
     }
     
     @Override
-    public long getId() {
+    public final long getId() {
         return -1;
     }
     
     @Override
-    public HostingSpace getHostingSpace() {
+    public final HostingSpace getHostingSpace() {
         return hostingSpace;
     }
     
     @Override
-    public EntryStates getEntryState() {
+    public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
     @Override
-    public void setEntryState(EntryStates s) {
+    public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);
     }
 }

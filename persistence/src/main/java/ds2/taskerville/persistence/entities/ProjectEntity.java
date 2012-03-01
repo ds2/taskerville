@@ -1,4 +1,21 @@
 /*
+ * TaskerVille - issue and project management
+ * Copyright (C) 2012  Dirk Strauss
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -8,12 +25,21 @@ import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+
+import com.google.common.base.Objects;
 
 import ds2.taskerville.api.Component;
 import ds2.taskerville.api.EntryStates;
@@ -24,8 +50,10 @@ import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.user.User;
 
 /**
+ * The project entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "project")
 @Table(name = "TSK_PROJECT")
@@ -36,35 +64,104 @@ import ds2.taskerville.api.user.User;
     pkColumnName = "pk",
     pkColumnValue = "taskFlow")
 public class ProjectEntity implements Project {
-    
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id.
+     */
     @Id
+    @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "projectGen")
     private long id;
     
-    public long getId() {
-        return id;
-    }
+    /**
+     * The short id.
+     */
+    @Column(name = "short_id")
+    private String shortTitle;
+    /**
+     * The supported task types for this project.
+     */
+    @ManyToMany(targetEntity = TaskTypeEntity.class)
+    @JoinTable(name = "TSK_J_PROJECT_TASKTYPE", joinColumns = @JoinColumn(
+        name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(
+        name = "TASKTYPE_ID"))
+    private List<TaskType> supportedTaskTypes;
+    /**
+     * The components of this project.
+     */
+    @OneToMany(targetEntity = ComponentEntity.class)
+    @JoinTable(name = "TSK_J_PROJECT_COMPONENT", joinColumns = @JoinColumn(
+        name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(
+        name = "COMPONENT_ID"))
+    private List<Component> subComponents;
+    /**
+     * The homepage.
+     */
+    @Column(name = "homepage")
+    private URL homepage;
+    /**
+     * The state.
+     */
+    @Embedded
+    private StateAwareEmbed state;
+    /**
+     * The hosting space.
+     */
+    @ManyToOne(targetEntity = HostingSpaceEntity.class)
+    @JoinColumn(name = "space_id")
+    private HostingSpace hostingSpace;
+    /**
+     * The title.
+     */
+    @Column(name = "title", nullable = false)
+    private String title;
+    /**
+     * The description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
+     * The lead user.
+     */
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "leader_id")
+    private User lead;
+    /**
+     * The time.
+     */
+    @Embedded
+    private TimeAwareEmbed time;
     
-    public void setId(long id) {
-        this.id = id;
+    /**
+     * Inits the entity.
+     */
+    public ProjectEntity() {
+        time = new TimeAwareEmbed();
     }
     
     @Override
-    public int hashCode() {
+    public final long getId() {
+        return id;
+    }
+    
+    @Override
+    public final int hashCode() {
         int hash = 0;
         hash += (int) id;
         return hash;
     }
     
     @Override
-    public boolean equals(Object object) {
+    public final boolean equals(final Object object) {
         // TODO: Warning - this method won't work in the case the id fields are
         // not set
         if (!(object instanceof ProjectEntity)) {
             return false;
         }
-        ProjectEntity other = (ProjectEntity) object;
+        final ProjectEntity other = (ProjectEntity) object;
         if (this.id != other.id) {
             return false;
         }
@@ -72,78 +169,88 @@ public class ProjectEntity implements Project {
     }
     
     @Override
-    public String toString() {
-        return "ds2.taskerville.persistence.entities.ProjectEntity[ id=" + id
-            + " ]";
+    public final String toString() {
+        return Objects.toStringHelper(ProjectEntity.class).add("id", id)
+            .toString();
     }
     
     @Override
-    public String getShortTitle() {
+    public final String getShortTitle() {
+        return shortTitle;
+    }
+    
+    @Override
+    public final List<TaskType> getSupportedTaskTypes() {
+        return supportedTaskTypes;
+    }
+    
+    @Override
+    public final List<Component> getSubComponents() {
+        return subComponents;
+    }
+    
+    @Override
+    public final URL getHomepage() {
+        return homepage;
+    }
+    
+    @Override
+    public final ProcessManagement getManagement() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
-    public List<TaskType> getSupportedTaskTypes() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final EntryStates getEntryState() {
+        return state.getEntryState();
     }
     
     @Override
-    public List<Component> getSubComponents() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final HostingSpace getHostingSpace() {
+        return hostingSpace;
     }
     
     @Override
-    public URL getHomepage() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final String getTitle() {
+        return title;
     }
     
     @Override
-    public ProcessManagement getManagement() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final String getDescription() {
+        return description;
     }
     
     @Override
-    public EntryStates getEntryState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final User getLead() {
+        return lead;
     }
     
     @Override
-    public HostingSpace getHostingSpace() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final void setEntryState(final EntryStates s) {
+        state.setEntryState(s);
     }
     
     @Override
-    public String getTitle() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getCreated() {
+        return time.getCreated();
     }
     
     @Override
-    public String getDescription() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getModified() {
+        return time.getModified();
     }
     
     @Override
-    public User getLead() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getDeleted() {
+        return time.getDeleted();
     }
     
     @Override
-    public void setEntryState(EntryStates s) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final void setDeleted(final Date d) {
+        time.setDeleted(d);
     }
     
     @Override
-    public Date getCreated() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public Date getModified() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public Date getDeleted() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final void touchModified() {
+        time.touchModified();
     }
 }

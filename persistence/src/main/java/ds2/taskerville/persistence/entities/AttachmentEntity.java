@@ -38,7 +38,10 @@ import ds2.taskerville.api.release.Version;
 import ds2.taskerville.api.user.User;
 
 /**
- * @author kaeto23
+ * The attachment entity.
+ * 
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 @Entity(name = "attachment")
@@ -52,24 +55,42 @@ import ds2.taskerville.api.user.User;
 public class AttachmentEntity implements Attachment {
     
     /**
-   *
-   */
+     * The svuid.
+     */
     private static final long serialVersionUID = -7838144343178000193L;
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "id", updatable = false, nullable = false, unique = true)
     @GeneratedValue(
         strategy = GenerationType.TABLE,
         generator = "attachmentGen")
     private long id;
+    /**
+     * The version.
+     */
     @Transient
     private Version version;
+    /**
+     * The version string.
+     */
     @Column(name = "version", nullable = false, updatable = false)
     private String versionStr;
-    @Column(name = "uploaded", nullable = false)
+    /**
+     * The upload date.
+     */
+    @Column(name = "uploaded", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date uploadDate;
+    /**
+     * The mime type.
+     */
     @Transient
     private MimeType type;
+    /**
+     * The file name.
+     */
     @Column(name = "filename", nullable = false)
     private String fileName;
     /**
@@ -77,6 +98,9 @@ public class AttachmentEntity implements Attachment {
      */
     @Column(name = "description", updatable = true, nullable = false)
     private String description;
+    /**
+     * The uploader.
+     */
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "uploaded_by", nullable = false, updatable = true)
     private User uploader;
@@ -89,37 +113,37 @@ public class AttachmentEntity implements Attachment {
     }
     
     @Override
-    public long getId() {
+    public final long getId() {
         return id;
     }
     
     @Override
-    public String getDescription() {
+    public final String getDescription() {
         return description;
     }
     
     @Override
-    public String getFileName() {
+    public final String getFileName() {
         return fileName;
     }
     
     @Override
-    public MimeType getType() {
+    public final MimeType getType() {
         return type;
     }
     
     @Override
-    public Date getUploadDate() {
+    public final Date getUploadDate() {
         return uploadDate;
     }
     
     @Override
-    public Version getVersion() {
+    public final Version getVersion() {
         return version;
     }
     
     @Override
-    public User getUploader() {
+    public final User getUploader() {
         return uploader;
     }
 }

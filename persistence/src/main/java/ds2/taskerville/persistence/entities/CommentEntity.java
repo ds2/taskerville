@@ -37,8 +37,10 @@ import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.user.User;
 
 /**
+ * The comment entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "comment")
 @Table(name = "TSK_COMMENT")
@@ -49,83 +51,116 @@ import ds2.taskerville.api.user.User;
     pkColumnName = "pk",
     pkColumnValue = "comment")
 public class CommentEntity implements Comment {
-    
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(generator = "commentGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The author.
+     */
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinTable(
         name = "TSK_J_COMMENTAUTHOR",
         joinColumns = @JoinColumn(name = "COMMENT_ID"),
         inverseJoinColumns = @JoinColumn(name = "USER_ID"))
     private User author;
+    /**
+     * The time embeddable.
+     */
     @Embedded
     private TimeAwareEmbed time;
+    /**
+     * The comment.
+     */
     @Column(name = "comment", length = 2000, nullable = false)
     private String comment;
+    /**
+     * An editor.
+     */
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinTable(
         name = "TSK_J_COMMENTEDITOR",
         joinColumns = @JoinColumn(name = "COMMENT_ID"),
         inverseJoinColumns = @JoinColumn(name = "USER_ID"))
     private User editor;
+    /**
+     * The state embeddable.
+     */
     @Embedded
     private StateAwareEmbed state;
     
+    /**
+     * Inits the entity.
+     */
     public CommentEntity() {
         time = new TimeAwareEmbed();
         state = new StateAwareEmbed();
     }
     
     @Override
-    public User getAuthor() {
+    public final User getAuthor() {
         return author;
     }
     
     @Override
-    public String getComment() {
+    public final String getComment() {
         return comment;
     }
     
     @Override
-    public ContentType getContentType() {
+    public final ContentType getContentType() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
-    public Date getCreated() {
+    public final Date getCreated() {
         return time.getCreated();
     }
     
     @Override
-    public Date getDeleted() {
+    public final Date getDeleted() {
         return time.getDeleted();
     }
     
     @Override
-    public User getEditor() {
+    public final User getEditor() {
         return editor;
     }
     
     @Override
-    public Date getModified() {
+    public final Date getModified() {
         return time.getModified();
     }
     
     @Override
-    public long getId() {
+    public final long getId() {
         return id;
     }
     
     @Override
-    public EntryStates getEntryState() {
+    public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
     @Override
-    public void setEntryState(EntryStates s) {
+    public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);
+    }
+    
+    @Override
+    public final void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    @Override
+    public final void touchModified() {
+        time.touchModified();
     }
 }

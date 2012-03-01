@@ -15,32 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.persistence.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Transient;
 
 import ds2.taskerville.api.flow.NextStatePolicy;
 import ds2.taskerville.api.flow.TaskFlow;
 import ds2.taskerville.api.flow.TaskState;
 import ds2.taskerville.api.user.Recipient;
+import ds2.taskerville.api.user.Team;
+import ds2.taskerville.api.user.User;
 
 /**
  * 
- * @author kaeto23
+ * The nextState policy entity.
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "nextStatePolicy")
 @Table(name = "TSK_NEXTSTATE")
@@ -51,43 +55,102 @@ import ds2.taskerville.api.user.Recipient;
     pkColumnName = "pk",
     pkColumnValue = "nextState")
 public class NextStatePolicyEntity implements NextStatePolicy {
-    
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id.
+     */
     @Id
+    @Column(name = "id", unique = true)
     @GeneratedValue(generator = "nextStateGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The origin flow.
+     */
     @ManyToOne(targetEntity = TaskFlowEntity.class)
-    @JoinTable(name = "TSK_J_POLICYFLOW", joinColumns = @JoinColumn(
+    @JoinTable(name = "TSK_J_POLICY_FLOW", joinColumns = @JoinColumn(
         name = "POLICY_ID"), inverseJoinColumns = @JoinColumn(name = "FLOW_ID"))
     private TaskFlow flow;
+    /**
+     * The required recipients.
+     */
+    @Transient
+    private List<Recipient> requiredAuthorities;
+    /**
+     * the switch title.
+     */
+    @Column(name = "title", nullable = false)
+    private String switchTitle;
+    /**
+     * The next state.
+     */
+    @ManyToOne(targetEntity = TaskStateEntity.class)
+    @JoinColumn(name = "next_id", nullable = true)
+    private TaskState nextState;
+    /**
+     * The current state.
+     */
+    @ManyToOne(targetEntity = TaskStateEntity.class)
+    @JoinColumn(name = "curr_id", nullable = false)
+    private TaskState currentState;
+    /**
+     * The authorized users.
+     */
+    @ManyToMany(targetEntity = UserEntity.class)
+    @JoinTable(name = "TSK_J_NEXTSTATE_USERS", joinColumns = @JoinColumn(
+        name = "NEXTSTATE_ID"), inverseJoinColumns = @JoinColumn(
+        name = "USER_ID"))
+    private List<User> requiredAuthorityUsers;
+    /**
+     * The authorized teams.
+     */
+    @ManyToMany(targetEntity = TeamEntity.class)
+    @JoinTable(name = "TSK_J_NEXTSTATE_TEAMS", joinColumns = @JoinColumn(
+        name = "NEXTSTATE_ID"), inverseJoinColumns = @JoinColumn(
+        name = "TEAM_ID"))
+    private List<Team> requiredAuthorityTeams;
     
-    @Override
-    public TaskState getCurrentState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * Inits the entity.
+     */
+    public NextStatePolicyEntity() {
+        // nothing to do
     }
     
     @Override
-    public TaskState getNextState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final TaskState getCurrentState() {
+        return currentState;
     }
     
     @Override
-    public String getSwitchTitle() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final TaskState getNextState() {
+        return nextState;
     }
     
     @Override
-    public List<Recipient> getRequiredAuthorities() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final String getSwitchTitle() {
+        return switchTitle;
     }
     
     @Override
-    public long getId() {
+    public final long getId() {
         return id;
     }
     
     @Override
-    public TaskFlow getFlow() {
+    public final TaskFlow getFlow() {
         return flow;
+    }
+    
+    @Override
+    public final List<User> getRequiredAuthorityUsers() {
+        return requiredAuthorityUsers;
+    }
+    
+    @Override
+    public final List<Team> getRequiredAuthorityTeams() {
+        return requiredAuthorityTeams;
     }
 }

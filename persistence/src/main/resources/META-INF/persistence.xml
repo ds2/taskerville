@@ -41,6 +41,8 @@
     <class>ds2.taskerville.persistence.entities.ProjectEntity</class>
     <class>ds2.taskerville.persistence.entities.TaskFlowEntity</class>
     <class>ds2.taskerville.persistence.entities.UserRoleEntity</class>
+    <class>ds2.taskerville.persistence.entities.ComponentEntity</class>
+    <class>ds2.taskerville.persistence.entities.TaskTypeEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
