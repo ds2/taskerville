@@ -26,33 +26,42 @@ import ds2.taskerville.api.user.User;
 
 /**
  * A flow selector defines the state flow for given task types.
- *
- * @author kaeto23
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface FlowSelector {
-
-  /**
-   * Returns the next states for the given combination of parameters.
-   *
-   * @param currentState the current state
-   * @param p the current project
-   * @param user the current user
-   * @return the possible next states, or an empty list.
-   */
-  List<TaskState> getNextStates(TaskFlow flow, TaskState currentState, Project p,
-      User user);
-
-  /**
-   * A simplification of the method {@link #getNextStates(ds2.taskerville.api.flow.TaskFlow, ds2.taskerville.api.flow.TaskState, ds2.taskerville.api.Project, ds2.taskerville.api.user.User)
-   * }.
-   *
-   * @param flowId the flow id
-   * @param currentStateId the id of the current state
-   * @param projectId the id of the project
-   * @param userId the id of the user
-   * @return the possible next states
-   */
-  List<TaskState> getNextStates2(long flowId, long currentStateId,
-      long projectId,
-      long userId);
+    
+    /**
+     * Returns the next states for the given combination of parameters.
+     * 
+     * @param currentState
+     *            the current state
+     * @param p
+     *            the current project
+     * @param user
+     *            the current user
+     * @return the possible next states, or an empty list.
+     */
+    List<TaskState> getNextStates(TaskFlow flow, TaskState currentState,
+        Project p, User user);
+    
+    /**
+     * A simplification of the method
+     * {@link #getNextStates(ds2.taskerville.api.flow.TaskFlow, ds2.taskerville.api.flow.TaskState, ds2.taskerville.api.Project, ds2.taskerville.api.user.User)
+   * }
+     * .
+     * 
+     * @param flowId
+     *            the flow id
+     * @param currentStateId
+     *            the id of the current state
+     * @param projectId
+     *            the id of the project
+     * @param userId
+     *            the id of the user
+     * @return the possible next states
+     */
+    List<TaskState> getNextStates2(long flowId, long currentStateId,
+        long projectId, long userId);
 }

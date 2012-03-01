@@ -15,27 +15,26 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api.processmanagement;
 
-import ds2.taskerville.api.PersistableObject;
 import java.util.List;
+
+import ds2.taskerville.api.PersistableObject;
 
 /**
  * The state of a process.
- *
- * @author kaeto23
- *
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public interface ProcessState extends PersistableObject {
-
-  String getName();
-
-  String getDescription();
-
-  List<ProcessState> getNextStates();
-
-  long getRequiredTaskState();
+    
+    String getName();
+    
+    String getDescription();
+    
+    List<ProcessState> getNextStates();
+    
+    long getRequiredTaskState();
 }

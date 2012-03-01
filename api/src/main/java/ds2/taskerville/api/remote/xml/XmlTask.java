@@ -15,17 +15,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ds2.taskerville.api.remote.xml;
 
 /**
- *
- * @author kaeto23
+ * The xml dto.
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public class XmlTask {
-
+    
 }

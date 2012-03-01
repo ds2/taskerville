@@ -20,8 +20,8 @@ package ds2.taskerville.api;
 /**
  * The priority of a task.
  * 
- * @author kaeto23
- * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface Priority extends PersistableObject {
     /**

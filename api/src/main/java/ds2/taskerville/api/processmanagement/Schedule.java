@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.processmanagement;
 
 import java.io.Serializable;
@@ -26,12 +23,13 @@ import java.util.Date;
 /**
  * A time schedule for finishing a task.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface Schedule extends Serializable {
-	Date getStartDate();
-
-	Date getDueDate();
-
+    Date getStartDate();
+    
+    Date getDueDate();
+    
 }

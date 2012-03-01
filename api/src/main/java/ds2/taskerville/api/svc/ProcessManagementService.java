@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.svc;
 
 import java.util.List;
@@ -28,28 +25,29 @@ import ds2.taskerville.api.processmanagement.ProcessState;
 /**
  * A service for managing tasks via processes.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface ProcessManagementService extends WorkflowService {
-	/**
-	 * Sets a new state of the given task.
-	 * 
-	 * @param task
-	 *            the task to switch
-	 * @param newState
-	 *            the new state
-	 * @return TRUE if successful, otherwise FALSE
-	 */
-	boolean setState(Task task, ProcessState newState);
-
-	/**
-	 * Returns all known tasks of the given process state.
-	 * 
-	 * @param state
-	 *            the process state
-	 * @return all known tasks of this state
-	 */
-	List<Task> getTasksOfState(ProcessState state);
-
+    /**
+     * Sets a new state of the given task.
+     * 
+     * @param task
+     *            the task to switch
+     * @param newState
+     *            the new state
+     * @return TRUE if successful, otherwise FALSE
+     */
+    boolean setState(Task task, ProcessState newState);
+    
+    /**
+     * Returns all known tasks of the given process state.
+     * 
+     * @param state
+     *            the process state
+     * @return all known tasks of this state
+     */
+    List<Task> getTasksOfState(ProcessState state);
+    
 }

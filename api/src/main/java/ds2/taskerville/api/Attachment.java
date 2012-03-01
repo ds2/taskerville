@@ -28,7 +28,8 @@ import ds2.taskerville.api.user.User;
  * A file attachment to a task. Usually screenshots, or documents. Whatever you
  * need.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface Attachment extends PersistableObject {

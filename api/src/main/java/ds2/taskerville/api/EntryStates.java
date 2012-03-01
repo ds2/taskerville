@@ -23,8 +23,8 @@ import java.util.Map;
 /**
  * A list of entry states.
  * 
- * @author kaeto23
- * @version 1.0
+ * @author dstrauss
+ * @version 0.1
  */
 public enum EntryStates {
     
@@ -39,21 +39,22 @@ public enum EntryStates {
      */
     Locked(2),
     /**
-     * The entry is valid
+     * The entry is valid.
      */
     Valid(1),
     /**
      * The entry has just been created. Perhaps needs approval.
      */
     Initial(0);
-    /**
-     * the state id.
-     */
-    private int stateId;
+    
     /**
      * A caching state map.
      */
     private static Map<Integer, EntryStates> statesMap = new HashMap<>();
+    /**
+     * the state id.
+     */
+    private int stateId;
     
     /**
      * Creates a constant.
@@ -81,7 +82,7 @@ public enum EntryStates {
      *            the id of the state
      * @return the state, or null if unknown
      */
-    public static EntryStates getById(int stateId2) {
+    public static EntryStates getById(final int stateId2) {
         return statesMap.get(Integer.valueOf(stateId2));
     }
     

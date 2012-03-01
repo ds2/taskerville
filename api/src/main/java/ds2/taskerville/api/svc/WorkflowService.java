@@ -21,15 +21,16 @@ import ds2.taskerville.api.processmanagement.ProcessState;
 
 /**
  * Administrative API to create process work flows.
- *
- * @author kaeto23
- *
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public interface WorkflowService {
-
-  ProcessState createState(String name, String descr);
-
-  ProcessState addNextState(long currentStateId, long nextStateId);
-
-  ProcessState removeNextState(long currentStateId, long nextStateId);
+    
+    ProcessState createState(String name, String descr);
+    
+    ProcessState addNextState(long currentStateId, long nextStateId);
+    
+    ProcessState removeNextState(long currentStateId, long nextStateId);
 }

@@ -21,12 +21,22 @@ package ds2.taskerville.api;
  * A type of a reference between two tasks. This can be something like
  * DUPLICATE, SUBTASK or something like that.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface ReferenceType extends PersistableObject {
-    
+    /**
+     * Returns the entry title.
+     * 
+     * @return the title
+     */
     String getTitle();
     
+    /**
+     * Returns the opposite title.
+     * 
+     * @return the opposite title
+     */
     String getOppositeTitle();
 }

@@ -29,7 +29,8 @@ import ds2.taskerville.api.dev.ScmInformation;
 /**
  * A software release.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface TargetRelease extends PersistableObject {

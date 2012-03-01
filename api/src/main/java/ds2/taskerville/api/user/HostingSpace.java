@@ -30,37 +30,38 @@ import ds2.taskerville.api.TimeAware;
 /**
  * A hosting space defines a defined set of users, teams and projects belonging
  * to a single entity. Mostly a company.
- *
- * @author kaeto23
- *
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public interface HostingSpace extends PersistableObject, StateAware, TimeAware {
-
-  /**
-   * Returns the name of this hosting space.
-   *
-   * @return the name
-   */
-  String getName();
-
-  /**
-   * Returns all registered users for this hosting space.
-   *
-   * @return all known users
-   */
-  List<User> getUsers();
-
-  /**
-   * Returns all registered teams for this hosting space.
-   *
-   * @return all known teams
-   */
-  List<Team> getTeams();
-
-  /**
-   * Returns all known project categories for this hosting space.
-   *
-   * @return all project categories for this space
-   */
-  List<ProjectCategory> getCategories();
+    
+    /**
+     * Returns the name of this hosting space.
+     * 
+     * @return the name
+     */
+    String getName();
+    
+    /**
+     * Returns all registered users for this hosting space.
+     * 
+     * @return all known users
+     */
+    List<User> getUsers();
+    
+    /**
+     * Returns all registered teams for this hosting space.
+     * 
+     * @return all known teams
+     */
+    List<Team> getTeams();
+    
+    /**
+     * Returns all known project categories for this hosting space.
+     * 
+     * @return all project categories for this space
+     */
+    List<ProjectCategory> getCategories();
 }

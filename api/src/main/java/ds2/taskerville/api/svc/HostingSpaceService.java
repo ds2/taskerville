@@ -7,8 +7,10 @@ import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.user.HostingSpace;
 
 /**
- * @author kaeto23
+ * The service to administrate the hosting spaces.
  * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface HostingSpaceService {
     /**

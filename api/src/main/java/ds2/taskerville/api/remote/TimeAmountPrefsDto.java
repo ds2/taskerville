@@ -15,42 +15,44 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.remote;
 
 import ds2.taskerville.api.TimeAmountPrefs;
 
 /**
- * @author kaeto23
- *
+ * The prefs dto.
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public class TimeAmountPrefsDto implements TimeAmountPrefs {
-
-	/**
-	 * 
-	 */
-	public TimeAmountPrefsDto() {
-		// TODO Auto-generated constructor stub
-	}
-
-	/* (non-Javadoc)
-	 * @see ds2.taskerville.api.TimeAmountPrefs#getNumDaysForOneWeek()
-	 */
-	@Override
-	public int getNumDaysPerWeek() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	/* (non-Javadoc)
-	 * @see ds2.taskerville.api.TimeAmountPrefs#getNumHoursForOneDay()
-	 */
-	@Override
-	public int getNumHourPerDay() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+    
+    /**
+     * Inits the dto.
+     */
+    public TimeAmountPrefsDto() {
+        // TODO Auto-generated constructor stub
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAmountPrefs#getNumDaysForOneWeek()
+     */
+    @Override
+    public int getNumDaysPerWeek() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAmountPrefs#getNumHoursForOneDay()
+     */
+    @Override
+    public int getNumHourPerDay() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
 }

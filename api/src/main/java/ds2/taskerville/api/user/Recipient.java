@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api.user;
 
 import ds2.taskerville.api.Attachment;
@@ -27,8 +24,8 @@ import ds2.taskerville.api.StateAware;
 /**
  * This is a group, a team, or a single user.
  * 
- * @author kaeto23
- * @version 1.0
+ * @author dstrauss
+ * @version 0.1
  */
 public interface Recipient extends PersistableObject, StateAware {
     

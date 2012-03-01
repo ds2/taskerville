@@ -6,29 +6,31 @@ import ds2.taskerville.api.StateAware;
 import ds2.taskerville.api.TimeAware;
 
 /**
- *
- * @author kaeto23
+ * The flow of a task.
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface TaskFlow extends PersistableObject, TimeAware, StateAware {
-
-  /**
-   * Returns the name of the flow.
-   *
-   * @return the flow name
-   */
-  String getName();
-
-  /**
-   * Returns the start state of this flow.
-   *
-   * @return the start state
-   */
-  TaskState getStartState();
-
-  /**
-   * Returns the project this flow belongs to.
-   *
-   * @return the project
-   */
-  Project getProject();
+    
+    /**
+     * Returns the name of the flow.
+     * 
+     * @return the flow name
+     */
+    String getName();
+    
+    /**
+     * Returns the start state of this flow.
+     * 
+     * @return the start state
+     */
+    TaskState getStartState();
+    
+    /**
+     * Returns the project this flow belongs to.
+     * 
+     * @return the project
+     */
+    Project getProject();
 }

@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.svc;
 
 import ds2.taskerville.api.Comment;
@@ -25,11 +22,14 @@ import ds2.taskerville.api.ExportSettings;
 import ds2.taskerville.api.Task;
 
 /**
- * @author kaeto23
+ * The service to export tasks to other management solutions.
+ * 
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface TaskExportService {
-	boolean exportTask(Task t, ExportSettings settings);
-
-	boolean addComment(Comment c, ExportSettings settings);
+    boolean exportTask(Task t, ExportSettings settings);
+    
+    boolean addComment(Comment c, ExportSettings settings);
 }

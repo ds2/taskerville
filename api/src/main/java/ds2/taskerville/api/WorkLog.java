@@ -21,30 +21,31 @@ import ds2.taskerville.api.user.User;
 
 /**
  * A log for the work done on a given task.
- *
- * @author kaeto23
- *
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public interface WorkLog extends PersistableObject, TimeAware {
-
-  /**
-   * Returns the user who performed this work.
-   *
-   * @return the user
-   */
-  User getWorker();
-
-  /**
-   * Returns a possible comment of the work done.
-   *
-   * @return a possible comment
-   */
-  Comment getComment();
-
-  /**
-   * Returns the time amount spent on this work.
-   *
-   * @return the time amount
-   */
-  TimeAmount getTimeSpent();
+    
+    /**
+     * Returns the user who performed this work.
+     * 
+     * @return the user
+     */
+    User getWorker();
+    
+    /**
+     * Returns a possible comment of the work done.
+     * 
+     * @return a possible comment
+     */
+    Comment getComment();
+    
+    /**
+     * Returns the time amount spent on this work.
+     * 
+     * @return the time amount
+     */
+    TimeAmount getTimeSpent();
 }

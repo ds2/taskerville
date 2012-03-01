@@ -18,9 +18,12 @@
 package ds2.taskerville.api;
 
 /**
- * @author kaeto23
+ * A declaration of a sub task.
+ * 
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface SubTask extends Reference {
-    
+    // nothing special to do
 }

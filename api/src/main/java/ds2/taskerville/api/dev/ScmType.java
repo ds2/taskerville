@@ -15,39 +15,38 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.dev;
 
 /**
  * Some famous scm types.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public enum ScmType {
-	/**
-	 * The concurrent versioning system.
-	 */
-	CVS, /**
-	 * Subversion
-	 */
-	Subversion,
-	/**
-	 * The mercurial scm.
-	 */
-	Mercurial,
-	/**
-	 * The git scm.
-	 */
-	Git,
-	/**
-	 * The bazaar scm.
-	 */
-	Bazaar,
-	/**
-	 * The perforce scm.
-	 */
-	Perforce;
+    /**
+     * The concurrent versioning system.
+     */
+    CVS,
+    /**
+     * Subversion.
+     */
+    Subversion,
+    /**
+     * The mercurial scm.
+     */
+    Mercurial,
+    /**
+     * The git scm.
+     */
+    Git,
+    /**
+     * The bazaar scm.
+     */
+    Bazaar,
+    /**
+     * The perforce scm.
+     */
+    Perforce;
 }

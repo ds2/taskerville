@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api.util;
 
 import ds2.taskerville.api.flow.TaskFlow;
@@ -25,34 +22,38 @@ import ds2.taskerville.api.user.HostingSpace;
 
 /**
  * A converter for converting several formats.
- *
- * @author kaeto23
- * @version 1.0
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface ConverterService {
-
-  /**
-   * Converts a string into a int value.
-   *
-   * @param s the string version of an int number
-   * @param defValue a default value in case of an error
-   * @return the default value, or the converted value
-   */
-  int toInt(String s, int defValue);
-
-  /**
-   * Converts a given hosting space dto into another dto.
-   *
-   * @param e the origin
-   * @return the copy
-   */
-  HostingSpace toHostingSpace(HostingSpace e);
-
-  /**
-   * Converts a given task flow dto into another dto.
-   *
-   * @param t the origin
-   * @return the copy
-   */
-  TaskFlow toTaskFlow(TaskFlow t);
+    
+    /**
+     * Converts a string into a int value.
+     * 
+     * @param s
+     *            the string version of an int number
+     * @param defValue
+     *            a default value in case of an error
+     * @return the default value, or the converted value
+     */
+    int toInt(String s, int defValue);
+    
+    /**
+     * Converts a given hosting space dto into another dto.
+     * 
+     * @param e
+     *            the origin
+     * @return the copy
+     */
+    HostingSpace toHostingSpace(HostingSpace e);
+    
+    /**
+     * Converts a given task flow dto into another dto.
+     * 
+     * @param t
+     *            the origin
+     * @return the copy
+     */
+    TaskFlow toTaskFlow(TaskFlow t);
 }

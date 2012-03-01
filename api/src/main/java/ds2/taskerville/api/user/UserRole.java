@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api.user;
 
 import ds2.taskerville.api.PersistableObject;
@@ -26,13 +23,23 @@ import ds2.taskerville.api.PersistableObject;
  * The role of a user. Usually, something like developer, productionmanager,
  * serveradmin, releasemanager, producer etc. Basically a job title. A user can
  * own a number of roles, depending on his/her relation to a project.
- *
- * @author kaeto23
- *
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public interface UserRole extends PersistableObject {
-
-  String getDescription();
-
-  String getTitle();
+    /**
+     * Returns a possible description of the role.
+     * 
+     * @return a description
+     */
+    String getDescription();
+    
+    /**
+     * Returns the title of the role.
+     * 
+     * @return the title
+     */
+    String getTitle();
 }

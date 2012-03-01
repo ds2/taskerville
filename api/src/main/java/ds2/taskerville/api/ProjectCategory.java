@@ -20,26 +20,27 @@ package ds2.taskerville.api;
 /**
  * Definition of a project category. A project category contains a set of
  * projects.
- *
- * @author kaeto23
- * @version 1.0
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface ProjectCategory
     extends
     PersistableObject,
-    Comparable<ProjectCategory>, StateAware {
-
-  /**
-   * Returns the title of the category.
-   *
-   * @return the title of the category
-   */
-  String getTitle();
-
-  /**
-   * Returns a description of the category.
-   *
-   * @return a description
-   */
-  String getDescription();
+    Comparable<ProjectCategory>,
+    StateAware {
+    
+    /**
+     * Returns the title of the category.
+     * 
+     * @return the title of the category
+     */
+    String getTitle();
+    
+    /**
+     * Returns a description of the category.
+     * 
+     * @return a description
+     */
+    String getDescription();
 }

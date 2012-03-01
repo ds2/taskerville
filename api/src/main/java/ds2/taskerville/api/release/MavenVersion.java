@@ -15,23 +15,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.release;
 
 /**
  * A declaration for a maven-typical version schema.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface MavenVersion extends MajorMinorVersion {
-	/**
-	 * Returns the string identifier for this version. Usually SNAPSHOT by
-	 * default.
-	 * 
-	 * @return the string identifier for this version.
-	 */
-	String getIdentifier();
+    /**
+     * Returns the string identifier for this version. Usually SNAPSHOT by
+     * default.
+     * 
+     * @return the string identifier for this version.
+     */
+    String getIdentifier();
+    
+    /**
+     * A simple flag to indicate a SN version.
+     * 
+     * @return TRUE if this is a SNAPSHOT version, otherwise FALSE.
+     */
+    boolean isSnapshot();
 }

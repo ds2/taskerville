@@ -22,12 +22,41 @@ package ds2.taskerville.api.dev;
 
 import java.net.URL;
 
+import ds2.taskerville.api.PersistableObject;
+import ds2.taskerville.api.Project;
+import ds2.taskerville.api.StateAware;
+import ds2.taskerville.api.TimeAware;
+
 /**
- * @author kaeto23
+ * The values of a CI system to be used by taskerville.
+ * 
+ * @author dstrauss
+ * @version 0.1
  * 
  */
-public interface ContinuousIntegrationSystem {
-	CiTypes getType();
-
-	URL getProjectHomeUrl();
+public interface ContinuousIntegrationSystem
+    extends
+    PersistableObject,
+    StateAware,
+    TimeAware {
+    /**
+     * Returns the type of the CI.
+     * 
+     * @return the type
+     */
+    CiTypes getType();
+    
+    /**
+     * Returns the base url of the ci.
+     * 
+     * @return the base url
+     */
+    URL getProjectHomeUrl();
+    
+    /**
+     * Returns the project, this ci job belongs to.
+     * 
+     * @return the project
+     */
+    Project getProject();
 }

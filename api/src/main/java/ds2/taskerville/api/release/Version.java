@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.release;
 
 import java.io.Serializable;
@@ -25,15 +22,16 @@ import java.io.Serializable;
 /**
  * A version identifier.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface Version extends Comparable<Version>, Serializable {
-	/**
-	 * Returns a printable form of the version. Implementations may override
-	 * this method to return something "fancy".
-	 * 
-	 * @return a printable form of the version.
-	 */
-	String getPrintable();
+    /**
+     * Returns a printable form of the version. Implementations may override
+     * this method to return something "fancy".
+     * 
+     * @return a printable form of the version.
+     */
+    String getPrintable();
 }

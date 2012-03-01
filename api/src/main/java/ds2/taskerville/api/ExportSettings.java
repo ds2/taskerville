@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
 
 import java.io.Serializable;
@@ -26,18 +23,25 @@ import java.util.Map;
 /**
  * Some settings to export a task to another task management system.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface ExportSettings extends Serializable {
-	static String PROPERTY_USERNAME = "username";
-	static String PROPERTY_PASSWORD = "pw";
-
-	TaskManagementSystems getManagementSystem();
-
-	Map<String, Project> getMainComponentMap();
-
-	Map<String, Component> getSubComponentMap();
-
-	String getProperty(String propertyName);
+    /**
+     * The username property name.
+     */
+    String PROPERTY_USERNAME = "username";
+    /**
+     * The password property name.
+     */
+    String PROPERTY_PASSWORD = "pw";
+    
+    TaskManagementSystems getManagementSystem();
+    
+    Map<String, Project> getMainComponentMap();
+    
+    Map<String, Component> getSubComponentMap();
+    
+    String getProperty(String propertyName);
 }

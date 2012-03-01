@@ -15,18 +15,19 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.api;
 
 /**
  * A value to a given property.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
-public interface TaskPropertyValue extends PersistableObject {
+public interface TaskPropertyValue
+    extends
+    PersistableObject,
+    TimeAware,
+    StateAware {
     /**
      * Returns the property for this value.
      * 

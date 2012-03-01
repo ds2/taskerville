@@ -20,8 +20,8 @@ package ds2.taskerville.api;
 /**
  * The possible content types of textual content.
  * 
- * @author kaeto23
- * 
+ * @author dstrauss
+ * @version 0.1
  */
 public enum ContentType {
     /**

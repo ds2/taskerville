@@ -19,42 +19,40 @@ package ds2.taskerville.api;
 
 import ds2.taskerville.api.user.User;
 
-import java.util.Date;
-
 /**
  * A comment to a task.
- *
- * @author kaeto23
- * @version 1.0
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public interface Comment extends PersistableObject, StateAware, TimeAware {
-
-  /**
-   * Returns the initial author of the comment.
-   *
-   * @return the author
-   */
-  User getAuthor();
-
-  /**
-   * Returns the comment as a simple string. The string must be parsed
-   * considering the type of the content!
-   *
-   * @return the comment
-   */
-  String getComment();
-
-  /**
-   * Returns the type of the comment.
-   *
-   * @return the content type
-   */
-  ContentType getContentType();
-
-  /**
-   * Returns the editor of the comment.
-   *
-   * @return the editor, or null if the comment has not been edited yet.
-   */
-  User getEditor();
+    
+    /**
+     * Returns the initial author of the comment.
+     * 
+     * @return the author
+     */
+    User getAuthor();
+    
+    /**
+     * Returns the comment as a simple string. The string must be parsed
+     * considering the type of the content!
+     * 
+     * @return the comment
+     */
+    String getComment();
+    
+    /**
+     * Returns the type of the comment.
+     * 
+     * @return the content type
+     */
+    ContentType getContentType();
+    
+    /**
+     * Returns the editor of the comment.
+     * 
+     * @return the editor, or null if the comment has not been edited yet.
+     */
+    User getEditor();
 }

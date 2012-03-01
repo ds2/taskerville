@@ -21,9 +21,12 @@
 package ds2.taskerville.api.svc;
 
 /**
- * @author kaeto23
- *
+ * A task import service.
+ * 
+ * @author dstrauss
+ * @version 0.1
+ * 
  */
 public interface TaskImportService {
-
+    
 }

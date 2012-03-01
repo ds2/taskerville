@@ -20,7 +20,8 @@ package ds2.taskerville.api;
 /**
  * A work package is defined by a timed amount of work to do.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public interface WorkPackage extends PersistableObject {

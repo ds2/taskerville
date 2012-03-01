@@ -20,7 +20,8 @@ package ds2.taskerville.api;
 /**
  * Solutions for tasks. For example: Fixed, Done, New, In Progress etc.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  * 
  */
 public enum Solutions {
