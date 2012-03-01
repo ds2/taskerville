@@ -32,6 +32,13 @@ import java.util.List;
 public interface NextStatePolicy extends PersistableObject {
 
   /**
+   * Returns the flow for this policy.
+   *
+   * @return the flow
+   */
+  TaskFlow getFlow();
+
+  /**
    * Returns the state for this resolver.
    *
    * @return this state

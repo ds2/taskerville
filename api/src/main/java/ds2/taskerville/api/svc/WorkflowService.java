@@ -15,23 +15,21 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api.svc;
 
 import ds2.taskerville.api.processmanagement.ProcessState;
 
 /**
- * Administrative API to create work flows.
- * 
+ * Administrative API to create process work flows.
+ *
  * @author kaeto23
- * 
+ *
  */
 public interface WorkflowService {
-	ProcessState createState(String name, String descr);
 
-	ProcessState addNextState(long currentStateId, long nextStateId);
+  ProcessState createState(String name, String descr);
 
-	ProcessState removeNextState(long currentStateId, long nextStateId);
+  ProcessState addNextState(long currentStateId, long nextStateId);
+
+  ProcessState removeNextState(long currentStateId, long nextStateId);
 }

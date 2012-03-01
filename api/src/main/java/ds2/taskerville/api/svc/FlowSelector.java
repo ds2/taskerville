@@ -15,16 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.api.svc;
 
-import java.io.Serializable;
 import java.util.List;
 
 import ds2.taskerville.api.Project;
+import ds2.taskerville.api.flow.TaskFlow;
 import ds2.taskerville.api.flow.TaskState;
 import ds2.taskerville.api.user.User;
 
@@ -43,8 +39,20 @@ public interface FlowSelector {
    * @param user the current user
    * @return the possible next states, or an empty list.
    */
-  List<TaskState> getNextStates(TaskState currentState, Project p, User user);
+  List<TaskState> getNextStates(TaskFlow flow, TaskState currentState, Project p,
+      User user);
 
-  List<TaskState> getNextStates2(long currentStateId, long projectId,
+  /**
+   * A simplification of the method {@link #getNextStates(ds2.taskerville.api.flow.TaskFlow, ds2.taskerville.api.flow.TaskState, ds2.taskerville.api.Project, ds2.taskerville.api.user.User)
+   * }.
+   *
+   * @param flowId the flow id
+   * @param currentStateId the id of the current state
+   * @param projectId the id of the project
+   * @param userId the id of the user
+   * @return the possible next states
+   */
+  List<TaskState> getNextStates2(long flowId, long currentStateId,
+      long projectId,
       long userId);
 }

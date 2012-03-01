@@ -15,44 +15,52 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ds2.taskerville.api;
+/**
+ *
+ */
+package ds2.taskerville.api.user;
 
-import ds2.taskerville.api.flow.TaskFlow;
 import java.util.List;
 
+import ds2.taskerville.api.PersistableObject;
+import ds2.taskerville.api.ProjectCategory;
+import ds2.taskerville.api.StateAware;
+import ds2.taskerville.api.TimeAware;
+
 /**
- * The type of a task. Something like Bug, Feature, or something alike.
+ * A hosting space defines a defined set of users, teams and projects belonging
+ * to a single entity. Mostly a company.
  *
  * @author kaeto23
- * @version 1.0
+ *
  */
-public interface TaskType extends PersistableObject, StateAware {
+public interface HostingSpace extends PersistableObject, StateAware, TimeAware {
 
   /**
-   * Returns the flow for this task type.
+   * Returns the name of this hosting space.
    *
-   * @return the flow
+   * @return the name
    */
-  TaskFlow getFlow();
+  String getName();
 
   /**
-   * Returns the title of this type.
+   * Returns all registered users for this hosting space.
    *
-   * @return the title of this type
+   * @return all known users
    */
-  String getTitle();
+  List<User> getUsers();
 
   /**
-   * Returns a possible description of this type.
+   * Returns all registered teams for this hosting space.
    *
-   * @return a possible description
+   * @return all known teams
    */
-  String getDescription();
+  List<Team> getTeams();
 
   /**
-   * Returns a list of properties that must be filled when using this type.
+   * Returns all known project categories for this hosting space.
    *
-   * @return a list of required properties for this type of task.
+   * @return all project categories for this space
    */
-  List<TaskProperty> getRequiredProperties();
+  List<ProjectCategory> getCategories();
 }

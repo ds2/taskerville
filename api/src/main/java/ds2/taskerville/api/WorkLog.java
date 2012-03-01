@@ -15,25 +15,36 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
-
-import java.io.Serializable;
 
 import ds2.taskerville.api.user.User;
 
 /**
  * A log for the work done on a given task.
- * 
+ *
  * @author kaeto23
- * 
+ *
  */
-public interface WorkLog extends Serializable {
-	User getWorker();
+public interface WorkLog extends PersistableObject, TimeAware {
 
-	Comment getComment();
+  /**
+   * Returns the user who performed this work.
+   *
+   * @return the user
+   */
+  User getWorker();
 
-	TimeAmount getTimeSpent();
+  /**
+   * Returns a possible comment of the work done.
+   *
+   * @return a possible comment
+   */
+  Comment getComment();
+
+  /**
+   * Returns the time amount spent on this work.
+   *
+   * @return the time amount
+   */
+  TimeAmount getTimeSpent();
 }

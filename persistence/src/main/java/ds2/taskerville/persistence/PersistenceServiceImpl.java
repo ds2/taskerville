@@ -15,11 +15,9 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.persistence;
 
+import ds2.taskerville.api.EntryStates;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -29,6 +27,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import ds2.taskerville.api.PersistableObject;
+import ds2.taskerville.api.StateAware;
 import ds2.taskerville.persistence.api.PersistenceService;
 
 /**
@@ -78,5 +77,18 @@ public class PersistenceServiceImpl implements PersistenceService {
   @Override
   public <E extends PersistableObject> E updateObject(E e) {
     return JpaSupport.updateEntity(em, e);
+  }
+
+  @Override
+  public <E extends PersistableObject, StateAware> E setEntryState(
+      Class<E> aClass,
+      long id, EntryStates newState) {
+    E ent = JpaSupport.findById(em, aClass, id);
+    if (ent == null) {
+      return null;
+    }
+    StateAware a = (StateAware) ent;
+
+    return null;
   }
 }

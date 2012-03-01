@@ -15,10 +15,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api;
+
+import java.util.Date;
+import java.util.List;
 
 import ds2.taskerville.api.flow.TaskState;
 import ds2.taskerville.api.processmanagement.ProcessState;
@@ -27,17 +27,13 @@ import ds2.taskerville.api.release.TargetRelease;
 import ds2.taskerville.api.user.Recipient;
 import ds2.taskerville.api.user.User;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-
 /**
  * A single task.
  *
  * @author kaeto23
  * @version 1.0
  */
-public interface Task extends PersistableObject {
+public interface Task extends PersistableObject, TimeAware {
 
   /**
    * Returns all releases that are affected by this task. This will usually
@@ -86,25 +82,11 @@ public interface Task extends PersistableObject {
   Date getCompleted();
 
   /**
-   * Returns the creation date.
-   *
-   * @return the creation date
-   */
-  Date getCreated();
-
-  /**
    * Returns the creator of this task.
    *
    * @return the creator
    */
   User getCreator();
-
-  /**
-   * Returns the possible deletion date of this task.
-   *
-   * @return the deletion date.
-   */
-  Date getDeleted();
 
   /**
    * Returns a description of this task.
@@ -126,15 +108,6 @@ public interface Task extends PersistableObject {
    * @return the possible amount of work and time to do.
    */
   WorkPackage getEstimation();
-
-  /**
-   * Returns the modification date of this task. This method is a mapper method
-   * for any changes of this task. When someone adds an attachment, or a
-   * comment, or changes internal attributes, then this field is updated.
-   *
-   * @return the modification date
-   */
-  Date getModified();
 
   /**
    * Returns the priority of the task.

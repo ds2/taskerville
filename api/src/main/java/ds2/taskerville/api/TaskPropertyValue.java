@@ -22,12 +22,22 @@
 package ds2.taskerville.api;
 
 /**
- *
+ * A value to a given property.
+ * 
  * @author kaeto23
  */
 public interface TaskPropertyValue extends PersistableObject {
-
-  TaskProperty getProperty();
-
-  String getValue();
+    /**
+     * Returns the property for this value.
+     * 
+     * @return the property name
+     */
+    TaskProperty getProperty();
+    
+    /**
+     * Returns the value for this property.
+     * 
+     * @return the value. May return null if not specified.
+     */
+    String getValue();
 }

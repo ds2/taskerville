@@ -15,15 +15,29 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
 
 /**
+ * The possible content types of textual content.
+ * 
  * @author kaeto23
  * 
  */
 public enum ContentType {
-	Text, WikiMarkup, Xhtml;
+    /**
+     * Plain text.
+     */
+    Text,
+    /**
+     * A specific wiki markup.
+     */
+    WikiMarkup,
+    /**
+     * Xhtml.
+     */
+    Xhtml,
+    /**
+     * Markdown syntax.
+     */
+    MarkDown;
 }

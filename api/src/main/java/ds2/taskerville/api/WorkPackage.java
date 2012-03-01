@@ -15,12 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.api;
-
-import java.io.Serializable;
 
 /**
  * A work package is defined by a timed amount of work to do.
@@ -28,8 +23,18 @@ import java.io.Serializable;
  * @author kaeto23
  * 
  */
-public interface WorkPackage extends Serializable {
-	TimeAmount getTimeAmount();
-
-	String getDescription();
+public interface WorkPackage extends PersistableObject {
+    /**
+     * Returns the possible time amount for this work package.
+     * 
+     * @return the possible time amount
+     */
+    TimeAmount getTimeAmount();
+    
+    /**
+     * Returns a possible description of this work package.
+     * 
+     * @return a description
+     */
+    Comment getDescription();
 }

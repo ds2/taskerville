@@ -31,6 +31,7 @@ import javax.persistence.Transient;
 
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.EntryStates;
+import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.user.Team;
 import ds2.taskerville.api.user.User;
 import ds2.taskerville.api.user.UserRole;
@@ -54,6 +55,8 @@ public class TeamEntity implements Team {
     private List<Team> subTeams;
     @Transient
     private List<User> members;
+    @Transient
+    private HostingSpace hostingSpace;
     
     @Override
     public List<User> getMembers() {
@@ -98,5 +101,10 @@ public class TeamEntity implements Team {
     @Override
     public long getId() {
         return id;
+    }
+    
+    @Override
+    public HostingSpace getHostingSpace() {
+        return hostingSpace;
     }
 }
