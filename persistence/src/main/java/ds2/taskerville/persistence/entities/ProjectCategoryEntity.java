@@ -21,7 +21,12 @@ import ds2.taskerville.api.ProjectCategory;
  */
 @Entity(name = "projectCategory")
 @Table(name = "TSK_PROJECTCATEGORY")
-@TableGenerator(name = "tableGen2", allocationSize = 5, initialValue = 1)
+@TableGenerator(
+    name = "projectCategoryGen",
+    table = "TSK_ID",
+    valueColumnName = "next",
+    pkColumnName = "pk",
+    pkColumnValue = "projectCategory")
 public class ProjectCategoryEntity implements ProjectCategory {
     /**
      * The svuid.
@@ -29,7 +34,9 @@ public class ProjectCategoryEntity implements ProjectCategory {
     private static final long serialVersionUID = -1735295917056409748L;
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.TABLE, generator = "tableGen2")
+    @GeneratedValue(
+        strategy = GenerationType.TABLE,
+        generator = "projectCategoryGen")
     private long id;
     @Column(name = "title", nullable = false)
     private String title;

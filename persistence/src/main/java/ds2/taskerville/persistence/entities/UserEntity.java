@@ -23,10 +23,16 @@ package ds2.taskerville.persistence.entities;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+import javax.persistence.TableGenerator;
 
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.EntryStates;
@@ -41,6 +47,12 @@ import ds2.taskerville.api.user.UserRole;
  */
 @Entity
 @Table(name = "TSK_USERS")
+@TableGenerator(
+    name = "userGen",
+    table = "TSK_ID",
+    valueColumnName = "next",
+    pkColumnName = "pk",
+    pkColumnValue = "user")
 public class UserEntity implements User {
     
     /**
@@ -49,13 +61,18 @@ public class UserEntity implements User {
     private static final long serialVersionUID = 3724949878431763324L;
     @Id
     @Column(name = "id", nullable = false, updatable = false, unique = true)
+    @GeneratedValue(generator = "userGen", strategy = GenerationType.TABLE)
     private long id;
-    @Column(name = "email")
-    private String emailAddress;
-    @Column(name = "nickname")
-    private String name;
-    @Transient
-    private HostingSpace hostingSpace;
+    @Embedded
+    private RecipientEmbeddable recipient;
+    @ManyToMany(targetEntity = TeamEntity.class)
+    @JoinTable(name = "TSK_J_USER_TEAM", joinColumns = @JoinColumn(
+        name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "TEAM_ID"))
+    private List<Team> memberTeams;
+    @ManyToMany(targetEntity = UserRoleEntity.class)
+    @JoinTable(name = "TSK_J_USER_ROLE", joinColumns = @JoinColumn(
+        name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
+    private List<UserRole> roles;
     
     /**
      * {@inheritDoc}
@@ -71,8 +88,7 @@ public class UserEntity implements User {
      */
     @Override
     public List<Team> getMemberTeams() {
-        // TODO Auto-generated method stub
-        return null;
+        return memberTeams;
     }
     
     /*
@@ -81,8 +97,7 @@ public class UserEntity implements User {
      */
     @Override
     public List<UserRole> getRoles() {
-        // TODO Auto-generated method stub
-        return null;
+        return roles;
     }
     
     /*
@@ -91,7 +106,7 @@ public class UserEntity implements User {
      */
     @Override
     public String getEmailAddress() {
-        return emailAddress;
+        return recipient.getEmailAddress();
     }
     
     /*
@@ -100,7 +115,7 @@ public class UserEntity implements User {
      */
     @Override
     public String getName() {
-        return name;
+        return recipient.getName();
     }
     
     /*
@@ -109,17 +124,21 @@ public class UserEntity implements User {
      */
     @Override
     public Attachment getProfilePhoto() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    @Override
-    public EntryStates getState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return recipient.getProfilePhoto();
     }
     
     @Override
     public HostingSpace getHostingSpace() {
-        return hostingSpace;
+        return recipient.getHostingSpace();
+    }
+    
+    @Override
+    public EntryStates getEntryState() {
+        return recipient.getEntryState();
+    }
+    
+    @Override
+    public void setEntryState(EntryStates s) {
+        recipient.setEntryState(s);
     }
 }

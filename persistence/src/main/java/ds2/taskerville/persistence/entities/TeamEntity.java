@@ -23,10 +23,16 @@ package ds2.taskerville.persistence.entities;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Transient;
 
 import ds2.taskerville.api.Attachment;
@@ -42,21 +48,28 @@ import ds2.taskerville.api.user.UserRole;
  */
 @Entity(name = "team")
 @Table(name = "TSK_TEAM")
+@TableGenerator(
+    name = "teamGen",
+    table = "TSK_ID",
+    valueColumnName = "next",
+    pkColumnName = "pk",
+    pkColumnValue = "team")
 public class TeamEntity implements Team {
     
     @Id
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(generator = "teamGen", strategy = GenerationType.TABLE)
     private long id;
     private static final long serialVersionUID = 1L;
     @Embedded
     private RecipientEmbeddable recipient;
-    @Transient
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "teamleader_id", nullable = true, updatable = true)
     private User teamLeader;
     @Transient
     private List<Team> subTeams;
     @Transient
     private List<User> members;
-    @Transient
-    private HostingSpace hostingSpace;
     
     @Override
     public List<User> getMembers() {
@@ -94,17 +107,22 @@ public class TeamEntity implements Team {
     }
     
     @Override
-    public EntryStates getState() {
-        return recipient.getState();
-    }
-    
-    @Override
     public long getId() {
         return id;
     }
     
     @Override
     public HostingSpace getHostingSpace() {
-        return hostingSpace;
+        return recipient.getHostingSpace();
+    }
+    
+    @Override
+    public EntryStates getEntryState() {
+        return recipient.getEntryState();
+    }
+    
+    @Override
+    public void setEntryState(EntryStates s) {
+        recipient.setEntryState(s);
     }
 }

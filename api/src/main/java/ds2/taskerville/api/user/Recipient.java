@@ -21,8 +21,8 @@
 package ds2.taskerville.api.user;
 
 import ds2.taskerville.api.Attachment;
-import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.PersistableObject;
+import ds2.taskerville.api.StateAware;
 
 /**
  * This is a group, a team, or a single user.
@@ -30,7 +30,7 @@ import ds2.taskerville.api.PersistableObject;
  * @author kaeto23
  * @version 1.0
  */
-public interface Recipient extends PersistableObject {
+public interface Recipient extends PersistableObject, StateAware {
     
     /**
      * Returns the email address of the recipient.
@@ -52,13 +52,6 @@ public interface Recipient extends PersistableObject {
      * @return a profile photo, or null if not set
      */
     Attachment getProfilePhoto();
-    
-    /**
-     * Returns the entry state of the recipient.
-     * 
-     * @return the entry state
-     */
-    EntryStates getState();
     
     /**
      * Returns the hosting space this recipient belongs to.

@@ -27,6 +27,7 @@
     <class>ds2.foundation.storage.entities.OptionEntity</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
+      <property name="eclipselink.ddl-generation.output-mode" value="both"/>
       <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
       <property name="eclipselink.logging.level.sql" value="FINEST" />
       <property name="eclipselink.logging.parameters" value="true" />
@@ -36,6 +37,11 @@
       <property name="eclipselink.jdbc.batch-writing" value="Buffered" />
       <property name="eclipselink.exclude-eclipselink-orm" value="true" />
       <property name="eclipselink.jdbc.cache-statements" value="true" />
+      <!-- 
+      <property name="eclipselink.application-location" value="ddl"/>
+      <property name="eclipselink.create-ddl-jdbc-file-name" value="taskerville_ddl.sql"/>
+      <property name="eclipselink.drop-ddl-jdbc-file-name" value="taskerville_drop_ddl.sql"/>
+      -->
     </properties>
   </persistence-unit>
 </persistence>

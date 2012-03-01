@@ -22,6 +22,7 @@ import java.util.Date;
 import javax.activation.MimeType;
 
 import ds2.taskerville.api.release.Version;
+import ds2.taskerville.api.user.User;
 
 /**
  * A file attachment to a task. Usually screenshots, or documents. Whatever you
@@ -65,4 +66,11 @@ public interface Attachment extends PersistableObject {
      * @return the description.
      */
     String getDescription();
+    
+    /**
+     * Returns the one who uploaded the photo.
+     * 
+     * @return the uploader
+     */
+    User getUploader();
 }

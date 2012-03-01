@@ -19,101 +19,113 @@ package ds2.taskerville.persistence.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 
 import ds2.taskerville.api.Comment;
 import ds2.taskerville.api.ContentType;
 import ds2.taskerville.api.EntryStates;
-import ds2.taskerville.api.TimeAware;
 import ds2.taskerville.api.user.User;
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.JoinTable;
 
 /**
- *
+ * 
  * @author kaeto23
  */
 @Entity(name = "comment")
 @Table(name = "TSK_COMMENT")
+@TableGenerator(
+    name = "commentGen",
+    table = "TSK_ID",
+    valueColumnName = "next",
+    pkColumnName = "pk",
+    pkColumnValue = "comment")
 public class CommentEntity implements Comment {
-
-  private static final long serialVersionUID = 1L;
-  @Id
-  private long id;
-  @ManyToOne(targetEntity = UserEntity.class)
-  @JoinTable(name = "TSK_J_COMMENTAUTHOR", joinColumns =
-  @JoinColumn(name = "COMMENT_ID"), inverseJoinColumns =
-  @JoinColumn(name = "USER_ID"))
-  private User author;
-  @Embedded
-  private TimeAwareEmbed time;
-  @Column(name = "comment", length = 2000, nullable = false)
-  private String comment;
-  @ManyToOne(targetEntity = UserEntity.class)
-  @JoinTable(name = "TSK_J_COMMENTEDITOR", joinColumns =
-  @JoinColumn(name = "COMMENT_ID"), inverseJoinColumns =
-  @JoinColumn(name = "USER_ID"))
-  private User editor;
-  @Embedded
-  private StateAwareEmbed state;
-
-  public CommentEntity() {
-    time = new TimeAwareEmbed();
-    state = new StateAwareEmbed();
-  }
-
-  @Override
-  public User getAuthor() {
-    return author;
-  }
-
-  @Override
-  public String getComment() {
-    return comment;
-  }
-
-  @Override
-  public ContentType getContentType() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public Date getCreated() {
-    return time.getCreated();
-  }
-
-  @Override
-  public Date getDeleted() {
-    return time.getDeleted();
-  }
-
-  @Override
-  public User getEditor() {
-    return editor;
-  }
-
-  @Override
-  public Date getModified() {
-    return time.getModified();
-  }
-
-  @Override
-  public long getId() {
-    return id;
-  }
-
-  @Override
-  public EntryStates getEntryState() {
-    return state.getEntryState();
-  }
-
-  @Override
-  public void setEntryState(EntryStates s) {
-    state.setEntryState(s);
-  }
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "id", unique = true)
+    @GeneratedValue(generator = "commentGen", strategy = GenerationType.TABLE)
+    private long id;
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinTable(
+        name = "TSK_J_COMMENTAUTHOR",
+        joinColumns = @JoinColumn(name = "COMMENT_ID"),
+        inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    private User author;
+    @Embedded
+    private TimeAwareEmbed time;
+    @Column(name = "comment", length = 2000, nullable = false)
+    private String comment;
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinTable(
+        name = "TSK_J_COMMENTEDITOR",
+        joinColumns = @JoinColumn(name = "COMMENT_ID"),
+        inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    private User editor;
+    @Embedded
+    private StateAwareEmbed state;
+    
+    public CommentEntity() {
+        time = new TimeAwareEmbed();
+        state = new StateAwareEmbed();
+    }
+    
+    @Override
+    public User getAuthor() {
+        return author;
+    }
+    
+    @Override
+    public String getComment() {
+        return comment;
+    }
+    
+    @Override
+    public ContentType getContentType() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public Date getCreated() {
+        return time.getCreated();
+    }
+    
+    @Override
+    public Date getDeleted() {
+        return time.getDeleted();
+    }
+    
+    @Override
+    public User getEditor() {
+        return editor;
+    }
+    
+    @Override
+    public Date getModified() {
+        return time.getModified();
+    }
+    
+    @Override
+    public long getId() {
+        return id;
+    }
+    
+    @Override
+    public EntryStates getEntryState() {
+        return state.getEntryState();
+    }
+    
+    @Override
+    public void setEntryState(EntryStates s) {
+        state.setEntryState(s);
+    }
 }

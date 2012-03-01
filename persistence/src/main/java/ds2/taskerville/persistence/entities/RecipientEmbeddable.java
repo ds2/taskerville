@@ -21,15 +21,16 @@
  */
 package ds2.taskerville.persistence.entities;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.user.Recipient;
-
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
-import javax.persistence.Id;
-import javax.persistence.Transient;
 
 /**
  * 
@@ -39,19 +40,17 @@ import javax.persistence.Transient;
 public class RecipientEmbeddable implements Recipient {
     
     private static final long serialVersionUID = 1L;
-    @Id
-    private long id;
-    @Transient
-    private EntryStates state;
-    @Column(name = "state_id", updatable = true, nullable = false)
-    private int stateId;
+    @Embedded
+    private StateAwareEmbed state;
     @Column(name = "email_address")
     private String emailAddress;
     @Column(name = "name", nullable = false)
     private String name;
-    @Transient
+    @ManyToOne(targetEntity = AttachmentEntity.class)
+    @JoinColumn(name = "PHOTO_ID", nullable = true, updatable = true)
     private Attachment profilePhoto;
-    @Transient
+    @ManyToOne(targetEntity = HostingSpaceEntity.class)
+    @JoinColumn(name = "space_id", nullable = false, updatable = false)
     private HostingSpace hostingSpace;
     
     @Override
@@ -70,17 +69,22 @@ public class RecipientEmbeddable implements Recipient {
     }
     
     @Override
-    public EntryStates getState() {
-        return EntryStates.getById(stateId);
-    }
-    
-    @Override
     public long getId() {
-        return id;
+        return -1;
     }
     
     @Override
     public HostingSpace getHostingSpace() {
         return hostingSpace;
+    }
+    
+    @Override
+    public EntryStates getEntryState() {
+        return state.getEntryState();
+    }
+    
+    @Override
+    public void setEntryState(EntryStates s) {
+        state.setEntryState(s);
     }
 }

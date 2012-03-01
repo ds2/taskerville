@@ -22,14 +22,20 @@ import java.util.Date;
 import javax.activation.MimeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.release.Version;
+import ds2.taskerville.api.user.User;
 
 /**
  * @author kaeto23
@@ -37,6 +43,12 @@ import ds2.taskerville.api.release.Version;
  */
 @Entity(name = "attachment")
 @Table(name = "TSK_ATTACHMENTS")
+@TableGenerator(
+    name = "attachmentGen",
+    table = "TSK_ID",
+    valueColumnName = "next",
+    pkColumnName = "pk",
+    pkColumnValue = "attachment")
 public class AttachmentEntity implements Attachment {
     
     /**
@@ -45,6 +57,9 @@ public class AttachmentEntity implements Attachment {
     private static final long serialVersionUID = -7838144343178000193L;
     @Id
     @Column(name = "id", updatable = false, nullable = false, unique = true)
+    @GeneratedValue(
+        strategy = GenerationType.TABLE,
+        generator = "attachmentGen")
     private long id;
     @Transient
     private Version version;
@@ -62,6 +77,9 @@ public class AttachmentEntity implements Attachment {
      */
     @Column(name = "description", updatable = true, nullable = false)
     private String description;
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "uploaded_by", nullable = false, updatable = true)
+    private User uploader;
     
     /**
      * Inits the entity.
@@ -98,5 +116,10 @@ public class AttachmentEntity implements Attachment {
     @Override
     public Version getVersion() {
         return version;
+    }
+    
+    @Override
+    public User getUploader() {
+        return uploader;
     }
 }

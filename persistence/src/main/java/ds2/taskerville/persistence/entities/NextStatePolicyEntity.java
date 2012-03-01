@@ -21,63 +21,73 @@
  */
 package ds2.taskerville.persistence.entities;
 
-import ds2.taskerville.api.flow.NextStatePolicy;
-import ds2.taskerville.api.flow.TaskFlow;
-import ds2.taskerville.api.flow.TaskState;
-import ds2.taskerville.api.user.Recipient;
 import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.TableGenerator;
+
+import ds2.taskerville.api.flow.NextStatePolicy;
+import ds2.taskerville.api.flow.TaskFlow;
+import ds2.taskerville.api.flow.TaskState;
+import ds2.taskerville.api.user.Recipient;
 
 /**
- *
+ * 
  * @author kaeto23
  */
 @Entity(name = "nextStatePolicy")
 @Table(name = "TSK_NEXTSTATE")
+@TableGenerator(
+    name = "nextStateGen",
+    table = "TSK_ID",
+    valueColumnName = "next",
+    pkColumnName = "pk",
+    pkColumnValue = "nextState")
 public class NextStatePolicyEntity implements NextStatePolicy {
-
-  private static final long serialVersionUID = 1L;
-  @Id
-  private long id;
-  @ManyToOne(targetEntity = TaskFlowEntity.class)
-  @JoinTable(name = "TSK_J_POLICYFLOW", joinColumns =
-  @JoinColumn(name = "POLICY_ID"),
-  inverseJoinColumns =
-  @JoinColumn(name = "FLOW_ID"))
-  private TaskFlow flow;
-
-  @Override
-  public TaskState getCurrentState() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public TaskState getNextState() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public String getSwitchTitle() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public List<Recipient> getRequiredAuthorities() {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public long getId() {
-    return id;
-  }
-
-  @Override
-  public TaskFlow getFlow() {
-    return flow;
-  }
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(generator = "nextStateGen", strategy = GenerationType.TABLE)
+    private long id;
+    @ManyToOne(targetEntity = TaskFlowEntity.class)
+    @JoinTable(name = "TSK_J_POLICYFLOW", joinColumns = @JoinColumn(
+        name = "POLICY_ID"), inverseJoinColumns = @JoinColumn(name = "FLOW_ID"))
+    private TaskFlow flow;
+    
+    @Override
+    public TaskState getCurrentState() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public TaskState getNextState() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public String getSwitchTitle() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public List<Recipient> getRequiredAuthorities() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    @Override
+    public long getId() {
+        return id;
+    }
+    
+    @Override
+    public TaskFlow getFlow() {
+        return flow;
+    }
 }

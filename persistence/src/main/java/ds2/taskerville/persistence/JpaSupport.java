@@ -33,8 +33,11 @@ public class JpaSupport {
      * Creates an entity.
      * 
      * @param <E>
+     *            the persistable type
      * @param em
+     *            the entity manager
      * @param e
+     *            the entity to persist
      * @return the updated entity
      */
     public static <E extends PersistableObject> E storeEntity(EntityManager em,
