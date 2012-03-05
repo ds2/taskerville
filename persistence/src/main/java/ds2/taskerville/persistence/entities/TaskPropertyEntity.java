@@ -32,8 +32,10 @@ import javax.persistence.TableGenerator;
 import ds2.taskerville.api.TaskProperty;
 
 /**
+ * The task property entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "taskProperty")
 @Table(name = "TSK_TASKPROPERTY")
@@ -44,15 +46,26 @@ import ds2.taskerville.api.TaskProperty;
     pkColumnName = "pk",
     pkColumnValue = "taskProperty")
 public class TaskPropertyEntity implements TaskProperty {
-    
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id.
+     */
     @Id
     @GeneratedValue(
         generator = "taskPropertyGen",
         strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The name of the property.
+     */
     @Column(name = "name", nullable = false)
     private String name;
+    /**
+     * The type parser for this property.
+     */
     @Column(name = "parser_id", nullable = false, updatable = true)
     private int typeParserId;
     

@@ -71,6 +71,9 @@ public class TaskEntity implements Task {
      * The svuid.
      */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id of the task.
+     */
     @Id
     @GeneratedValue(generator = "taskGen", strategy = GenerationType.TABLE)
     private long id;

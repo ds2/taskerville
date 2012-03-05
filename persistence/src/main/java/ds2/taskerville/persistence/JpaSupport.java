@@ -24,10 +24,16 @@ import ds2.taskerville.api.PersistableObject;
 /**
  * Class to help with some JPA operations.
  * 
- * @author kaeto23
- * @version 1.0
+ * @author dstrauss
+ * @version 0.1
  */
-public class JpaSupport {
+public final class JpaSupport {
+    /**
+     * Would init the class.
+     */
+    private JpaSupport() {
+        // nothing special to do
+    }
     
     /**
      * Creates an entity.
@@ -40,9 +46,9 @@ public class JpaSupport {
      *            the entity to persist
      * @return the updated entity
      */
-    public static <E extends PersistableObject> E storeEntity(EntityManager em,
-        E e) {
-        E rc = e;
+    public static <E extends PersistableObject> E storeEntity(
+        final EntityManager em, final E e) {
+        final E rc = e;
         em.persist(e);
         return rc;
     }

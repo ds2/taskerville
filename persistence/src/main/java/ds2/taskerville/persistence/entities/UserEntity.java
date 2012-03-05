@@ -42,8 +42,10 @@ import ds2.taskerville.api.user.User;
 import ds2.taskerville.api.user.UserRole;
 
 /**
- * @author kaeto23
+ * The user entity.
  * 
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity
 @Table(name = "TSK_USERS")
@@ -59,20 +61,37 @@ public class UserEntity implements User {
      * The svuid.
      */
     private static final long serialVersionUID = 3724949878431763324L;
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "id", nullable = false, updatable = false, unique = true)
     @GeneratedValue(generator = "userGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The recipient base.
+     */
     @Embedded
     private RecipientEmbeddable recipient;
-    @ManyToMany(targetEntity = TeamEntity.class)
-    @JoinTable(name = "TSK_J_USER_TEAM", joinColumns = @JoinColumn(
-        name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "TEAM_ID"))
+    /**
+     * The teams this user is a member of.
+     */
+    @ManyToMany(targetEntity = TeamEntity.class, mappedBy = "members")
     private List<Team> memberTeams;
+    /**
+     * The roles of this user.
+     */
     @ManyToMany(targetEntity = UserRoleEntity.class)
     @JoinTable(name = "TSK_J_USER_ROLE", joinColumns = @JoinColumn(
         name = "USER_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private List<UserRole> roles;
+    
+    /**
+     * Inits the entity.
+     */
+    public UserEntity() {
+        recipient = new RecipientEmbeddable();
+    }
     
     /**
      * {@inheritDoc}

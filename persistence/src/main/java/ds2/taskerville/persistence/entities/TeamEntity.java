@@ -15,10 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.persistence.entities;
 
 import java.util.List;
@@ -30,10 +26,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.Transient;
 
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.EntryStates;
@@ -43,8 +41,10 @@ import ds2.taskerville.api.user.User;
 import ds2.taskerville.api.user.UserRole;
 
 /**
+ * The team entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "team")
 @Table(name = "TSK_TEAM")
@@ -56,6 +56,9 @@ import ds2.taskerville.api.user.UserRole;
     pkColumnValue = "team")
 public class TeamEntity implements Team {
     
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(generator = "teamGen", strategy = GenerationType.TABLE)
@@ -64,18 +67,43 @@ public class TeamEntity implements Team {
      * The svuid.
      */
     private static final long serialVersionUID = 1L;
+    /**
+     * The recipient.
+     */
     @Embedded
     private RecipientEmbeddable recipient;
+    /**
+     * The team leader.
+     */
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "teamleader_id", nullable = true, updatable = true)
     private User teamLeader;
-    @Transient
+    /**
+     * The possible sub teams.
+     */
+    @OneToMany(targetEntity = TeamEntity.class)
+    @JoinTable(
+        name = "TSK_J_TEAM_SUBTEAM",
+        joinColumns = @JoinColumn(name = "TEAM_ID"),
+        inverseJoinColumns = @JoinColumn(name = "SUBTEAM_ID"))
     private List<Team> subTeams;
-    @Transient
+    /**
+     * The members of this team.
+     */
+    @ManyToMany(targetEntity = UserEntity.class)
+    @JoinTable(name = "TSK_J_TEAM_MEMBERS", joinColumns = @JoinColumn(
+        name = "TEAM_ID"), inverseJoinColumns = @JoinColumn(name = "MEMBER_ID"))
     private List<User> members;
     
+    /**
+     * Inits the entity.
+     */
+    public TeamEntity() {
+        // nothing special
+    }
+    
     @Override
-    public List<User> getMembers() {
+    public final List<User> getMembers() {
         return members;
     }
     

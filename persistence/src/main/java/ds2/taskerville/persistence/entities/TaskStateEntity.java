@@ -38,8 +38,10 @@ import ds2.taskerville.api.TaskProperty;
 import ds2.taskerville.api.flow.TaskState;
 
 /**
+ * The task state entity.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "taskState")
 @Table(name = "TSK_TASKSTATE")
@@ -50,20 +52,34 @@ import ds2.taskerville.api.flow.TaskState;
     pkColumnName = "pk",
     pkColumnValue = "taskState")
 public class TaskStateEntity implements TaskState {
-    
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id.
+     */
     @Id
     @Column(name = "id", unique = true, nullable = false)
     @GeneratedValue(generator = "taskStateGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The required properties.
+     */
     @ManyToMany(targetEntity = TaskPropertyEntity.class)
     @JoinTable(
         name = "TSK_J_TASKSTATE_TASKPROPERTY",
         joinColumns = @JoinColumn(name = "taskstate_id"),
         inverseJoinColumns = @JoinColumn(name = "property_id"))
     private List<TaskProperty> requiredProperties;
+    /**
+     * The state title.
+     */
     @Column(name = "title")
     private String stateTitle;
+    /**
+     * The description.
+     */
     @Column(name = "descr")
     private String stateDescription;
     
@@ -83,36 +99,34 @@ public class TaskStateEntity implements TaskState {
     }
     
     @Override
-    public long getId() {
+    public final long getId() {
         return id;
     }
     
     /**
-     * @param id
-     *            the id to set
-     */
-    public synchronized void setId(long id) {
-        this.id = id;
-    }
-    
-    /**
+     * Sets the required params.
+     * 
      * @param requiredProperties
      *            the requiredProperties to set
      */
-    public synchronized void setRequiredProperties(
-        List<TaskProperty> requiredProperties) {
+    public final synchronized void setRequiredProperties(
+        final List<TaskProperty> requiredProperties) {
         this.requiredProperties = requiredProperties;
     }
     
     /**
+     * Sets the state title.
+     * 
      * @param stateTitle
      *            the stateTitle to set
      */
-    public synchronized void setStateTitle(String stateTitle) {
+    public final synchronized void setStateTitle(String stateTitle) {
         this.stateTitle = stateTitle;
     }
     
     /**
+     * Sets the description.
+     * 
      * @param stateDescription
      *            the stateDescription to set
      */

@@ -41,8 +41,10 @@ import ds2.taskerville.api.flow.TaskFlow;
 import ds2.taskerville.api.flow.TaskState;
 
 /**
+ * The task flow.
  * 
- * @author kaeto23
+ * @author dstrauss
+ * @version 0.1
  */
 @Entity(name = "taskFlow")
 @Table(name = "TSK_FLOW")
@@ -54,22 +56,43 @@ import ds2.taskerville.api.flow.TaskState;
     pkColumnValue = "taskFlow")
 public class TaskFlowEntity implements TaskFlow {
     
+    /**
+     * The svuid.
+     */
     private static final long serialVersionUID = 1L;
+    /**
+     * The id.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "taskFlowGen")
     private long id;
+    /**
+     * The project.
+     */
     @ManyToOne(targetEntity = ProjectEntity.class)
     @JoinTable(
         name = "TSK_J_FLOWPROJECT",
         joinColumns = @JoinColumn(name = "FLOW_ID"),
         inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
     private Project project;
+    /**
+     * The time.
+     */
     @Embedded
     private TimeAwareEmbed time;
+    /**
+     * The state.
+     */
     @Embedded
     private StateAwareEmbed entryState;
+    /**
+     * The name of the flow.
+     */
     @Column(name = "name", nullable = false)
     private String name;
+    /**
+     * The start state.
+     */
     @ManyToOne(targetEntity = TaskStateEntity.class)
     @JoinColumn(name = "start_state_id")
     private TaskState startState;
