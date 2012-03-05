@@ -4,4 +4,4 @@ target
 .classpath
 nb-configuration.xml
 .checkstyle
-
+*_\.java
