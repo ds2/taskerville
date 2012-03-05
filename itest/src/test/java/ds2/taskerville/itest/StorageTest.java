@@ -92,7 +92,6 @@ public class StorageTest {
     @Test
     public final void testInsert1() {
         TaskStateEntity s1 = new TaskStateEntity();
-        s1.setId(1);
         s1.setStateDescription("My Descr");
         s1.setStateTitle("New");
         db.persistObject(s1);
@@ -101,14 +100,12 @@ public class StorageTest {
     @Test
     public final void testInsertStateWithProps() {
         TaskPropertyEntity prop1 = new TaskPropertyEntity();
-        prop1.setId(1);
         prop1.setName("cluster");
         prop1.setTypeParserId(1);
         TaskPropertyEntity prop2 = new TaskPropertyEntity(2, "process", 2);
         db.persistObject(prop1);
         db.persistObject(prop2);
         TaskStateEntity s1 = new TaskStateEntity();
-        s1.setId(2);
         s1.setStateDescription("My Descr");
         s1.setStateTitle("Prerelease");
         List<TaskProperty> props = new ArrayList<>();

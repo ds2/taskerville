@@ -79,10 +79,6 @@ public class TaskPropertyEntity implements TaskProperty {
         typeParserId = i0;
     }
     
-    public void setId(long id) {
-        this.id = id;
-    }
-    
     public void setName(String name) {
         this.name = name;
     }
