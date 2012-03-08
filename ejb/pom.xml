@@ -1,4 +1,4 @@
-
+<?xml version="1.0"?>
 <project
   xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -13,7 +13,7 @@
   <artifactId>taskerville-ejb</artifactId>
   <packaging>ejb</packaging>
   <name>TaskerVille EJB</name>
-  <description>Thin wrapper for the business logic implementation.</description>
+  <description>Thin wrapper for the business logic implementation. Usually, this artifact is the wrapper between frontend and backend.</description>
   <dependencies>
     <dependency>
       <groupId>ds2.taskerville</groupId>

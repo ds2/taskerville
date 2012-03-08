@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.business.impl;
 
 import org.testng.Assert;
@@ -29,11 +26,16 @@ import com.google.inject.Inject;
 import ds2.taskerville.api.util.ConverterService;
 
 /**
- * @author kaeto23
+ * Simple converter tests.
  * 
+ * @author dstrauss
+ * @version 0.1
  */
 @Guice(modules = TestInjectionPlan.class)
 public class ConverterImplTest {
+    /**
+     * The test object.
+     */
     @Inject
     private ConverterService to;
     

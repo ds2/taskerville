@@ -17,50 +17,64 @@
  */
 package ds2.taskerville.business.impl;
 
-import ds2.taskerville.api.flow.TaskFlow;
-import ds2.taskerville.api.user.HostingSpace;
 import java.util.logging.Logger;
 
+import ds2.taskerville.api.flow.TaskFlow;
+import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.util.ConverterService;
 
 /**
  * The basic implementation of a converter.
- *
- * @author kaeto23
- * @version 1.0
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public class ConverterImpl implements ConverterService {
-
-  /**
-   * A logger.
-   */
-  private static final Logger log = Logger.getLogger(ConverterImpl.class.getName());
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public int toInt(String s, int defValue) {
-    if (s == null || s.length() <= 0) {
-      return defValue;
+    
+    /**
+     * A logger.
+     */
+    private static final Logger LOG = Logger.getLogger(ConverterImpl.class
+        .getName());
+    
+    /**
+     * Inits the impl.
+     */
+    public ConverterImpl() {
+        // nothing special to do
     }
-    int rc = defValue;
-    try {
-      rc = Integer.parseInt(s);
-    } catch (NumberFormatException e) {
-      log.info("Error when parsing \"" + s + "\": "
-          + e.getLocalizedMessage());
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final int toInt(final String s, final int defValue) {
+        if (s == null || s.length() <= 0) {
+            return defValue;
+        }
+        int rc = defValue;
+        try {
+            rc = Integer.parseInt(s);
+        } catch (final NumberFormatException e) {
+            LOG.info("Error when parsing \"" + s + "\": "
+                + e.getLocalizedMessage());
+        }
+        return rc;
     }
-    return rc;
-  }
-
-  @Override
-  public HostingSpace toHostingSpace(HostingSpace e) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
-
-  @Override
-  public TaskFlow toTaskFlow(TaskFlow t) {
-    throw new UnsupportedOperationException("Not supported yet.");
-  }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final HostingSpace toHostingSpace(final HostingSpace e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final TaskFlow toTaskFlow(final TaskFlow t) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 }

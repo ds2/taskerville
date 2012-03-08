@@ -19,84 +19,108 @@ package ds2.taskerville.business.impl;
 
 import java.util.logging.Logger;
 
+import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import ds2.taskerville.api.TimeAmount;
 import ds2.taskerville.api.TimeAmountPrefs;
 import ds2.taskerville.api.remote.TimeAmountDto;
 import ds2.taskerville.api.svc.TimeAmountService;
-import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * The base implemenation of the timeamount service.
- *
- * @author kaeto23
- * @version 1.0
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 @Singleton
 public class TimeAmountServiceImpl implements TimeAmountService {
-
-  /**
-   * Some preferences.
-   */
-  @Inject
-  private TimeAmountPrefs prefs;
-  /**
-   * A logger.
-   */
-  private static final Logger log = Logger.getLogger(TimeAmountServiceImpl.class.getName());
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public TimeAmount createTimeAmount(int minutes, Integer hours,
-      Integer days, Integer weeks) {
-    if (hours == null) {
-      hours = 0;
+    /**
+     * A logger.
+     */
+    private static final Logger LOG = Logger
+        .getLogger(TimeAmountServiceImpl.class.getName());
+    /**
+     * The number 60.
+     */
+    private static final int SIXTY = 60;
+    /**
+     * Some preferences.
+     */
+    @Inject
+    private TimeAmountPrefs prefs;
+    
+    /**
+     * Inits the impl.
+     */
+    public TimeAmountServiceImpl() {
+        // nothing special to do
     }
-    if (days == null) {
-      days = 0;
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final TimeAmount createTimeAmount(final int m, final Integer h,
+        final Integer d, final Integer w) {
+        int hours = parseInt(0, h);
+        int days = parseInt(0, d);
+        int weeks = parseInt(0, w);
+        int minutes = m;
+        
+        if (minutes >= SIXTY) {
+            LOG.warning("Minutes must be recalculated!");
+            final int count = minutes / SIXTY;
+            hours += count;
+            minutes -= hours * SIXTY;
+        }
+        if (hours >= prefs.getNumHourPerDay()) {
+            LOG.warning("Hours must be recalculated!");
+            final int count = hours / prefs.getNumHourPerDay();
+            days += count;
+            hours -= days * prefs.getNumHourPerDay();
+        }
+        if (days >= prefs.getNumDaysPerWeek()) {
+            LOG.warning("Days must be recalculated!");
+            final int count = days / prefs.getNumDaysPerWeek();
+            weeks += count;
+            days -= weeks * prefs.getNumDaysPerWeek();
+        }
+        final TimeAmountDto rc = new TimeAmountDto();
+        rc.setMinutes(minutes);
+        rc.setHours(hours);
+        rc.setDays(days);
+        rc.setWeeks(weeks);
+        return rc;
     }
-    if (weeks == null) {
-      weeks = 0;
+    
+    /**
+     * Parses a given Integer object.
+     * 
+     * @param def
+     *            a default value to return in case of null
+     * @param v
+     *            the Integer object to parse
+     * @return the default value, or the int value from the given Integer object
+     */
+    private int parseInt(final int def, final Integer v) {
+        int rc = def;
+        if (v != null) {
+            rc = v.intValue();
+        }
+        return rc;
     }
-    if (minutes >= 60) {
-      log.warning("Minutes must be recalculated!");
-      int count = minutes / 60;
-      hours += count;
-      minutes -= hours * 60;
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final TimeAmount parseTimeAmount(final String s) {
+        final int minutes = 0;
+        final Integer hours = null;
+        final Integer days = null;
+        final Integer weeks = null;
+        final TimeAmount rc = createTimeAmount(minutes, hours, days, weeks);
+        return rc;
     }
-    if (hours >= prefs.getNumHourPerDay()) {
-      log.warning("Hours must be recalculated!");
-      int count = hours / prefs.getNumHourPerDay();
-      days += count;
-      hours -= days * prefs.getNumHourPerDay();
-    }
-    if (days >= prefs.getNumDaysPerWeek()) {
-      log.warning("Days must be recalculated!");
-      int count = days / prefs.getNumDaysPerWeek();
-      weeks += count;
-      days -= weeks * prefs.getNumDaysPerWeek();
-    }
-    TimeAmountDto rc = new TimeAmountDto();
-    rc.setMinutes(minutes);
-    rc.setHours(hours);
-    rc.setDays(days);
-    rc.setWeeks(weeks);
-    return rc;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public TimeAmount parseTimeAmount(String s) {
-    int minutes = 0;
-    Integer hours = null;
-    Integer days = null;
-    Integer weeks = null;
-    TimeAmount rc = createTimeAmount(minutes, hours, days, weeks);
-    return rc;
-  }
 }

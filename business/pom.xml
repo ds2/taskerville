@@ -8,7 +8,7 @@
   </parent>
   <artifactId>taskerville-business</artifactId>
   <name>TaskerVille Business Layer</name>
-  <description>The business layer where all the logic resides.</description>
+  <description>The business layer where all the logic resides. It orchestrates any backend artifacts to fulfil its meaning.</description>
   <dependencies>
     <dependency>
       <groupId>ds2.taskerville</groupId>

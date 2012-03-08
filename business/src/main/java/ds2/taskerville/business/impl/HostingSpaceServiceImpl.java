@@ -21,42 +21,69 @@
  */
 package ds2.taskerville.business.impl;
 
+import javax.inject.Inject;
+
 import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.svc.HostingSpaceService;
 import ds2.taskerville.api.user.HostingSpace;
 import ds2.taskerville.api.util.ConverterService;
 import ds2.taskerville.persistence.api.PersistenceService;
 import ds2.taskerville.persistence.entities.HostingSpaceEntity;
-import javax.inject.Inject;
 
 /**
- *
- * @author kaeto23
+ * A way to deal with the hosting spaces.
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 public class HostingSpaceServiceImpl implements HostingSpaceService {
-
-  @Inject
-  private PersistenceService db;
-  @Inject
-  private ConverterService conv;
-
-  @Override
-  public HostingSpace createSpace(String name) {
-    HostingSpaceEntity e = new HostingSpaceEntity();
-    e.setName(name);
-    e = db.persistObject(e);
-    return conv.toHostingSpace(e);
-  }
-
-  @Override
-  public HostingSpace getSpaceById(long spaceId) {
-    HostingSpaceEntity e = db.findById(HostingSpaceEntity.class, spaceId);
-    return conv.toHostingSpace(e);
-  }
-
-  @Override
-  public HostingSpace setSpaceState(long spaceId, EntryStates newState) {
-    HostingSpaceEntity e = db.setEntryState(HostingSpaceEntity.class, spaceId, newState);
-    return conv.toHostingSpace(e);
-  }
+    /**
+     * The persistence service.
+     */
+    @Inject
+    private PersistenceService db;
+    /**
+     * The dto converter.
+     */
+    @Inject
+    private ConverterService conv;
+    
+    /**
+     * Inits the bean.
+     */
+    public HostingSpaceServiceImpl() {
+        // nothing special to do
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final HostingSpace createSpace(final String name) {
+        HostingSpaceEntity e = new HostingSpaceEntity();
+        e.setName(name);
+        e = db.persistObject(e);
+        return conv.toHostingSpace(e);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final HostingSpace getSpaceById(final long spaceId) {
+        final HostingSpaceEntity e =
+            db.findById(HostingSpaceEntity.class, spaceId);
+        return conv.toHostingSpace(e);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final HostingSpace setSpaceState(final long spaceId,
+        final EntryStates newState) {
+        final HostingSpaceEntity e =
+            db.setEntryState(HostingSpaceEntity.class, spaceId, newState);
+        return conv.toHostingSpace(e);
+    }
 }

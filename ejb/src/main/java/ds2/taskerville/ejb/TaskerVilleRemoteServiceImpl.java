@@ -15,9 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.ejb;
 
 import javax.ejb.Stateless;
@@ -26,18 +23,20 @@ import javax.jws.WebService;
 import ds2.taskerville.api.svc.TaskerVilleRemoteService;
 
 /**
- * @author kaeto23
+ * The webservice contract for the taskerville service.
  * 
+ * @author dstrauss
+ * @version 0.1
  */
 @Stateless(name = "TaskerVilleRemoteBean")
 @WebService(name = "TaskerVilleRemoteService")
 public class TaskerVilleRemoteServiceImpl implements TaskerVilleRemoteService {
-
-	/**
-	 * 
-	 */
-	public TaskerVilleRemoteServiceImpl() {
-		// TODO Auto-generated constructor stub
-	}
-
+    
+    /**
+     * Inits the webservice.
+     */
+    public TaskerVilleRemoteServiceImpl() {
+        // TODO Auto-generated constructor stub
+    }
+    
 }
