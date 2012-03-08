@@ -5,3 +5,6 @@ target
 nb-configuration.xml
 .checkstyle
 *_\.java
+createDDL\.sql
+dropDDL\.sql
+

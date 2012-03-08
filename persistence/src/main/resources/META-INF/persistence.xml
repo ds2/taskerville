@@ -35,6 +35,7 @@
     <class>ds2.taskerville.persistence.entities.RecipientEmbeddable</class>
     <class>ds2.taskerville.persistence.entities.TimeAwareEmbed</class>
     <class>ds2.taskerville.persistence.entities.StateAwareEmbed</class>
+    <class>ds2.taskerville.persistence.entities.ScheduleEmbed</class>
     <class>ds2.taskerville.persistence.entities.TeamEntity</class>
     <class>ds2.taskerville.persistence.entities.HostingSpaceEntity</class>
     <class>ds2.taskerville.persistence.entities.ProjectCategoryEntity</class>
@@ -43,6 +44,15 @@
     <class>ds2.taskerville.persistence.entities.UserRoleEntity</class>
     <class>ds2.taskerville.persistence.entities.ComponentEntity</class>
     <class>ds2.taskerville.persistence.entities.TaskTypeEntity</class>
+    <class>ds2.taskerville.persistence.entities.PriorityEntity</class>
+    <class>ds2.taskerville.persistence.entities.RecipientEntity</class>
+    <class>ds2.taskerville.persistence.entities.ReferenceEntity</class>
+    <class>ds2.taskerville.persistence.entities.ReferenceTypeEntity</class>
+    <class>ds2.taskerville.persistence.entities.ScmInformationEntity</class>
+    <class>ds2.taskerville.persistence.entities.TargetReleaseEntity</class>
+    <class>ds2.taskerville.persistence.entities.WorkLogEntity</class>
+    <class>ds2.taskerville.persistence.entities.WorkPackageEntity</class>
+    <class>ds2.taskerville.persistence.entities.TaskPropertyValueEntity</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <validation-mode>CALLBACK</validation-mode>
     <properties>
