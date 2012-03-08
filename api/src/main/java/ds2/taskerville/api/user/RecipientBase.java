@@ -15,44 +15,44 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ds2.taskerville.api;
+package ds2.taskerville.api.user;
 
-import ds2.taskerville.api.user.User;
+import ds2.taskerville.api.Attachment;
+import ds2.taskerville.api.StateAware;
 
 /**
- * A comment to a task.
+ * This is a group, a team, or a single user.
  * 
  * @author dstrauss
  * @version 0.1
  */
-public interface Comment extends StateAware, TimeAware, Comparable<Comment> {
+public interface RecipientBase extends StateAware {
     
     /**
-     * Returns the initial author of the comment.
+     * Returns the email address of the recipient.
      * 
-     * @return the author
+     * @return the email address
      */
-    User getAuthor();
+    String getEmailAddress();
     
     /**
-     * Returns the comment as a simple string. The string must be parsed
-     * considering the type of the content!
+     * Returns the name of the recipient.
      * 
-     * @return the comment
+     * @return the human-readable name of the recipient
      */
-    String getComment();
+    String getName();
     
     /**
-     * Returns the type of the comment.
+     * Returns a possible profile photo of the recipient.
      * 
-     * @return the content type
+     * @return a profile photo, or null if not set
      */
-    ContentType getContentType();
+    Attachment getProfilePhoto();
     
     /**
-     * Returns the editor of the comment.
+     * Returns the hosting space this recipient belongs to.
      * 
-     * @return the editor, or null if the comment has not been edited yet.
+     * @return the hosting space
      */
-    User getEditor();
+    HostingSpace getHostingSpace();
 }

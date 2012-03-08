@@ -24,6 +24,7 @@ import java.util.Date;
 
 import ds2.taskerville.api.PersistableObject;
 import ds2.taskerville.api.Project;
+import ds2.taskerville.api.TimeAware;
 import ds2.taskerville.api.dev.ScmInformation;
 
 /**
@@ -33,7 +34,7 @@ import ds2.taskerville.api.dev.ScmInformation;
  * @version 0.1
  * 
  */
-public interface TargetRelease extends PersistableObject {
+public interface TargetRelease extends PersistableObject, TimeAware {
     
     /**
      * Returns the project this release belongs to.

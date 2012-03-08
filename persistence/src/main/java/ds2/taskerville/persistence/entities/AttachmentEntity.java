@@ -112,6 +112,9 @@ public class AttachmentEntity implements Attachment {
         // TODO Auto-generated constructor stub
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final long getId() {
         return id;

@@ -26,7 +26,7 @@ import ds2.taskerville.api.user.User;
  * @version 0.1
  * 
  */
-public interface WorkLog extends PersistableObject, TimeAware {
+public interface WorkLog extends TimeAware {
     
     /**
      * Returns the user who performed this work.

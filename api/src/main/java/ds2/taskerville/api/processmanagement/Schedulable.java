@@ -27,9 +27,35 @@ import java.util.Date;
  * @version 0.1
  * 
  */
-public interface Schedule extends Serializable {
+public interface Schedulable extends Serializable {
+    /**
+     * Returns the start date of the task.
+     * 
+     * @return the start date
+     */
     Date getStartDate();
     
+    /**
+     * Returns the possible due date for this task.
+     * 
+     * @return the due date
+     */
     Date getDueDate();
+    
+    /**
+     * Sets the new start date.
+     * 
+     * @param d
+     *            the start date
+     */
+    void setStartDate(Date d);
+    
+    /**
+     * Sets a new due date.
+     * 
+     * @param d
+     *            the new due date
+     */
+    void setDueDate(Date d);
     
 }

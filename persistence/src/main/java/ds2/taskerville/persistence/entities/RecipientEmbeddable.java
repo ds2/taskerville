@@ -26,7 +26,7 @@ import javax.persistence.ManyToOne;
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.user.HostingSpace;
-import ds2.taskerville.api.user.Recipient;
+import ds2.taskerville.api.user.RecipientBase;
 
 /**
  * The recipients entity.
@@ -35,7 +35,7 @@ import ds2.taskerville.api.user.Recipient;
  * @version 0.1
  */
 @Embeddable
-public class RecipientEmbeddable implements Recipient {
+public class RecipientEmbeddable implements RecipientBase {
     
     /**
      * The svuid.
@@ -76,36 +76,57 @@ public class RecipientEmbeddable implements Recipient {
         state = new StateAwareEmbed();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getEmailAddress() {
         return emailAddress;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getName() {
         return name;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Attachment getProfilePhoto() {
         return profilePhoto;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final long getId() {
         return -1;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final HostingSpace getHostingSpace() {
         return hostingSpace;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);

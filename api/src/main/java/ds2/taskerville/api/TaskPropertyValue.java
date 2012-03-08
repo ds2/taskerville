@@ -23,11 +23,7 @@ package ds2.taskerville.api;
  * @author dstrauss
  * @version 0.1
  */
-public interface TaskPropertyValue
-    extends
-    PersistableObject,
-    TimeAware,
-    StateAware {
+public interface TaskPropertyValue extends TimeAware, StateAware {
     /**
      * Returns the property for this value.
      * 

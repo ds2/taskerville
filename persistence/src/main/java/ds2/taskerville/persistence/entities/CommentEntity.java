@@ -104,63 +104,108 @@ public class CommentEntity implements Comment {
         state = new StateAwareEmbed();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final User getAuthor() {
         return author;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getComment() {
         return comment;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ContentType getContentType() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getCreated() {
         return time.getCreated();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getDeleted() {
         return time.getDeleted();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final User getEditor() {
         return editor;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getModified() {
         return time.getModified();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final long getId() {
         return id;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setDeleted(final Date d) {
         time.setDeleted(d);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void touchModified() {
         time.touchModified();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final int compareTo(final Comment o) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 }

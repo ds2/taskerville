@@ -17,7 +17,6 @@
  */
 package ds2.taskerville.api.flow;
 
-import ds2.taskerville.api.PersistableObject;
 import ds2.taskerville.api.Project;
 import ds2.taskerville.api.StateAware;
 import ds2.taskerville.api.TimeAware;
@@ -28,7 +27,7 @@ import ds2.taskerville.api.TimeAware;
  * @author dstrauss
  * @version 0.1
  */
-public interface TaskFlow extends PersistableObject, TimeAware, StateAware {
+public interface TaskFlow extends TimeAware, StateAware {
     
     /**
      * Returns the name of the flow.

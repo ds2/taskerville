@@ -17,10 +17,6 @@
  */
 package ds2.taskerville.persistence;
 
-import ds2.taskerville.api.EntryStates;
-
-import javax.annotation.Resource;
-import javax.ejb.SessionContext;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -29,6 +25,7 @@ import javax.ejb.TransactionManagementType;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.PersistableObject;
 import ds2.taskerville.api.StateAware;
 import ds2.taskerville.persistence.api.PersistenceService;
@@ -50,10 +47,17 @@ public class PersistenceServiceImpl implements PersistenceService {
     private EntityManager em;
     
     /**
+     * Inits the bean.
+     */
+    public PersistenceServiceImpl() {
+        // nothing special to do
+    }
+    
+    /**
      * {@inheritDoc}
      */
     @Override
-    public <E extends PersistableObject> boolean deleteObject(E e) {
+    public final <E extends PersistableObject> boolean deleteObject(final E e) {
         return JpaSupport.deleteEntity(em, e);
     }
     
@@ -61,7 +65,8 @@ public class PersistenceServiceImpl implements PersistenceService {
      * {@inheritDoc}
      */
     @Override
-    public <E extends PersistableObject> E findById(Class<E> c, long id) {
+    public final <E extends PersistableObject> E findById(final Class<E> c,
+        final long id) {
         return JpaSupport.findById(em, c, id);
     }
     
@@ -69,7 +74,7 @@ public class PersistenceServiceImpl implements PersistenceService {
      * {@inheritDoc}
      */
     @Override
-    public <E extends PersistableObject> E persistObject(E e) {
+    public final <E extends PersistableObject> E persistObject(final E e) {
         return JpaSupport.storeEntity(em, e);
     }
     
@@ -77,17 +82,22 @@ public class PersistenceServiceImpl implements PersistenceService {
      * {@inheritDoc}
      */
     @Override
-    public <E extends PersistableObject> E updateObject(E e) {
+    public final <E extends PersistableObject> E updateObject(final E e) {
         return JpaSupport.updateEntity(em, e);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public <E extends PersistableObject, StateAware> E setEntryState(
-        Class<E> aClass, long id, EntryStates newState) {
-        E ent = JpaSupport.findById(em, aClass, id);
+    public final <E extends StateAware> E setEntryState(final Class<E> aClass,
+        final long id, final EntryStates newState) {
+        final E ent = JpaSupport.findById(em, aClass, id);
         if (ent == null) {
             return null;
         }
-        return null;
+        final StateAware s = ent;
+        s.setEntryState(newState);
+        return JpaSupport.updateEntity(em, ent);
     }
 }

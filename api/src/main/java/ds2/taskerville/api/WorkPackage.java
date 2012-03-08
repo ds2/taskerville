@@ -24,7 +24,7 @@ package ds2.taskerville.api;
  * @version 0.1
  * 
  */
-public interface WorkPackage extends PersistableObject {
+public interface WorkPackage extends TimeAware {
     /**
      * Returns the possible time amount for this work package.
      * 

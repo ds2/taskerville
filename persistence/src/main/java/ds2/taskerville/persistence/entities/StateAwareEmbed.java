@@ -58,6 +58,9 @@ public class StateAwareEmbed implements StateAware {
         stateId = state.getStateId();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setEntryState(final EntryStates s) {
         Preconditions.checkNotNull(s, "State must not be null.");
@@ -65,6 +68,9 @@ public class StateAwareEmbed implements StateAware {
         state = s;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final EntryStates getEntryState() {
         if (state == null) {
@@ -73,9 +79,20 @@ public class StateAwareEmbed implements StateAware {
         return state;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String toString() {
         return Objects.toStringHelper(this).add("stateId", stateId)
             .add("state", state).toString();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final long getId() {
+        return -1;
     }
 }

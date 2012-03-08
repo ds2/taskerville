@@ -116,43 +116,58 @@ public class HostingSpaceEntity implements HostingSpace {
         time = new TimeAwareEmbed();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final long getId() {
         return id;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getName() {
+    public final String getName() {
         return name;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<User> getUsers() {
+    public final List<User> getUsers() {
         return users;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Team> getTeams() {
+    public final List<Team> getTeams() {
         return teams;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<ProjectCategory> getCategories() {
+    public final List<ProjectCategory> getCategories() {
         return categories;
     }
     
     /**
      * Sets the name of the space.
      * 
-     * @param name
+     * @param n
      *            the name to set
      */
-    public final synchronized void setName(final String name) {
-        this.name = name;
+    public final synchronized void setName(final String n) {
+        this.name = n;
     }
     
-    /*
-     * (non-Javadoc) @see java.lang.Object#toString()
+    /**
+     * {@inheritDoc}
      */
     @Override
     public final String toString() {
@@ -188,36 +203,57 @@ public class HostingSpaceEntity implements HostingSpace {
         return builder.toString();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getCreated() {
         return time.getCreated();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getModified() {
         return time.getModified();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getDeleted() {
         return time.getDeleted();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setDeleted(final Date d) {
         time.setDeleted(d);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void touchModified() {
         time.touchModified();

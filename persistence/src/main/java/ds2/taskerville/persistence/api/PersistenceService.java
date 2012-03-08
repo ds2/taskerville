@@ -90,6 +90,6 @@ public interface PersistenceService {
      *            the new state to set
      * @return the updated entity
      */
-    <E extends PersistableObject, StateAware> E setEntryState(Class<E> aClass,
-        long id, EntryStates newState);
+    <E extends StateAware> E setEntryState(Class<E> aClass, long id,
+        EntryStates newState);
 }

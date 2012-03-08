@@ -27,7 +27,7 @@ import ds2.taskerville.api.flow.TaskFlow;
  * @author dstrauss
  * @version 0.1
  */
-public interface TaskType extends PersistableObject, StateAware {
+public interface TaskType extends StateAware {
     
     /**
      * Returns the flow for this task type.

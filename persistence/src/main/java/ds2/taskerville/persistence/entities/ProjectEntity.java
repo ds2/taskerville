@@ -142,11 +142,17 @@ public class ProjectEntity implements Project {
         time = new TimeAwareEmbed();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final long getId() {
         return id;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final int hashCode() {
         int hash = 0;
@@ -154,10 +160,11 @@ public class ProjectEntity implements Project {
         return hash;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final boolean equals(final Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are
-        // not set
         if (!(object instanceof ProjectEntity)) {
             return false;
         }
@@ -168,87 +175,141 @@ public class ProjectEntity implements Project {
         return true;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String toString() {
         return Objects.toStringHelper(ProjectEntity.class).add("id", id)
-            .toString();
+            .add("title", this.title).add("shortTitle", shortTitle)
+            .add("descr", description).add("homepage", homepage)
+            .add("state", state).add("space", hostingSpace).add("lead", lead)
+            .add("times", time).toString();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getShortTitle() {
         return shortTitle;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final List<TaskType> getSupportedTaskTypes() {
         return supportedTaskTypes;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final List<Component> getSubComponents() {
         return subComponents;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final URL getHomepage() {
         return homepage;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final ProcessManagement getManagement() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final EntryStates getEntryState() {
         return state.getEntryState();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final HostingSpace getHostingSpace() {
         return hostingSpace;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getTitle() {
         return title;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final String getDescription() {
         return description;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final User getLead() {
         return lead;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setEntryState(final EntryStates s) {
         state.setEntryState(s);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getCreated() {
         return time.getCreated();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getModified() {
         return time.getModified();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getDeleted() {
         return time.getDeleted();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setDeleted(final Date d) {
         time.setDeleted(d);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void touchModified() {
         time.touchModified();

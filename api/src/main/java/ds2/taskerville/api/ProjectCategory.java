@@ -26,7 +26,6 @@ package ds2.taskerville.api;
  */
 public interface ProjectCategory
     extends
-    PersistableObject,
     Comparable<ProjectCategory>,
     StateAware {
     

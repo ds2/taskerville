@@ -22,7 +22,7 @@ import java.util.List;
 
 import ds2.taskerville.api.flow.TaskState;
 import ds2.taskerville.api.processmanagement.ProcessState;
-import ds2.taskerville.api.processmanagement.Schedule;
+import ds2.taskerville.api.processmanagement.Schedulable;
 import ds2.taskerville.api.release.TargetRelease;
 import ds2.taskerville.api.user.Recipient;
 import ds2.taskerville.api.user.User;
@@ -33,7 +33,7 @@ import ds2.taskerville.api.user.User;
  * @author dstrauss
  * @version 0.1
  */
-public interface Task extends PersistableObject, TimeAware {
+public interface Task extends TimeAware, Schedulable {
     
     /**
      * Returns all releases that are affected by this task. This will usually
@@ -144,22 +144,7 @@ public interface Task extends PersistableObject, TimeAware {
      * 
      * @return a list of task properties
      */
-    List<TaskProperty> getProperties();
-    
-    /**
-     * Returns all known references to this task. Usually, duplicates or
-     * subtasks.
-     * 
-     * @return a list of references
-     */
-    List<Reference> getReferences();
-    
-    /**
-     * Returns a possible schedule for this task.
-     * 
-     * @return a schedule, or null if not yet set
-     */
-    Schedule getSchedule();
+    List<TaskPropertyValue> getProperties();
     
     /**
      * Returns the current solution for this task.

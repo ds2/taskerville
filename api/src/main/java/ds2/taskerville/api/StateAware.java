@@ -15,13 +15,7 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.api;
-
-import java.io.Serializable;
 
 /**
  * A contract for an object that may change state during life time.
@@ -29,7 +23,7 @@ import java.io.Serializable;
  * @author dstrauss
  * @version 0.1
  */
-public interface StateAware extends Serializable {
+public interface StateAware extends PersistableObject {
     
     /**
      * Returns the state of the object.

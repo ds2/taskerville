@@ -72,21 +72,33 @@ public class TimeAwareEmbed implements TimeAware {
         modified = created;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getCreated() {
         return created;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getModified() {
         return modified;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Date getDeleted() {
         return deleted;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void setDeleted(final Date d) {
         Preconditions.checkNotNull(d, "Deletion date cannot be null.");
@@ -94,8 +106,19 @@ public class TimeAwareEmbed implements TimeAware {
         touchModified();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final void touchModified() {
         modified = new Date();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final long getId() {
+        return 0;
     }
 }

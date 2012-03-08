@@ -15,21 +15,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.persistence.entities;
 
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import ds2.taskerville.api.Attachment;
 import ds2.taskerville.api.Comment;
@@ -37,16 +44,14 @@ import ds2.taskerville.api.Component;
 import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.Priority;
 import ds2.taskerville.api.Project;
-import ds2.taskerville.api.Reference;
 import ds2.taskerville.api.Solutions;
 import ds2.taskerville.api.Task;
-import ds2.taskerville.api.TaskProperty;
+import ds2.taskerville.api.TaskPropertyValue;
 import ds2.taskerville.api.TaskType;
 import ds2.taskerville.api.WorkLog;
 import ds2.taskerville.api.WorkPackage;
 import ds2.taskerville.api.flow.TaskState;
 import ds2.taskerville.api.processmanagement.ProcessState;
-import ds2.taskerville.api.processmanagement.Schedule;
 import ds2.taskerville.api.release.TargetRelease;
 import ds2.taskerville.api.user.Recipient;
 import ds2.taskerville.api.user.User;
@@ -77,157 +82,444 @@ public class TaskEntity implements Task {
     @Id
     @GeneratedValue(generator = "taskGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The schedule embed.
+     */
+    @Embedded
+    private ScheduleEmbed schedule;
+    /**
+     * The affected releases.
+     */
+    @ManyToMany(targetEntity = TargetReleaseEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_RELEASE",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "RELEASE_ID"))
+    private List<TargetRelease> affectedReleases;
+    /**
+     * The time.
+     */
+    @Embedded
+    private TimeAwareEmbed time;
+    /**
+     * The components.
+     */
+    @ManyToMany(targetEntity = ComponentEntity.class)
+    @JoinTable(name = "TSK_J_TASK_COMPONENT", joinColumns = @JoinColumn(
+        name = "TASK_ID"), inverseJoinColumns = @JoinColumn(
+        name = "COMPONENT_ID"))
+    private List<Component> affectedComponents;
+    /**
+     * The creator.
+     */
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "creator_id")
+    private User creator;
+    /**
+     * The task description.
+     */
+    @Column(name = "description")
+    private String description;
     
-    @Override
-    public List<TargetRelease> getAffectedReleases() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    /**
+     * The state.
+     */
+    @Embedded
+    private StateAwareEmbed state;
+    /**
+     * The work estimation.
+     */
+    @OneToOne(targetEntity = WorkPackageEntity.class)
+    @JoinColumn(name = "estimation_id")
+    private WorkPackage estimation;
+    /**
+     * The priority.
+     */
+    @ManyToOne(targetEntity = PriorityEntity.class)
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
+    /**
+     * The process state.
+     */
+    @Transient
+    private ProcessState processState;
+    /**
+     * The project.
+     */
+    @ManyToOne(targetEntity = ProjectEntity.class)
+    @JoinColumn(name = "project_id")
+    private Project project;
+    /**
+     * The task id.
+     */
+    @Column(name = "task_id")
+    private long projectTaskId;
+    /**
+     * The solution.
+     */
+    @Column(name = "solution")
+    private Solutions solution;
+    /**
+     * The task state.
+     */
+    @ManyToOne(targetEntity = TaskStateEntity.class)
+    @JoinColumn(name = "taskstate_id")
+    private TaskState taskState;
+    /**
+     * Some tags.
+     */
+    @Transient
+    private List<String> tags;
+    /**
+     * The target releases.
+     */
+    @ManyToMany(targetEntity = TargetReleaseEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_RELEASE",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "RELEASE_ID"))
+    private List<TargetRelease> targetReleases;
+    /**
+     * The task title.
+     */
+    @Column(name = "title", nullable = false)
+    private String title;
+    /**
+     * The task type.
+     */
+    @ManyToOne(targetEntity = TaskTypeEntity.class)
+    @JoinColumn(name = "type_id", nullable = false)
+    private TaskType type;
+    /**
+     * The watchers.
+     */
+    @ManyToMany(targetEntity = UserEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_WATCHERS",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "WATCHER_ID"))
+    private List<User> watchers;
+    /**
+     * The work logs.
+     */
+    @OneToMany(targetEntity = WorkLogEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_WORKLOG",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "WORKLOG_ID"))
+    private List<WorkLog> workLogs;
+    /**
+     * The assignees.
+     */
+    @ManyToMany(targetEntity = RecipientEntity.class)
+    @JoinTable(name = "TSK_J_TASK_ASSIGNEES", joinColumns = @JoinColumn(
+        name = "TASK_ID"), inverseJoinColumns = @JoinColumn(
+        name = "ASSIGNEE_ID"))
+    private List<Recipient> assignees;
+    /**
+     * A set of possible attachments.
+     */
+    @OneToMany(targetEntity = AttachmentEntity.class)
+    @JoinTable(name = "TSK_J_TASK_ATTACHMENTS", joinColumns = @JoinColumn(
+        name = "TASK_ID"), inverseJoinColumns = @JoinColumn(
+        name = "ATTACHMENT_ID"))
+    private List<Attachment> attachments;
+    /**
+     * A list of comments.
+     */
+    @OneToMany(targetEntity = CommentEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_COMMENT",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "COMMENT_ID"))
+    private List<Comment> comments;
+    /**
+     * The completion date.
+     */
+    @Column(name = "completed")
+    @Temporal(TemporalType.DATE)
+    private Date completed;
+    /**
+     * A set of properties.
+     */
+    @OneToMany(targetEntity = TaskPropertyValueEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_TASKPROPVALUE",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "PROPVAL_ID"))
+    private List<TaskPropertyValue> properties;
+    
+    /**
+     * Inits the entity.
+     */
+    public TaskEntity() {
+        schedule = new ScheduleEmbed();
+        time = new TimeAwareEmbed();
+        state = new StateAwareEmbed();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Component> getAffectedSubComponents() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<TargetRelease> getAffectedReleases() {
+        return affectedReleases;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Recipient> getAssignees() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<Component> getAffectedSubComponents() {
+        return affectedComponents;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Attachment> getAttachments() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<Recipient> getAssignees() {
+        return assignees;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Comment> getComments() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<Attachment> getAttachments() {
+        return attachments;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Date getCompleted() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<Comment> getComments() {
+        return comments;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Date getCreated() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getCompleted() {
+        return completed;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public User getCreator() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getCreated() {
+        return time.getCreated();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Date getDeleted() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final User getCreator() {
+        return creator;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getDescription() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getDeleted() {
+        return time.getDeleted();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public EntryStates getEntryState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final String getDescription() {
+        return description;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public WorkPackage getEstimation() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final EntryStates getEntryState() {
+        return state.getEntryState();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Date getModified() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final WorkPackage getEstimation() {
+        return estimation;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Priority getPriority() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Date getModified() {
+        return time.getModified();
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public ProcessState getProcessState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Priority getPriority() {
+        return priority;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Project getProject() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final ProcessState getProcessState() {
+        return processState;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public long getProjectTaskId() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Project getProject() {
+        return project;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<TaskProperty> getProperties() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final long getProjectTaskId() {
+        return projectTaskId;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<Reference> getReferences() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<TaskPropertyValue> getProperties() {
+        return properties;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Schedule getSchedule() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final Solutions getSolution() {
+        return solution;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Solutions getSolution() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final TaskState getState() {
+        return taskState;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public TaskState getState() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<String> getTags() {
+        return tags;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<String> getTags() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<TargetRelease> getTargetReleases() {
+        return targetReleases;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<TargetRelease> getTargetReleases() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final String getTitle() {
+        return title;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public String getTitle() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final TaskType getType() {
+        return type;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public TaskType getType() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<User> getWatchers() {
+        return watchers;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<User> getWatchers() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public final List<WorkLog> getWorkLogs() {
+        return workLogs;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public List<WorkLog> getWorkLogs() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
-    public long getId() {
+    public final long getId() {
         return id;
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void setDeleted(Date d) {
+    public final void setDeleted(final Date d) {
+        time.setDeleted(d);
     }
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void touchModified() {
+    public final void touchModified() {
+        time.touchModified();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getStartDate() {
+        return schedule.getStartDate();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getDueDate() {
+        return schedule.getDueDate();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setStartDate(final Date d) {
+        schedule.setStartDate(d);
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setDueDate(final Date d) {
+        schedule.setDueDate(d);
     }
 }

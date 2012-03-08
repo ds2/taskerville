@@ -15,14 +15,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.api.user;
 
 import java.util.List;
 
-import ds2.taskerville.api.PersistableObject;
 import ds2.taskerville.api.ProjectCategory;
 import ds2.taskerville.api.StateAware;
 import ds2.taskerville.api.TimeAware;
@@ -35,7 +31,7 @@ import ds2.taskerville.api.TimeAware;
  * @version 0.1
  * 
  */
-public interface HostingSpace extends PersistableObject, StateAware, TimeAware {
+public interface HostingSpace extends StateAware, TimeAware {
     
     /**
      * Returns the name of this hosting space.

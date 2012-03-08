@@ -25,7 +25,7 @@ import ds2.taskerville.api.flow.TaskState;
  * @author dstrauss
  * @version 0.1
  */
-public interface Reference extends PersistableObject, TimeAware {
+public interface Reference extends TimeAware {
     
     /**
      * Returns the referenced task.

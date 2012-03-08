@@ -30,7 +30,7 @@ import java.util.Date;
  * @author dstrauss
  * @version 0.1
  */
-public interface TimeAware extends Serializable {
+public interface TimeAware extends PersistableObject {
     
     /**
      * Returns the creation date of the object.

@@ -19,7 +19,7 @@ package ds2.taskerville.api.dev;
 
 import java.util.List;
 
-import ds2.taskerville.api.PersistableObject;
+import ds2.taskerville.api.TimeAware;
 
 /**
  * Defines some SCM information about a release.
@@ -28,7 +28,7 @@ import ds2.taskerville.api.PersistableObject;
  * @version 0.1
  * 
  */
-public interface ScmInformation extends PersistableObject {
+public interface ScmInformation extends TimeAware {
     
     /**
      * Returns the scm type.

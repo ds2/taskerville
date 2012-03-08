@@ -25,7 +25,7 @@ import java.util.List;
  * @author dstrauss
  * @version 0.1
  */
-public interface Team extends Recipient {
+public interface Team extends RecipientBase {
     /**
      * Returns a list of members.
      * 

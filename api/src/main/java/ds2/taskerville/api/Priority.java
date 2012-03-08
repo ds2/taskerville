@@ -23,7 +23,7 @@ package ds2.taskerville.api;
  * @author dstrauss
  * @version 0.1
  */
-public interface Priority extends PersistableObject {
+public interface Priority extends TimeAware, Comparable<Priority> {
     /**
      * Returns the title of the priority.
      * 
@@ -37,4 +37,12 @@ public interface Priority extends PersistableObject {
      * @return the description
      */
     String getDescription();
+    
+    /**
+     * A basic weight index, telling the weight of the priority. 1 is blocker, 0
+     * is nothing.
+     * 
+     * @return the weight
+     */
+    float getWeight();
 }
