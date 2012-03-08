@@ -15,13 +15,15 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * 
- */
 package ds2.taskerville.rs.v1.impl;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import ds2.taskerville.api.util.ConverterService;
+import ds2.taskerville.ejb.api.ProjectFacade;
+import ds2.taskerville.rs.v1.api.FrontendConverter;
 import ds2.taskerville.rs.v1.dto.ProjectDto;
 import ds2.taskerville.rs.v1.rs.ProjectsResource;
 
@@ -29,9 +31,19 @@ import ds2.taskerville.rs.v1.rs.ProjectsResource;
  * The impl.
  * 
  * @author dstrauss
- * @version 1.0
+ * @version 0.1
  */
 public class ProjectsResourceImpl implements ProjectsResource {
+    /**
+     * The project facade.
+     */
+    @Inject
+    private ProjectFacade p;
+    /**
+     * The frontend converter.
+     */
+    @Inject
+    private FrontendConverter conv;
     
     /**
      * Inits the impl.
@@ -46,8 +58,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      */
     @Override
     public final List<ProjectDto> getAllProjects() {
-        // TODO Auto-generated method stub
-        return null;
+        return conv.toProjects(p.getAllProjects());
     }
     
     /*
@@ -56,8 +67,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      */
     @Override
     public ProjectDto getProjectById(long id) {
-        // TODO Auto-generated method stub
-        return null;
+        return conv.toProject(p.getById(id));
     }
     
     /*
@@ -67,9 +77,8 @@ public class ProjectsResourceImpl implements ProjectsResource {
      * String)
      */
     @Override
-    public ProjectDto getProjectByName(String name) {
-        // TODO Auto-generated method stub
-        return null;
+    public final ProjectDto getProjectByName(String name) {
+        return conv.toProject(p.getByShortcode(name));
     }
     
     /*
@@ -80,7 +89,6 @@ public class ProjectsResourceImpl implements ProjectsResource {
      */
     @Override
     public ProjectDto createProject(ProjectDto p) {
-        // TODO Auto-generated method stub
         return null;
     }
     
