@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /**
- * The contracts to deal with the v1 rs service.
+ * The google code bridge.
  */
-package ds2.taskerville.rs.v1.api;
+package ds2.taskerville.bridge.googlecode;
 

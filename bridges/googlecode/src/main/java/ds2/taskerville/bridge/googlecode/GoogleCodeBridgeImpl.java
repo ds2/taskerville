@@ -15,51 +15,51 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- *
- */
 package ds2.taskerville.bridge.googlecode;
 
 import java.util.logging.Logger;
 
+import javax.inject.Singleton;
 
 import ds2.taskerville.api.Comment;
 import ds2.taskerville.api.ExportSettings;
 import ds2.taskerville.api.Task;
 import ds2.taskerville.api.svc.TaskExportService;
-import javax.inject.Singleton;
 
 /**
- * @author kaeto23
- *
+ * The google code bridge implementation.
+ * 
+ * @author dstrauss
+ * @version 0.1
  */
 @Singleton
 public class GoogleCodeBridgeImpl implements TaskExportService {
-
-  /**
-   * a logger.
-   */
-  private static final Logger log = Logger.getLogger(GoogleCodeBridgeImpl.class.getName());
-
-  /**
-   *
-   */
-  public GoogleCodeBridgeImpl() {
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean addComment(Comment c, ExportSettings settings) {
-    return false;
-  }
-
-  /**
-   * {@inheritDoc}
-   */
-  @Override
-  public boolean exportTask(Task t, ExportSettings settings) {
-    return false;
-  }
+    
+    /**
+     * a logger.
+     */
+    private static final Logger log = Logger
+        .getLogger(GoogleCodeBridgeImpl.class.getName());
+    
+    /**
+     * Inits the bridge.
+     */
+    public GoogleCodeBridgeImpl() {
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean addComment(Comment c, ExportSettings settings) {
+        return false;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean exportTask(Task t, ExportSettings settings) {
+        return false;
+    }
 }
