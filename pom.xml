@@ -39,7 +39,6 @@
     <module>persistence</module>
     <module>web</module>
     <module>ejb</module>
-    <module>bridges</module>
     <module>business</module>
     <module>i18n</module>
     <module>rs-v1</module>
@@ -48,7 +47,7 @@
   <parent>
     <groupId>ds2.base.oss</groupId>
     <artifactId>jee-base</artifactId>
-    <version>0.51</version>
+    <version>0.52</version>
   </parent>
   <licenses>
     <license>
