@@ -23,7 +23,6 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import ds2.taskerville.api.TimeAmountPrefs;
@@ -45,7 +44,7 @@ public class TimeAmountPrefsPropertiesLoader implements TimeAmountPrefs {
     /**
      * The loaded properties.
      */
-    private Properties props;
+    private final Properties props;
     /**
      * A converter for converting numbers etc.
      */
@@ -60,18 +59,16 @@ public class TimeAmountPrefsPropertiesLoader implements TimeAmountPrefs {
     /**
      * Inits the prefs by loading the given properties.
      * 
-     * @param propsFile
-     *            the properties file to load
-     * 
      */
-    @Inject
-    public TimeAmountPrefsPropertiesLoader(@Named("propFile") String propsFile) {
+    public TimeAmountPrefsPropertiesLoader() {
+        final String propsFile =
+            "/ds2/taskerville/taskerville-default.properties";
         props = new Properties();
-        InputStream is = getClass().getResourceAsStream(propsFile);
+        final InputStream is = getClass().getResourceAsStream(propsFile);
         if (is != null) {
             try {
                 props.load(is);
-            } catch (IOException e) {
+            } catch (final IOException e) {
                 log.warning(e.getLocalizedMessage());
             }
         }

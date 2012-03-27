@@ -20,9 +20,8 @@
  */
 package ds2.taskerville.ejb.api;
 
-import java.util.List;
-
 import ds2.taskerville.api.Project;
+import ds2.taskerville.api.util.CrudFacade;
 
 /**
  * The service facade for dealing with projects.
@@ -30,16 +29,14 @@ import ds2.taskerville.api.Project;
  * @author dstrauss
  * @version 0.1
  */
-public interface ProjectFacade {
+public interface ProjectFacade extends CrudFacade<Project> {
     /**
-     * Returns all known projects.
+     * Returns the project with the given short code.
      * 
-     * @return all projects
+     * @param name
+     *            the short code
+     * @return the found project, or null if not found
      */
-    List<Project> getAllProjects();
-    
-    Project getById(long id);
-    
     Project getByShortcode(String name);
     
 }

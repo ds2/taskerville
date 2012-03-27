@@ -14,7 +14,7 @@
       <groupId>ds2.taskerville</groupId>
       <artifactId>taskerville-persistence</artifactId>
       <version>0.0.1-SNAPSHOT</version>
-      <scope>compile</scope>
+      <type>ejb</type>
     </dependency>
     <dependency>
       <groupId>junit</groupId>

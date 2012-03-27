@@ -21,7 +21,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import ds2.taskerville.api.util.ConverterService;
 import ds2.taskerville.ejb.api.ProjectFacade;
 import ds2.taskerville.rs.v1.api.FrontendConverter;
 import ds2.taskerville.rs.v1.dto.ProjectDto;
@@ -58,7 +57,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      */
     @Override
     public final List<ProjectDto> getAllProjects() {
-        return conv.toProjects(p.getAllProjects());
+        return conv.toProjects(p.getAll());
     }
     
     /*
@@ -66,7 +65,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      * @see ds2.taskerville.rs.v1.rs.ProjectsResource#getProjectById(long)
      */
     @Override
-    public ProjectDto getProjectById(long id) {
+    public ProjectDto getProjectById(final long id) {
         return conv.toProject(p.getById(id));
     }
     
@@ -77,7 +76,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      * String)
      */
     @Override
-    public final ProjectDto getProjectByName(String name) {
+    public final ProjectDto getProjectByName(final String name) {
         return conv.toProject(p.getByShortcode(name));
     }
     
@@ -88,7 +87,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      * .rs.v1.dto.ProjectDto)
      */
     @Override
-    public ProjectDto createProject(ProjectDto p) {
+    public ProjectDto createProject(final ProjectDto p) {
         return null;
     }
     
@@ -98,8 +97,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      * ds2.taskerville.rs.v1.dto.ProjectDto)
      */
     @Override
-    public ProjectDto updateProject(long id, ProjectDto p) {
-        // TODO Auto-generated method stub
+    public ProjectDto updateProject(final long id, final ProjectDto p) {
         return null;
     }
     
@@ -108,7 +106,7 @@ public class ProjectsResourceImpl implements ProjectsResource {
      * @see ds2.taskerville.rs.v1.rs.ProjectsResource#deleteProject(long)
      */
     @Override
-    public void deleteProject(long id) {
+    public void deleteProject(final long id) {
         // TODO Auto-generated method stub
         
     }

@@ -37,7 +37,7 @@ import ds2.taskerville.rs.v1.dto.ProjectDto;
  * @author dstrauss
  * @version 0.1
  */
-@Path("/p")
+@Path("p")
 @Produces({ MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON })
 @RequestScoped
 public interface ProjectsResource {

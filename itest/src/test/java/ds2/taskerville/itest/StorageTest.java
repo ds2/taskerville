@@ -17,8 +17,10 @@
  */
 package ds2.taskerville.itest;
 
-import ds2.taskerville.api.EntryStates;
-import ds2.taskerville.api.TaskProperty;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 import javax.ejb.EJB;
 
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -30,6 +32,8 @@ import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import ds2.taskerville.api.EntryStates;
+import ds2.taskerville.api.TaskProperty;
 import ds2.taskerville.persistence.JpaSupport;
 import ds2.taskerville.persistence.api.PersistenceService;
 import ds2.taskerville.persistence.entities.HostingSpaceEntity;
@@ -37,9 +41,6 @@ import ds2.taskerville.persistence.entities.ProjectCategoryEntity;
 import ds2.taskerville.persistence.entities.RecipientEmbeddable;
 import ds2.taskerville.persistence.entities.TaskPropertyEntity;
 import ds2.taskerville.persistence.entities.TaskStateEntity;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * The db tests.
@@ -91,7 +92,7 @@ public class StorageTest {
      */
     @Test
     public final void testInsert1() {
-        TaskStateEntity s1 = new TaskStateEntity();
+        final TaskStateEntity s1 = new TaskStateEntity();
         s1.setStateDescription("My Descr");
         s1.setStateTitle("New");
         db.persistObject(s1);
@@ -99,16 +100,16 @@ public class StorageTest {
     
     @Test
     public final void testInsertStateWithProps() {
-        TaskPropertyEntity prop1 = new TaskPropertyEntity();
+        final TaskPropertyEntity prop1 = new TaskPropertyEntity();
         prop1.setName("cluster");
         prop1.setTypeParserId(1);
-        TaskPropertyEntity prop2 = new TaskPropertyEntity(2, "process", 2);
+        final TaskPropertyEntity prop2 = new TaskPropertyEntity("process", 2);
         db.persistObject(prop1);
         db.persistObject(prop2);
-        TaskStateEntity s1 = new TaskStateEntity();
+        final TaskStateEntity s1 = new TaskStateEntity();
         s1.setStateDescription("My Descr");
         s1.setStateTitle("Prerelease");
-        List<TaskProperty> props = new ArrayList<>();
+        final List<TaskProperty> props = new ArrayList<>();
         props.add(prop2);
         props.add(prop1);
         s1.setRequiredProperties(props);
@@ -117,7 +118,7 @@ public class StorageTest {
     
     @Test
     public void testHostingspace() {
-        HostingSpaceEntity e = new HostingSpaceEntity();
+        final HostingSpaceEntity e = new HostingSpaceEntity();
         e.setName("My Company 2");
         e.setEntryState(EntryStates.Valid);
         db.persistObject(e);
@@ -126,7 +127,7 @@ public class StorageTest {
     
     @Test
     public void testProjectCategory() {
-        ProjectCategoryEntity e = new ProjectCategoryEntity();
+        final ProjectCategoryEntity e = new ProjectCategoryEntity();
         e.setTitle("Mutual 1");
         e.setEntryState(EntryStates.Valid);
         db.persistObject(e);

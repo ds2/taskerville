@@ -15,10 +15,6 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ds2.taskerville.persistence.entities;
 
 import javax.persistence.Column;
@@ -72,18 +68,17 @@ public class TaskPropertyEntity implements TaskProperty {
     public TaskPropertyEntity() {
     }
     
-    public TaskPropertyEntity(int i, String process, int i0) {
+    public TaskPropertyEntity(final String process, final int i0) {
         this();
-        id = i;
         name = process;
         typeParserId = i0;
     }
     
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
     
-    public void setTypeParserId(int typeParserId) {
+    public void setTypeParserId(final int typeParserId) {
         this.typeParserId = typeParserId;
     }
     
@@ -103,7 +98,7 @@ public class TaskPropertyEntity implements TaskProperty {
     }
     
     @Override
-    public int compareTo(TaskProperty t) {
+    public int compareTo(final TaskProperty t) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
