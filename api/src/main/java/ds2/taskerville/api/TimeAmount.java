@@ -30,13 +30,6 @@ import java.io.Serializable;
 public interface TimeAmount extends Serializable, Comparable<TimeAmount> {
     
     /**
-     * Returns the number of weeks.
-     * 
-     * @return the number of weeks
-     */
-    int getWeeks();
-    
-    /**
      * Returns the number of days.
      * 
      * @return the number of days
@@ -58,6 +51,14 @@ public interface TimeAmount extends Serializable, Comparable<TimeAmount> {
     int getMinutes();
     
     /**
+     * Returns a parsed version of this time amout, using w for weeks, d for
+     * days, h for hourse, m for minutes etc.
+     * 
+     * @return a string representing this time amount.
+     */
+    String getParsedString();
+    
+    /**
      * Returns a percent value in the range of -1 to 1 comparing this time
      * amount with the given time amount. If this time amount is greater than
      * the given amount, a negative value is returned, indicating the percent
@@ -71,10 +72,9 @@ public interface TimeAmount extends Serializable, Comparable<TimeAmount> {
     float getPercentComparedTo(TimeAmount t);
     
     /**
-     * Returns a parsed version of this time amout, using w for weeks, d for
-     * days, h for hourse, m for minutes etc.
+     * Returns the number of weeks.
      * 
-     * @return a string representing this time amount.
+     * @return the number of weeks
      */
-    String getParsedString();
+    int getWeeks();
 }

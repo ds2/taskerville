@@ -66,6 +66,23 @@ public class TargetReleaseEntity implements TargetRelease {
      */
     private static final long serialVersionUID = -8687921119372265753L;
     /**
+     * A description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
+     * The developer start date.
+     */
+    @Column(name = "init")
+    @Temporal(TemporalType.DATE)
+    private Date developerStartDate;
+    /**
+     * The final live date.
+     */
+    @Column(name = "final_live")
+    @Temporal(TemporalType.DATE)
+    private Date finalLiveDate;
+    /**
      * The id of the entity.
      */
     @Id
@@ -73,38 +90,6 @@ public class TargetReleaseEntity implements TargetRelease {
         generator = "targetReleaseGen",
         strategy = GenerationType.TABLE)
     private long id;
-    /**
-     * The project.
-     */
-    @ManyToOne(targetEntity = ProjectEntity.class)
-    @JoinColumn(name = "project_id", nullable = false)
-    private Project project;
-    /**
-     * The version parser.
-     */
-    private VersionParser vp;
-    /**
-     * The version string.
-     */
-    @Column(name = "version", nullable = false)
-    private String version;
-    /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
-     * The scm data for this release.
-     */
-    @ManyToOne(targetEntity = ScmInformationEntity.class)
-    @JoinColumn(name = "scm_info_id")
-    private ScmInformation scm;
-    /**
-     * The final live date.
-     */
-    @Column(name = "final_live")
-    @Temporal(TemporalType.DATE)
-    private Date finalLiveDate;
     /**
      * The possible live date.
      */
@@ -118,16 +103,31 @@ public class TargetReleaseEntity implements TargetRelease {
     @Temporal(TemporalType.DATE)
     private Date prereleaseDate;
     /**
-     * The developer start date.
+     * The project.
      */
-    @Column(name = "init")
-    @Temporal(TemporalType.DATE)
-    private Date developerStartDate;
+    @ManyToOne(targetEntity = ProjectEntity.class)
+    @JoinColumn(name = "project_id", nullable = false)
+    private Project project;
     /**
-     * A description.
+     * The scm data for this release.
      */
-    @Column(name = "description")
-    private String description;
+    @ManyToOne(targetEntity = ScmInformationEntity.class)
+    @JoinColumn(name = "scm_info_id")
+    private ScmInformation scm;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
+     * The version string.
+     */
+    @Column(name = "version", nullable = false)
+    private String version;
+    /**
+     * The version parser.
+     */
+    private VersionParser vp;
     
     /**
      * Inits the entity.
@@ -140,24 +140,16 @@ public class TargetReleaseEntity implements TargetRelease {
      * {@inheritDoc}
      */
     @Override
-    public final long getId() {
-        return id;
+    public final Date getCreated() {
+        return time.getCreated();
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Project getProject() {
-        return project;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Version getVersion() {
-        return vp.parse(version);
+    public final Date getDeleted() {
+        return time.getDeleted();
     }
     
     /**
@@ -180,8 +172,16 @@ public class TargetReleaseEntity implements TargetRelease {
      * {@inheritDoc}
      */
     @Override
-    public final Date getPrereleaseDate() {
-        return prereleaseDate;
+    public final Date getFinalLiveDate() {
+        return finalLiveDate;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final long getId() {
+        return id;
     }
     
     /**
@@ -196,8 +196,24 @@ public class TargetReleaseEntity implements TargetRelease {
      * {@inheritDoc}
      */
     @Override
-    public final Date getFinalLiveDate() {
-        return finalLiveDate;
+    public final Date getModified() {
+        return time.getModified();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getPrereleaseDate() {
+        return prereleaseDate;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Project getProject() {
+        return project;
     }
     
     /**
@@ -212,24 +228,8 @@ public class TargetReleaseEntity implements TargetRelease {
      * {@inheritDoc}
      */
     @Override
-    public final Date getCreated() {
-        return time.getCreated();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getModified() {
-        return time.getModified();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getDeleted() {
-        return time.getDeleted();
+    public final Version getVersion() {
+        return vp.parse(version);
     }
     
     /**

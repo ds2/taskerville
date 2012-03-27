@@ -58,21 +58,11 @@ public class WorkPackageEntity implements WorkPackage {
      */
     private static final long serialVersionUID = 1079712068484489567L;
     /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
      * The comment.
      */
     @OneToOne(targetEntity = CommentEntity.class)
     @JoinColumn(name = "descr_id", nullable = false)
     private Comment description;
-    /**
-     * The time amount.
-     */
-    @Transient
-    private TimeAmount timeAmount;
     /**
      * The id.
      */
@@ -80,6 +70,16 @@ public class WorkPackageEntity implements WorkPackage {
     @Column(name = "id", unique = true)
     @GeneratedValue(generator = "workPkgGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
+     * The time amount.
+     */
+    @Transient
+    private TimeAmount timeAmount;
     
     /**
      * Inits the entity.
@@ -99,15 +99,6 @@ public class WorkPackageEntity implements WorkPackage {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getModified()
-     */
-    @Override
-    public Date getModified() {
-        return time.getModified();
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.TimeAware#getDeleted()
      */
     @Override
@@ -117,21 +108,11 @@ public class WorkPackageEntity implements WorkPackage {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
+     * @see ds2.taskerville.api.WorkPackage#getDescription()
      */
     @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#touchModified()
-     */
-    @Override
-    public void touchModified() {
-        // TODO Auto-generated method stub
-        
+    public Comment getDescription() {
+        return description;
     }
     
     /*
@@ -145,6 +126,15 @@ public class WorkPackageEntity implements WorkPackage {
     
     /*
      * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#getModified()
+     */
+    @Override
+    public Date getModified() {
+        return time.getModified();
+    }
+    
+    /*
+     * (non-Javadoc)
      * @see ds2.taskerville.api.WorkPackage#getTimeAmount()
      */
     @Override
@@ -154,11 +144,21 @@ public class WorkPackageEntity implements WorkPackage {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.WorkPackage#getDescription()
+     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
      */
     @Override
-    public Comment getDescription() {
-        return description;
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#touchModified()
+     */
+    @Override
+    public void touchModified() {
+        // TODO Auto-generated method stub
+        
     }
     
 }

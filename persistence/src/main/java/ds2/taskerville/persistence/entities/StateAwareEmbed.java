@@ -40,15 +40,15 @@ public class StateAwareEmbed implements StateAware {
      */
     private static final long serialVersionUID = 1L;
     /**
-     * The state id.
-     */
-    @Column(name = "state_id", updatable = true, nullable = false)
-    private int stateId;
-    /**
      * The entry state.
      */
     @Transient
     private EntryStates state;
+    /**
+     * The state id.
+     */
+    @Column(name = "state_id", updatable = true, nullable = false)
+    private int stateId;
     
     /**
      * Inits the embeddable.
@@ -56,16 +56,6 @@ public class StateAwareEmbed implements StateAware {
     public StateAwareEmbed() {
         state = EntryStates.Initial;
         stateId = state.getStateId();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setEntryState(final EntryStates s) {
-        Preconditions.checkNotNull(s, "State must not be null.");
-        stateId = s.getStateId();
-        state = s;
     }
     
     /**
@@ -83,16 +73,26 @@ public class StateAwareEmbed implements StateAware {
      * {@inheritDoc}
      */
     @Override
-    public final String toString() {
-        return Objects.toStringHelper(this).add("stateId", stateId)
-            .add("state", state).toString();
+    public final long getId() {
+        return -1;
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public final long getId() {
-        return -1;
+    public final void setEntryState(final EntryStates s) {
+        Preconditions.checkNotNull(s, "State must not be null.");
+        stateId = s.getStateId();
+        state = s;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String toString() {
+        return Objects.toStringHelper(this).add("stateId", stateId)
+            .add("state", state).toString();
     }
 }

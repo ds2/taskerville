@@ -25,18 +25,18 @@ package ds2.taskerville.api;
  */
 public interface Priority extends TimeAware, Comparable<Priority> {
     /**
-     * Returns the title of the priority.
-     * 
-     * @return the title
-     */
-    String getTitle();
-    
-    /**
      * Returns the description of this priority.
      * 
      * @return the description
      */
     String getDescription();
+    
+    /**
+     * Returns the title of the priority.
+     * 
+     * @return the title
+     */
+    String getTitle();
     
     /**
      * A basic weight index, telling the weight of the priority. 1 is blocker, 0

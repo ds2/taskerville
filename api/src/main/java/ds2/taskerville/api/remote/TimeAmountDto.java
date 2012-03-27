@@ -68,12 +68,52 @@ public class TimeAmountDto implements TimeAmount {
      * @param w
      *            the weeks
      */
-    public TimeAmountDto(int min, int h, int d, int w) {
+    public TimeAmountDto(final int min, final int h, final int d, final int w) {
         this();
         setMinutes(min);
         setHours(h);
         setDays(d);
         setWeeks(w);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see java.lang.Comparable#compareTo(java.lang.Object)
+     */
+    @Override
+    public int compareTo(final TimeAmount o) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof TimeAmountDto)) {
+            return false;
+        }
+        final TimeAmountDto other = (TimeAmountDto) obj;
+        if (days != other.days) {
+            return false;
+        }
+        if (hours != other.hours) {
+            return false;
+        }
+        if (minutes != other.minutes) {
+            return false;
+        }
+        if (weeks != other.weeks) {
+            return false;
+        }
+        return true;
     }
     
     /*
@@ -113,6 +153,15 @@ public class TimeAmountDto implements TimeAmount {
         return null;
     }
     
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public float getPercentComparedTo(final TimeAmount t) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+    
     /*
      * (non-Javadoc)
      * @see ds2.taskerville.api.TimeAmount#getWeeks()
@@ -120,65 +169,6 @@ public class TimeAmountDto implements TimeAmount {
     @Override
     public int getWeeks() {
         return weeks;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Comparable#compareTo(java.lang.Object)
-     */
-    @Override
-    public int compareTo(TimeAmount o) {
-        // TODO Auto-generated method stub
-        return 0;
-    }
-    
-    /**
-     * Sets the days.
-     * 
-     * @param days
-     *            the days to set
-     */
-    public synchronized void setDays(int days) {
-        this.days = days;
-    }
-    
-    /**
-     * Sets the hours.
-     * 
-     * @param hours
-     *            the hours to set
-     */
-    public synchronized void setHours(int hours) {
-        if (hours < 0) {
-            return;
-        }
-        this.hours = hours;
-    }
-    
-    /**
-     * Sets the minutes.
-     * 
-     * @param minutes
-     *            the minutes to set
-     */
-    public synchronized void setMinutes(int minutes) {
-        if (minutes < 0 || minutes >= 60) {
-            return;
-        }
-        this.minutes = minutes;
-    }
-    
-    /**
-     * Sets the weeks.
-     * 
-     * @param weeks
-     *            the weeks to set
-     */
-    public synchronized void setWeeks(int weeks) {
-        if (weeks < 0) {
-            return;
-        }
-        this.weeks = weeks;
     }
     
     /**
@@ -196,26 +186,52 @@ public class TimeAmountDto implements TimeAmount {
     }
     
     /**
-     * {@inheritDoc}
+     * Sets the days.
+     * 
+     * @param days
+     *            the days to set
      */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (!(obj instanceof TimeAmountDto))
-            return false;
-        TimeAmountDto other = (TimeAmountDto) obj;
-        if (days != other.days)
-            return false;
-        if (hours != other.hours)
-            return false;
-        if (minutes != other.minutes)
-            return false;
-        if (weeks != other.weeks)
-            return false;
-        return true;
+    public synchronized void setDays(final int days) {
+        this.days = days;
+    }
+    
+    /**
+     * Sets the hours.
+     * 
+     * @param hours
+     *            the hours to set
+     */
+    public synchronized void setHours(final int hours) {
+        if (hours < 0) {
+            return;
+        }
+        this.hours = hours;
+    }
+    
+    /**
+     * Sets the minutes.
+     * 
+     * @param minutes
+     *            the minutes to set
+     */
+    public synchronized void setMinutes(final int minutes) {
+        if (minutes < 0 || minutes >= 60) {
+            return;
+        }
+        this.minutes = minutes;
+    }
+    
+    /**
+     * Sets the weeks.
+     * 
+     * @param weeks
+     *            the weeks to set
+     */
+    public synchronized void setWeeks(final int weeks) {
+        if (weeks < 0) {
+            return;
+        }
+        this.weeks = weeks;
     }
     
     /**
@@ -223,7 +239,7 @@ public class TimeAmountDto implements TimeAmount {
      */
     @Override
     public String toString() {
-        StringBuffer builder = new StringBuffer();
+        final StringBuffer builder = new StringBuffer();
         builder.append("TimeAmountDto [days=");
         builder.append(days);
         builder.append(", hours=");
@@ -234,15 +250,6 @@ public class TimeAmountDto implements TimeAmount {
         builder.append(weeks);
         builder.append("]");
         return builder.toString();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public float getPercentComparedTo(TimeAmount t) {
-        // TODO Auto-generated method stub
-        return 0;
     }
     
 }

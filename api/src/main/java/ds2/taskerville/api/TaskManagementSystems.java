@@ -25,6 +25,10 @@ package ds2.taskerville.api;
  */
 public enum TaskManagementSystems {
     /**
+     * Bugzilla.
+     */
+    Bugzilla,
+    /**
      * Google Code.
      */
     GoogleCode,
@@ -40,10 +44,6 @@ public enum TaskManagementSystems {
      * Taskerville.
      */
     Taskerville,
-    /**
-     * Bugzilla.
-     */
-    Bugzilla,
     /**
      * Trac.
      */

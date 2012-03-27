@@ -42,15 +42,16 @@ public class RecipientEmbeddable implements RecipientBase {
      */
     private static final long serialVersionUID = 1L;
     /**
-     * The state.
-     */
-    @Embedded
-    private StateAwareEmbed state;
-    /**
      * The email address.
      */
     @Column(name = "email_address")
     private String emailAddress;
+    /**
+     * The hosting space.
+     */
+    @ManyToOne(targetEntity = HostingSpaceEntity.class)
+    @JoinColumn(name = "space_id", nullable = false, updatable = false)
+    private HostingSpace hostingSpace;
     /**
      * The name of the recipient.
      */
@@ -63,11 +64,10 @@ public class RecipientEmbeddable implements RecipientBase {
     @JoinColumn(name = "PHOTO_ID", nullable = true, updatable = true)
     private Attachment profilePhoto;
     /**
-     * The hosting space.
+     * The state.
      */
-    @ManyToOne(targetEntity = HostingSpaceEntity.class)
-    @JoinColumn(name = "space_id", nullable = false, updatable = false)
-    private HostingSpace hostingSpace;
+    @Embedded
+    private final StateAwareEmbed state;
     
     /**
      * Inits the embeddable.
@@ -88,24 +88,8 @@ public class RecipientEmbeddable implements RecipientBase {
      * {@inheritDoc}
      */
     @Override
-    public final String getName() {
-        return name;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Attachment getProfilePhoto() {
-        return profilePhoto;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final long getId() {
-        return -1;
+    public final EntryStates getEntryState() {
+        return state.getEntryState();
     }
     
     /**
@@ -120,8 +104,24 @@ public class RecipientEmbeddable implements RecipientBase {
      * {@inheritDoc}
      */
     @Override
-    public final EntryStates getEntryState() {
-        return state.getEntryState();
+    public final long getId() {
+        return -1;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getName() {
+        return name;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Attachment getProfilePhoto() {
+        return profilePhoto;
     }
     
     /**

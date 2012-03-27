@@ -34,21 +34,42 @@ import ds2.taskerville.rs.v1.rs.ProjectsResource;
  */
 public class ProjectsResourceImpl implements ProjectsResource {
     /**
-     * The project facade.
-     */
-    @Inject
-    private ProjectFacade p;
-    /**
      * The frontend converter.
      */
     @Inject
     private FrontendConverter conv;
+    /**
+     * The project facade.
+     */
+    @Inject
+    private ProjectFacade p;
     
     /**
      * Inits the impl.
      */
     public ProjectsResourceImpl() {
         // TODO Auto-generated constructor stub
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see
+     * ds2.taskerville.rs.v1.rs.ProjectsResource#createProject(ds2.taskerville
+     * .rs.v1.dto.ProjectDto)
+     */
+    @Override
+    public ProjectDto createProject(final ProjectDto p) {
+        return null;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.rs.v1.rs.ProjectsResource#deleteProject(long)
+     */
+    @Override
+    public void deleteProject(final long id) {
+        // TODO Auto-generated method stub
+        
     }
     
     /*
@@ -82,33 +103,12 @@ public class ProjectsResourceImpl implements ProjectsResource {
     
     /*
      * (non-Javadoc)
-     * @see
-     * ds2.taskerville.rs.v1.rs.ProjectsResource#createProject(ds2.taskerville
-     * .rs.v1.dto.ProjectDto)
-     */
-    @Override
-    public ProjectDto createProject(final ProjectDto p) {
-        return null;
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.rs.v1.rs.ProjectsResource#updateProject(long,
      * ds2.taskerville.rs.v1.dto.ProjectDto)
      */
     @Override
     public ProjectDto updateProject(final long id, final ProjectDto p) {
         return null;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.rs.v1.rs.ProjectsResource#deleteProject(long)
-     */
-    @Override
-    public void deleteProject(final long id) {
-        // TODO Auto-generated method stub
-        
     }
     
 }

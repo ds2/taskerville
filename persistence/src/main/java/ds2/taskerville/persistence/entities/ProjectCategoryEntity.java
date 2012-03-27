@@ -53,6 +53,16 @@ public class ProjectCategoryEntity implements ProjectCategory {
      */
     private static final long serialVersionUID = -1735295917056409748L;
     /**
+     * A possible description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
+     * The entry state.
+     */
+    @Embedded
+    private final StateAwareEmbed entryState;
+    /**
      * The id.
      */
     @Id
@@ -66,16 +76,6 @@ public class ProjectCategoryEntity implements ProjectCategory {
      */
     @Column(name = "title", nullable = false)
     private String title;
-    /**
-     * A possible description.
-     */
-    @Column(name = "description")
-    private String description;
-    /**
-     * The entry state.
-     */
-    @Embedded
-    private StateAwareEmbed entryState;
     
     /**
      * Inits the entity.
@@ -85,18 +85,8 @@ public class ProjectCategoryEntity implements ProjectCategory {
     }
     
     @Override
-    public final long getId() {
-        return id;
-    }
-    
-    @Override
     public final int compareTo(final ProjectCategory o) {
         return 0;
-    }
-    
-    @Override
-    public final String getTitle() {
-        return title;
     }
     
     @Override
@@ -109,14 +99,14 @@ public class ProjectCategoryEntity implements ProjectCategory {
         return entryState.getEntryState();
     }
     
-    /**
-     * Sets the title.
-     * 
-     * @param title
-     *            the title to set
-     */
-    public final synchronized void setTitle(final String title) {
-        this.title = title;
+    @Override
+    public final long getId() {
+        return id;
+    }
+    
+    @Override
+    public final String getTitle() {
+        return title;
     }
     
     /**
@@ -132,6 +122,16 @@ public class ProjectCategoryEntity implements ProjectCategory {
     @Override
     public final synchronized void setEntryState(final EntryStates entryState) {
         this.entryState.setEntryState(entryState);
+    }
+    
+    /**
+     * Sets the title.
+     * 
+     * @param title
+     *            the title to set
+     */
+    public final synchronized void setTitle(final String title) {
+        this.title = title;
     }
     
 }

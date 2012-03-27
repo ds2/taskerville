@@ -54,6 +54,11 @@ public class ComponentEntity implements Component {
      */
     private static final long serialVersionUID = 6449920692695625090L;
     /**
+     * The description of this component.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
      * The id.
      */
     @Id
@@ -61,21 +66,16 @@ public class ComponentEntity implements Component {
     @GeneratedValue(generator = "componentGen", strategy = GenerationType.TABLE)
     private long id;
     /**
-     * The title.
-     */
-    @Column(name = "title", nullable = false)
-    private String title;
-    /**
-     * The description of this component.
-     */
-    @Column(name = "description")
-    private String description;
-    /**
      * The lead for this component.
      */
     @ManyToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "lead_user_id")
     private User lead;
+    /**
+     * The title.
+     */
+    @Column(name = "title", nullable = false)
+    private String title;
     
     /**
      * Inits the entity.
@@ -85,23 +85,23 @@ public class ComponentEntity implements Component {
     }
     
     @Override
-    public final long getId() {
-        return id;
-    }
-    
-    @Override
-    public final String getTitle() {
-        return title;
-    }
-    
-    @Override
     public final String getDescription() {
         return description;
     }
     
     @Override
+    public final long getId() {
+        return id;
+    }
+    
+    @Override
     public final User getLead() {
         return lead;
+    }
+    
+    @Override
+    public final String getTitle() {
+        return title;
     }
     
 }

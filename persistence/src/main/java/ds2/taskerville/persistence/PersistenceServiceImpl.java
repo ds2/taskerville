@@ -82,14 +82,6 @@ public class PersistenceServiceImpl implements PersistenceService {
      * {@inheritDoc}
      */
     @Override
-    public final <E extends PersistableObject> E updateObject(final E e) {
-        return JpaSupport.updateEntity(em, e);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public final <E extends StateAware> E setEntryState(final Class<E> aClass,
         final long id, final EntryStates newState) {
         final E ent = JpaSupport.findById(em, aClass, id);
@@ -99,5 +91,13 @@ public class PersistenceServiceImpl implements PersistenceService {
         final StateAware s = ent;
         s.setEntryState(newState);
         return JpaSupport.updateEntity(em, ent);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final <E extends PersistableObject> E updateObject(final E e) {
+        return JpaSupport.updateEntity(em, e);
     }
 }

@@ -25,6 +25,10 @@ package ds2.taskerville.api;
  */
 public enum ContentType {
     /**
+     * Markdown syntax.
+     */
+    MarkDown,
+    /**
      * Plain text.
      */
     Text,
@@ -35,9 +39,5 @@ public enum ContentType {
     /**
      * Xhtml.
      */
-    Xhtml,
-    /**
-     * Markdown syntax.
-     */
-    MarkDown;
+    Xhtml;
 }

@@ -42,6 +42,26 @@ import ds2.taskerville.rs.v1.dto.ProjectDto;
 @RequestScoped
 public interface ProjectsResource {
     /**
+     * Creates a new project.
+     * 
+     * @param p
+     *            the project details
+     * @return the updated project
+     */
+    @PUT
+    ProjectDto createProject(ProjectDto p);
+    
+    /**
+     * Deletes a project.
+     * 
+     * @param id
+     *            the id of the project
+     */
+    @DELETE
+    @Path("/{id}")
+    void deleteProject(@PathParam("id") long id);
+    
+    /**
      * Returns all known projects.
      * 
      * @return all known projects
@@ -72,16 +92,6 @@ public interface ProjectsResource {
     ProjectDto getProjectByName(@PathParam("sc") String name);
     
     /**
-     * Creates a new project.
-     * 
-     * @param p
-     *            the project details
-     * @return the updated project
-     */
-    @PUT
-    ProjectDto createProject(ProjectDto p);
-    
-    /**
      * Updates an existing project.
      * 
      * @param id
@@ -93,14 +103,4 @@ public interface ProjectsResource {
     @POST
     @Path("/{id:[0-9]+}")
     ProjectDto updateProject(@PathParam("id") long id, ProjectDto p);
-    
-    /**
-     * Deletes a project.
-     * 
-     * @param id
-     *            the id of the project
-     */
-    @DELETE
-    @Path("/{id}")
-    void deleteProject(@PathParam("id") long id);
 }

@@ -27,16 +27,16 @@ package ds2.taskerville.api;
  */
 public interface ReferenceType extends PersistableObject {
     /**
-     * Returns the entry title.
-     * 
-     * @return the title
-     */
-    String getTitle();
-    
-    /**
      * Returns the opposite title.
      * 
      * @return the opposite title
      */
     String getOppositeTitle();
+    
+    /**
+     * Returns the entry title.
+     * 
+     * @return the title
+     */
+    String getTitle();
 }

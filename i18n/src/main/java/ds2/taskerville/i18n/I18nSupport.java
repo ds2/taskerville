@@ -31,7 +31,7 @@ public class I18nSupport {
     /**
      * The resource bundle.
      */
-    private ResourceBundle rb;
+    private final ResourceBundle rb;
     
     /**
      * Instantiates the i18n support using the default locale.

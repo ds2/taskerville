@@ -57,6 +57,10 @@ import ds2.taskerville.api.user.UserRole;
 public class TeamEntity implements Team {
     
     /**
+     * The svuid.
+     */
+    private static final long serialVersionUID = 1L;
+    /**
      * The id.
      */
     @Id
@@ -64,20 +68,17 @@ public class TeamEntity implements Team {
     @GeneratedValue(generator = "teamGen", strategy = GenerationType.TABLE)
     private long id;
     /**
-     * The svuid.
+     * The members of this team.
      */
-    private static final long serialVersionUID = 1L;
+    @ManyToMany(targetEntity = UserEntity.class)
+    @JoinTable(name = "TSK_J_TEAM_MEMBERS", joinColumns = @JoinColumn(
+        name = "TEAM_ID"), inverseJoinColumns = @JoinColumn(name = "MEMBER_ID"))
+    private List<User> members;
     /**
      * The recipient.
      */
     @Embedded
     private RecipientEmbeddable recipient;
-    /**
-     * The team leader.
-     */
-    @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "teamleader_id", nullable = true, updatable = true)
-    private User teamLeader;
     /**
      * The possible sub teams.
      */
@@ -88,12 +89,11 @@ public class TeamEntity implements Team {
         inverseJoinColumns = @JoinColumn(name = "SUBTEAM_ID"))
     private List<Team> subTeams;
     /**
-     * The members of this team.
+     * The team leader.
      */
-    @ManyToMany(targetEntity = UserEntity.class)
-    @JoinTable(name = "TSK_J_TEAM_MEMBERS", joinColumns = @JoinColumn(
-        name = "TEAM_ID"), inverseJoinColumns = @JoinColumn(name = "MEMBER_ID"))
-    private List<User> members;
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "teamleader_id", nullable = true, updatable = true)
+    private User teamLeader;
     
     /**
      * Inits the entity.
@@ -103,28 +103,28 @@ public class TeamEntity implements Team {
     }
     
     @Override
-    public final List<User> getMembers() {
-        return members;
-    }
-    
-    @Override
-    public List<Team> getSubTeams() {
-        return subTeams;
-    }
-    
-    @Override
-    public User getTeamLeader() {
-        return teamLeader;
-    }
-    
-    @Override
-    public List<User> getUsersOfRole(UserRole r) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    @Override
     public String getEmailAddress() {
         return recipient.getEmailAddress();
+    }
+    
+    @Override
+    public EntryStates getEntryState() {
+        return recipient.getEntryState();
+    }
+    
+    @Override
+    public HostingSpace getHostingSpace() {
+        return recipient.getHostingSpace();
+    }
+    
+    @Override
+    public long getId() {
+        return id;
+    }
+    
+    @Override
+    public final List<User> getMembers() {
+        return members;
     }
     
     @Override
@@ -138,22 +138,22 @@ public class TeamEntity implements Team {
     }
     
     @Override
-    public long getId() {
-        return id;
+    public List<Team> getSubTeams() {
+        return subTeams;
     }
     
     @Override
-    public HostingSpace getHostingSpace() {
-        return recipient.getHostingSpace();
+    public User getTeamLeader() {
+        return teamLeader;
     }
     
     @Override
-    public EntryStates getEntryState() {
-        return recipient.getEntryState();
+    public List<User> getUsersOfRole(final UserRole r) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     @Override
-    public void setEntryState(EntryStates s) {
+    public void setEntryState(final EntryStates s) {
         recipient.setEntryState(s);
     }
 }

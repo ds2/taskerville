@@ -29,7 +29,7 @@ import ds2.taskerville.api.Task;
  * 
  */
 public interface TaskExportService {
-    boolean exportTask(Task t, ExportSettings settings);
-    
     boolean addComment(Comment c, ExportSettings settings);
+    
+    boolean exportTask(Task t, ExportSettings settings);
 }

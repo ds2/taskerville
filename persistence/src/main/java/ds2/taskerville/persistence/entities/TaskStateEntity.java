@@ -73,24 +73,19 @@ public class TaskStateEntity implements TaskState {
         inverseJoinColumns = @JoinColumn(name = "property_id"))
     private List<TaskProperty> requiredProperties;
     /**
-     * The state title.
-     */
-    @Column(name = "title")
-    private String stateTitle;
-    /**
      * The description.
      */
     @Column(name = "descr")
     private String stateDescription;
+    /**
+     * The state title.
+     */
+    @Column(name = "title")
+    private String stateTitle;
     
     @Override
-    public String getStateTitle() {
-        return stateTitle;
-    }
-    
-    @Override
-    public String getStateDescription() {
-        return stateDescription;
+    public final long getId() {
+        return id;
     }
     
     @Override
@@ -99,8 +94,13 @@ public class TaskStateEntity implements TaskState {
     }
     
     @Override
-    public final long getId() {
-        return id;
+    public String getStateDescription() {
+        return stateDescription;
+    }
+    
+    @Override
+    public String getStateTitle() {
+        return stateTitle;
     }
     
     /**
@@ -115,22 +115,22 @@ public class TaskStateEntity implements TaskState {
     }
     
     /**
-     * Sets the state title.
-     * 
-     * @param stateTitle
-     *            the stateTitle to set
-     */
-    public final synchronized void setStateTitle(String stateTitle) {
-        this.stateTitle = stateTitle;
-    }
-    
-    /**
      * Sets the description.
      * 
      * @param stateDescription
      *            the stateDescription to set
      */
-    public synchronized void setStateDescription(String stateDescription) {
+    public synchronized void setStateDescription(final String stateDescription) {
         this.stateDescription = stateDescription;
+    }
+    
+    /**
+     * Sets the state title.
+     * 
+     * @param stateTitle
+     *            the stateTitle to set
+     */
+    public final synchronized void setStateTitle(final String stateTitle) {
+        this.stateTitle = stateTitle;
     }
 }

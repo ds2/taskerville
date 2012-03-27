@@ -63,6 +63,15 @@ public class HostingSpaceEntity implements HostingSpace {
      */
     private static final long serialVersionUID = -3530810480980031127L;
     /**
+     * The categories for this space.
+     */
+    @OneToMany(targetEntity = ProjectCategoryEntity.class)
+    @JoinTable(
+        name = "TSK_J_HOSTINGSPACE_PROJECTCATEGORY",
+        joinColumns = @JoinColumn(name = "SPACE_ID"),
+        inverseJoinColumns = @JoinColumn(name = "PROJECTCATEGORY_ID"))
+    private List<ProjectCategory> categories;
+    /**
      * The id.
      */
     @Id
@@ -75,12 +84,10 @@ public class HostingSpaceEntity implements HostingSpace {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
     /**
-     * The users who belong to this space.
+     * The state embeddable.
      */
-    @OneToMany(targetEntity = UserEntity.class)
-    @JoinTable(name = "TSK_J_HOSTINGSPACE_USERS", joinColumns = @JoinColumn(
-        name = "SPACE_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID"))
-    private List<User> users;
+    @Embedded
+    private final StateAwareEmbed state;
     /**
      * The teams that belong to this space.
      */
@@ -89,24 +96,17 @@ public class HostingSpaceEntity implements HostingSpace {
         name = "SPACE_ID"), inverseJoinColumns = @JoinColumn(name = "TEAM_ID"))
     private List<Team> teams;
     /**
-     * The categories for this space.
-     */
-    @OneToMany(targetEntity = ProjectCategoryEntity.class)
-    @JoinTable(
-        name = "TSK_J_HOSTINGSPACE_PROJECTCATEGORY",
-        joinColumns = @JoinColumn(name = "SPACE_ID"),
-        inverseJoinColumns = @JoinColumn(name = "PROJECTCATEGORY_ID"))
-    private List<ProjectCategory> categories;
-    /**
-     * The state embeddable.
-     */
-    @Embedded
-    private StateAwareEmbed state;
-    /**
      * The time embeddable.
      */
     @Embedded
-    private TimeAwareEmbed time;
+    private final TimeAwareEmbed time;
+    /**
+     * The users who belong to this space.
+     */
+    @OneToMany(targetEntity = UserEntity.class)
+    @JoinTable(name = "TSK_J_HOSTINGSPACE_USERS", joinColumns = @JoinColumn(
+        name = "SPACE_ID"), inverseJoinColumns = @JoinColumn(name = "USER_ID"))
+    private List<User> users;
     
     /**
      * Inits the entity.
@@ -114,6 +114,38 @@ public class HostingSpaceEntity implements HostingSpace {
     public HostingSpaceEntity() {
         state = new StateAwareEmbed();
         time = new TimeAwareEmbed();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final List<ProjectCategory> getCategories() {
+        return categories;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getCreated() {
+        return time.getCreated();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getDeleted() {
+        return time.getDeleted();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final EntryStates getEntryState() {
+        return state.getEntryState();
     }
     
     /**
@@ -128,16 +160,16 @@ public class HostingSpaceEntity implements HostingSpace {
      * {@inheritDoc}
      */
     @Override
-    public final String getName() {
-        return name;
+    public final Date getModified() {
+        return time.getModified();
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public final List<User> getUsers() {
-        return users;
+    public final String getName() {
+        return name;
     }
     
     /**
@@ -152,8 +184,24 @@ public class HostingSpaceEntity implements HostingSpace {
      * {@inheritDoc}
      */
     @Override
-    public final List<ProjectCategory> getCategories() {
-        return categories;
+    public final List<User> getUsers() {
+        return users;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setEntryState(final EntryStates s) {
+        state.setEntryState(s);
     }
     
     /**
@@ -163,7 +211,7 @@ public class HostingSpaceEntity implements HostingSpace {
      *            the name to set
      */
     public final synchronized void setName(final String n) {
-        this.name = n;
+        name = n;
     }
     
     /**
@@ -201,54 +249,6 @@ public class HostingSpaceEntity implements HostingSpace {
         }
         builder.append(")");
         return builder.toString();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final EntryStates getEntryState() {
-        return state.getEntryState();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setEntryState(final EntryStates s) {
-        state.setEntryState(s);
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getCreated() {
-        return time.getCreated();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getModified() {
-        return time.getModified();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getDeleted() {
-        return time.getDeleted();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setDeleted(final Date d) {
-        time.setDeleted(d);
     }
     
     /**

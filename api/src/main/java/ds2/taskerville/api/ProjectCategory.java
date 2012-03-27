@@ -30,16 +30,16 @@ public interface ProjectCategory
     StateAware {
     
     /**
-     * Returns the title of the category.
-     * 
-     * @return the title of the category
-     */
-    String getTitle();
-    
-    /**
      * Returns a description of the category.
      * 
      * @return a description
      */
     String getDescription();
+    
+    /**
+     * Returns the title of the category.
+     * 
+     * @return the title of the category
+     */
+    String getTitle();
 }

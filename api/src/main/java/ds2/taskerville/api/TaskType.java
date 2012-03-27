@@ -30,20 +30,6 @@ import ds2.taskerville.api.flow.TaskFlow;
 public interface TaskType extends StateAware {
     
     /**
-     * Returns the flow for this task type.
-     * 
-     * @return the flow
-     */
-    TaskFlow getFlow();
-    
-    /**
-     * Returns the title of this type.
-     * 
-     * @return the title of this type
-     */
-    String getTitle();
-    
-    /**
      * Returns a possible description of this type.
      * 
      * @return a possible description
@@ -51,9 +37,23 @@ public interface TaskType extends StateAware {
     String getDescription();
     
     /**
+     * Returns the flow for this task type.
+     * 
+     * @return the flow
+     */
+    TaskFlow getFlow();
+    
+    /**
      * Returns a list of properties that must be filled when using this type.
      * 
      * @return a list of required properties for this type of task.
      */
     List<TaskProperty> getRequiredProperties();
+    
+    /**
+     * Returns the title of this type.
+     * 
+     * @return the title of this type
+     */
+    String getTitle();
 }

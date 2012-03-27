@@ -20,7 +20,6 @@ package ds2.taskerville.persistence.api;
 import ds2.taskerville.api.EntryStates;
 import ds2.taskerville.api.PersistableObject;
 import ds2.taskerville.api.StateAware;
-import ds2.taskerville.persistence.entities.HostingSpaceEntity;
 
 /**
  * A service for managing database entities.
@@ -31,15 +30,15 @@ import ds2.taskerville.persistence.entities.HostingSpaceEntity;
 public interface PersistenceService {
     
     /**
-     * Persists a given object.
+     * Deletes a given entity.
      * 
      * @param <E>
-     *            the type to persist
+     *            the entity type
      * @param e
-     *            the object to persist
-     * @return the updated object, or null in case of an error.
+     *            the entity to delete
+     * @return TRUE if successful, otherwise FALSE
      */
-    <E extends PersistableObject> E persistObject(E e);
+    <E extends PersistableObject> boolean deleteObject(E e);
     
     /**
      * Finds an entity using its private key id.
@@ -55,27 +54,15 @@ public interface PersistenceService {
     <E extends PersistableObject> E findById(Class<E> c, long id);
     
     /**
-     * Deletes a given entity.
+     * Persists a given object.
      * 
      * @param <E>
-     *            the entity type
+     *            the type to persist
      * @param e
-     *            the entity to delete
-     * @return TRUE if successful, otherwise FALSE
+     *            the object to persist
+     * @return the updated object, or null in case of an error.
      */
-    <E extends PersistableObject> boolean deleteObject(E e);
-    
-    /**
-     * Updates the given entity. Usually, a merge is done using the given
-     * entity.
-     * 
-     * @param <E>
-     *            the entity type
-     * @param e
-     *            the entity to update
-     * @return null if an error occurred, otherwise the updated entity
-     */
-    <E extends PersistableObject> E updateObject(E e);
+    <E extends PersistableObject> E persistObject(E e);
     
     /**
      * Updates a new entry.
@@ -92,4 +79,16 @@ public interface PersistenceService {
      */
     <E extends StateAware> E setEntryState(Class<E> aClass, long id,
         EntryStates newState);
+    
+    /**
+     * Updates the given entity. Usually, a merge is done using the given
+     * entity.
+     * 
+     * @param <E>
+     *            the entity type
+     * @param e
+     *            the entity to update
+     * @return null if an error occurred, otherwise the updated entity
+     */
+    <E extends PersistableObject> E updateObject(E e);
 }

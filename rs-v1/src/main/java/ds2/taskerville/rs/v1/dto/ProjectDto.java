@@ -39,6 +39,11 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.PROPERTY)
 public class ProjectDto {
     /**
+     * The id of the project.
+     */
+    @XmlAttribute
+    private long id;
+    /**
      * The name of the project.
      */
     @XmlElement
@@ -48,11 +53,6 @@ public class ProjectDto {
      */
     @XmlElement
     private String shortcode;
-    /**
-     * The id of the project.
-     */
-    @XmlAttribute
-    private long id;
     
     public ProjectDto() {
         // nothing special to do

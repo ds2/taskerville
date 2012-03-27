@@ -26,28 +26,28 @@ package ds2.taskerville.api;
  */
 public enum Solutions {
     /**
-     * The task is fixed. Usually a solution for bug tasks.
+     * The task is being analyzed.
      */
-    Fixed,
-    /**
-     * The task cannot be fixed (now).
-     */
-    WontFix,
+    Analyzing,
     /**
      * The task is done. Similar to {@link #Fixed} but this solution is mostly
      * meant for configuration purpose or feature tasks.
      */
     Done,
     /**
-     * The task is new. Initial state.
+     * The task is fixed. Usually a solution for bug tasks.
      */
-    New,
+    Fixed,
     /**
      * The task is currently in progress.
      */
     InProgress,
     /**
-     * The task is being analyzed.
+     * The task is new. Initial state.
      */
-    Analyzing;
+    New,
+    /**
+     * The task cannot be fixed (now).
+     */
+    WontFix;
 }

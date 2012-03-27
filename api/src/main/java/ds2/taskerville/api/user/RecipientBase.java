@@ -36,6 +36,13 @@ public interface RecipientBase extends StateAware {
     String getEmailAddress();
     
     /**
+     * Returns the hosting space this recipient belongs to.
+     * 
+     * @return the hosting space
+     */
+    HostingSpace getHostingSpace();
+    
+    /**
      * Returns the name of the recipient.
      * 
      * @return the human-readable name of the recipient
@@ -48,11 +55,4 @@ public interface RecipientBase extends StateAware {
      * @return a profile photo, or null if not set
      */
     Attachment getProfilePhoto();
-    
-    /**
-     * Returns the hosting space this recipient belongs to.
-     * 
-     * @return the hosting space
-     */
-    HostingSpace getHostingSpace();
 }

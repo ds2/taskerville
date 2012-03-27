@@ -61,11 +61,21 @@ public class TaskFlowEntity implements TaskFlow {
      */
     private static final long serialVersionUID = 1L;
     /**
+     * The state.
+     */
+    @Embedded
+    private final StateAwareEmbed entryState;
+    /**
      * The id.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "taskFlowGen")
     private long id;
+    /**
+     * The name of the flow.
+     */
+    @Column(name = "name", nullable = false)
+    private String name;
     /**
      * The project.
      */
@@ -76,26 +86,16 @@ public class TaskFlowEntity implements TaskFlow {
         inverseJoinColumns = @JoinColumn(name = "PROJECT_ID"))
     private Project project;
     /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
-     * The state.
-     */
-    @Embedded
-    private StateAwareEmbed entryState;
-    /**
-     * The name of the flow.
-     */
-    @Column(name = "name", nullable = false)
-    private String name;
-    /**
      * The start state.
      */
     @ManyToOne(targetEntity = TaskStateEntity.class)
     @JoinColumn(name = "start_state_id")
     private TaskState startState;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
     
     public TaskFlowEntity() {
         time = new TimeAwareEmbed();
@@ -103,64 +103,22 @@ public class TaskFlowEntity implements TaskFlow {
     }
     
     @Override
-    public long getId() {
-        return id;
-    }
-    
-    public void setId(long id) {
-        this.id = id;
-    }
-    
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (int) id;
-        return hash;
-    }
-    
-    @Override
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         // TODO: Warning - this method won't work in the case the id fields are
         // not set
         if (!(object instanceof TaskFlowEntity)) {
             return false;
         }
-        TaskFlowEntity other = (TaskFlowEntity) object;
-        if (this.id != other.id) {
+        final TaskFlowEntity other = (TaskFlowEntity) object;
+        if (id != other.id) {
             return false;
         }
         return true;
     }
     
     @Override
-    public String toString() {
-        return "ds2.taskerville.persistence.entities.TaskFlowEntity[ id=" + id
-            + " ]";
-    }
-    
-    @Override
-    public String getName() {
-        return name;
-    }
-    
-    @Override
-    public TaskState getStartState() {
-        return startState;
-    }
-    
-    @Override
-    public Project getProject() {
-        return project;
-    }
-    
-    @Override
     public Date getCreated() {
         return time.getCreated();
-    }
-    
-    @Override
-    public Date getModified() {
-        return time.getModified();
     }
     
     @Override
@@ -174,25 +132,67 @@ public class TaskFlowEntity implements TaskFlow {
     }
     
     @Override
-    public void setEntryState(EntryStates s) {
+    public long getId() {
+        return id;
+    }
+    
+    @Override
+    public Date getModified() {
+        return time.getModified();
+    }
+    
+    @Override
+    public String getName() {
+        return name;
+    }
+    
+    @Override
+    public Project getProject() {
+        return project;
+    }
+    
+    @Override
+    public TaskState getStartState() {
+        return startState;
+    }
+    
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (int) id;
+        return hash;
+    }
+    
+    @Override
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    @Override
+    public void setEntryState(final EntryStates s) {
         entryState.setEntryState(s);
     }
     
-    public void setName(String name) {
+    public void setId(final long id) {
+        this.id = id;
+    }
+    
+    public void setName(final String name) {
         this.name = name;
     }
     
-    public void setProject(Project project) {
+    public void setProject(final Project project) {
         this.project = project;
     }
     
-    public void setStartState(TaskState startState) {
+    public void setStartState(final TaskState startState) {
         this.startState = startState;
     }
     
     @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
+    public String toString() {
+        return "ds2.taskerville.persistence.entities.TaskFlowEntity[ id=" + id
+            + " ]";
     }
     
     @Override

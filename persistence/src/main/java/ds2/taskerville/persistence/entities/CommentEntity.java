@@ -56,13 +56,6 @@ public class CommentEntity implements Comment {
      */
     private static final long serialVersionUID = 1L;
     /**
-     * The id.
-     */
-    @Id
-    @Column(name = "id", unique = true)
-    @GeneratedValue(generator = "commentGen", strategy = GenerationType.TABLE)
-    private long id;
-    /**
      * The author.
      */
     @ManyToOne(targetEntity = UserEntity.class)
@@ -71,11 +64,6 @@ public class CommentEntity implements Comment {
         joinColumns = @JoinColumn(name = "COMMENT_ID"),
         inverseJoinColumns = @JoinColumn(name = "USER_ID"))
     private User author;
-    /**
-     * The time embeddable.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
     /**
      * The comment.
      */
@@ -91,10 +79,22 @@ public class CommentEntity implements Comment {
         inverseJoinColumns = @JoinColumn(name = "USER_ID"))
     private User editor;
     /**
+     * The id.
+     */
+    @Id
+    @Column(name = "id", unique = true)
+    @GeneratedValue(generator = "commentGen", strategy = GenerationType.TABLE)
+    private long id;
+    /**
      * The state embeddable.
      */
     @Embedded
-    private StateAwareEmbed state;
+    private final StateAwareEmbed state;
+    /**
+     * The time embeddable.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
     
     /**
      * Inits the entity.
@@ -102,6 +102,15 @@ public class CommentEntity implements Comment {
     public CommentEntity() {
         time = new TimeAwareEmbed();
         state = new StateAwareEmbed();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final int compareTo(final Comment o) {
+        // TODO Auto-generated method stub
+        return 0;
     }
     
     /**
@@ -156,8 +165,8 @@ public class CommentEntity implements Comment {
      * {@inheritDoc}
      */
     @Override
-    public final Date getModified() {
-        return time.getModified();
+    public final EntryStates getEntryState() {
+        return state.getEntryState();
     }
     
     /**
@@ -172,16 +181,8 @@ public class CommentEntity implements Comment {
      * {@inheritDoc}
      */
     @Override
-    public final EntryStates getEntryState() {
-        return state.getEntryState();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setEntryState(final EntryStates s) {
-        state.setEntryState(s);
+    public final Date getModified() {
+        return time.getModified();
     }
     
     /**
@@ -196,16 +197,15 @@ public class CommentEntity implements Comment {
      * {@inheritDoc}
      */
     @Override
-    public final void touchModified() {
-        time.touchModified();
+    public final void setEntryState(final EntryStates s) {
+        state.setEntryState(s);
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public final int compareTo(final Comment o) {
-        // TODO Auto-generated method stub
-        return 0;
+    public final void touchModified() {
+        time.touchModified();
     }
 }

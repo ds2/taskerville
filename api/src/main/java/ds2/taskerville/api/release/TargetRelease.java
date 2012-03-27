@@ -37,20 +37,6 @@ import ds2.taskerville.api.dev.ScmInformation;
 public interface TargetRelease extends PersistableObject, TimeAware {
     
     /**
-     * Returns the project this release belongs to.
-     * 
-     * @return the project.
-     */
-    Project getProject();
-    
-    /**
-     * Returns the version of this release.
-     * 
-     * @return the version.
-     */
-    Version getVersion();
-    
-    /**
      * Returns the description of this release.
      * 
      * @return the description
@@ -66,12 +52,12 @@ public interface TargetRelease extends PersistableObject, TimeAware {
     Date getDeveloperStartDate();
     
     /**
-     * Returns the prerelease date for this release. With this date, the coding
-     * MAY stop, and the QA phase may begin.
+     * Returns the final live date of the software release. If this field is
+     * set, no changes can be performed to the involved tasks.
      * 
-     * @return the prerelease date.
+     * @return null, if not yet switched live, or the live switch date.
      */
-    Date getPrereleaseDate();
+    Date getFinalLiveDate();
     
     /**
      * Returns the official live date.
@@ -81,12 +67,19 @@ public interface TargetRelease extends PersistableObject, TimeAware {
     Date getLiveDate();
     
     /**
-     * Returns the final live date of the software release. If this field is
-     * set, no changes can be performed to the involved tasks.
+     * Returns the prerelease date for this release. With this date, the coding
+     * MAY stop, and the QA phase may begin.
      * 
-     * @return null, if not yet switched live, or the live switch date.
+     * @return the prerelease date.
      */
-    Date getFinalLiveDate();
+    Date getPrereleaseDate();
+    
+    /**
+     * Returns the project this release belongs to.
+     * 
+     * @return the project.
+     */
+    Project getProject();
     
     /**
      * Returns some SCM information about this release. This is an extension to
@@ -95,4 +88,11 @@ public interface TargetRelease extends PersistableObject, TimeAware {
      * @return a possible scm information. Or null if not known.
      */
     ScmInformation getScm();
+    
+    /**
+     * Returns the version of this release.
+     * 
+     * @return the version.
+     */
+    Version getVersion();
 }

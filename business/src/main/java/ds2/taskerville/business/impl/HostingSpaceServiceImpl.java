@@ -38,15 +38,15 @@ import ds2.taskerville.persistence.entities.HostingSpaceEntity;
  */
 public class HostingSpaceServiceImpl implements HostingSpaceService {
     /**
-     * The persistence service.
-     */
-    @Inject
-    private PersistenceService db;
-    /**
      * The dto converter.
      */
     @Inject
     private ConverterService conv;
+    /**
+     * The persistence service.
+     */
+    @Inject
+    private PersistenceService db;
     
     /**
      * Inits the bean.

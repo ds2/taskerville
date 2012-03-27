@@ -21,7 +21,6 @@
  */
 package ds2.taskerville.api;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -40,18 +39,18 @@ public interface TimeAware extends PersistableObject {
     Date getCreated();
     
     /**
-     * Returns the modification date of the object.
-     * 
-     * @return the modification date
-     */
-    Date getModified();
-    
-    /**
      * Returns the deletion date of this object.
      * 
      * @return the deletion date
      */
     Date getDeleted();
+    
+    /**
+     * Returns the modification date of the object.
+     * 
+     * @return the modification date
+     */
+    Date getModified();
     
     /**
      * Sets the deletion date.

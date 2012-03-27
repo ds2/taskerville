@@ -58,15 +58,15 @@ public class ReferenceTypeEntity implements ReferenceType {
     @GeneratedValue(generator = "refTypeGen", strategy = GenerationType.TABLE)
     private long id;
     /**
-     * The title.
-     */
-    @Column(name = "title", unique = true, nullable = false)
-    private String title;
-    /**
      * The opposite title.
      */
     @Column(name = "op_title", unique = true, nullable = false)
     private String oppositeTitle;
+    /**
+     * The title.
+     */
+    @Column(name = "title", unique = true, nullable = false)
+    private String title;
     
     /**
      * Inits the entity.
@@ -86,20 +86,20 @@ public class ReferenceTypeEntity implements ReferenceType {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.ReferenceType#getTitle()
-     */
-    @Override
-    public String getTitle() {
-        return title;
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.ReferenceType#getOppositeTitle()
      */
     @Override
     public String getOppositeTitle() {
         return oppositeTitle;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.ReferenceType#getTitle()
+     */
+    @Override
+    public String getTitle() {
+        return title;
     }
     
 }

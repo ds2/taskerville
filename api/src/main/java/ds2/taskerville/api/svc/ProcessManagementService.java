@@ -31,6 +31,15 @@ import ds2.taskerville.api.processmanagement.ProcessState;
  */
 public interface ProcessManagementService extends WorkflowService {
     /**
+     * Returns all known tasks of the given process state.
+     * 
+     * @param state
+     *            the process state
+     * @return all known tasks of this state
+     */
+    List<Task> getTasksOfState(ProcessState state);
+    
+    /**
      * Sets a new state of the given task.
      * 
      * @param task
@@ -40,14 +49,5 @@ public interface ProcessManagementService extends WorkflowService {
      * @return TRUE if successful, otherwise FALSE
      */
     boolean setState(Task task, ProcessState newState);
-    
-    /**
-     * Returns all known tasks of the given process state.
-     * 
-     * @param state
-     *            the process state
-     * @return all known tasks of this state
-     */
-    List<Task> getTasksOfState(ProcessState state);
     
 }

@@ -26,27 +26,27 @@ package ds2.taskerville.api.dev;
  */
 public enum ScmType {
     /**
+     * The bazaar scm.
+     */
+    Bazaar,
+    /**
      * The concurrent versioning system.
      */
     CVS,
-    /**
-     * Subversion.
-     */
-    Subversion,
-    /**
-     * The mercurial scm.
-     */
-    Mercurial,
     /**
      * The git scm.
      */
     Git,
     /**
-     * The bazaar scm.
+     * The mercurial scm.
      */
-    Bazaar,
+    Mercurial,
     /**
      * The perforce scm.
      */
-    Perforce;
+    Perforce,
+    /**
+     * Subversion.
+     */
+    Subversion;
 }

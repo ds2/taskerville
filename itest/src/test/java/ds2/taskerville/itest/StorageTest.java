@@ -87,6 +87,15 @@ public class StorageTest {
         // nothing special to do
     }
     
+    @Test
+    public void testHostingspace() {
+        final HostingSpaceEntity e = new HostingSpaceEntity();
+        e.setName("My Company 2");
+        e.setEntryState(EntryStates.Valid);
+        db.persistObject(e);
+        LOG.info("e is now " + e);
+    }
+    
     /**
      * Tests inserts.
      */
@@ -114,15 +123,6 @@ public class StorageTest {
         props.add(prop1);
         s1.setRequiredProperties(props);
         db.persistObject(s1);
-    }
-    
-    @Test
-    public void testHostingspace() {
-        final HostingSpaceEntity e = new HostingSpaceEntity();
-        e.setName("My Company 2");
-        e.setEntryState(EntryStates.Valid);
-        db.persistObject(e);
-        LOG.info("e is now " + e);
     }
     
     @Test

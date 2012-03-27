@@ -48,6 +48,14 @@ public class ConverterImpl implements ConverterService {
      * {@inheritDoc}
      */
     @Override
+    public final HostingSpace toHostingSpace(final HostingSpace e) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final int toInt(final String s, final int defValue) {
         if (s == null || s.length() <= 0) {
             return defValue;
@@ -60,14 +68,6 @@ public class ConverterImpl implements ConverterService {
                 + e.getLocalizedMessage());
         }
         return rc;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final HostingSpace toHostingSpace(final HostingSpace e) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
     
     /**

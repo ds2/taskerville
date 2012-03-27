@@ -30,9 +30,9 @@ import ds2.taskerville.api.PersistableObject;
  */
 public interface ProcessState extends PersistableObject {
     
-    String getName();
-    
     String getDescription();
+    
+    String getName();
     
     List<ProcessState> getNextStates();
     

@@ -31,13 +31,6 @@ import ds2.taskerville.api.TimeAware;
 public interface ScmInformation extends TimeAware {
     
     /**
-     * Returns the scm type.
-     * 
-     * @return the scm type.
-     */
-    ScmType getType();
-    
-    /**
      * Returns the branch name for the developers to perform checkins and to
      * build the prerelease from.
      * 
@@ -46,11 +39,18 @@ public interface ScmInformation extends TimeAware {
     String getDeveloperBranch();
     
     /**
-     * Returns a list of possible prerelease tags.
+     * Returns the live branch where the live version is build from.
      * 
-     * @return a list of scm prerelease tags
+     * @return the possible live branch
      */
-    List<String> getPrereleaseTags();
+    String getLiveBranch();
+    
+    /**
+     * Returns the scm tag of the final live version of a release.
+     * 
+     * @return the scm live tag
+     */
+    String getLiveTag();
     
     /**
      * Returns the possible prerelease branch where all prereleases are build
@@ -61,16 +61,16 @@ public interface ScmInformation extends TimeAware {
     String getPrereleaseBranch();
     
     /**
-     * Returns the scm tag of the final live version of a release.
+     * Returns a list of possible prerelease tags.
      * 
-     * @return the scm live tag
+     * @return a list of scm prerelease tags
      */
-    String getLiveTag();
+    List<String> getPrereleaseTags();
     
     /**
-     * Returns the live branch where the live version is build from.
+     * Returns the scm type.
      * 
-     * @return the possible live branch
+     * @return the scm type.
      */
-    String getLiveBranch();
+    ScmType getType();
 }

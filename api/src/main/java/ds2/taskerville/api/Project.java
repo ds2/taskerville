@@ -32,34 +32,18 @@ import ds2.taskerville.api.user.HostingSpace;
 public interface Project extends Component, StateAware, TimeAware {
     
     /**
-     * Returns a short title of the project. This is mainly inherited by Jira
-     * where a short project descriptor is used for the project tasks followed
-     * by a number.
-     * 
-     * @return a possibe short id/title
-     */
-    String getShortTitle();
-    
-    /**
-     * Returns all known task types of this project.
-     * 
-     * @return all known task types
-     */
-    List<TaskType> getSupportedTaskTypes();
-    
-    /**
-     * Returns all known components this project contains.
-     * 
-     * @return all known components
-     */
-    List<Component> getSubComponents();
-    
-    /**
      * Returns a possible homepage for this project.
      * 
      * @return a homepage, or null if not applicable.
      */
     URL getHomepage();
+    
+    /**
+     * Returns the hosting space for this project.
+     * 
+     * @return the hosting space
+     */
+    HostingSpace getHostingSpace();
     
     /**
      * Returns the process management for this project.
@@ -70,9 +54,25 @@ public interface Project extends Component, StateAware, TimeAware {
     ProcessManagement getManagement();
     
     /**
-     * Returns the hosting space for this project.
+     * Returns a short title of the project. This is mainly inherited by Jira
+     * where a short project descriptor is used for the project tasks followed
+     * by a number.
      * 
-     * @return the hosting space
+     * @return a possibe short id/title
      */
-    HostingSpace getHostingSpace();
+    String getShortTitle();
+    
+    /**
+     * Returns all known components this project contains.
+     * 
+     * @return all known components
+     */
+    List<Component> getSubComponents();
+    
+    /**
+     * Returns all known task types of this project.
+     * 
+     * @return all known task types
+     */
+    List<TaskType> getSupportedTaskTypes();
 }

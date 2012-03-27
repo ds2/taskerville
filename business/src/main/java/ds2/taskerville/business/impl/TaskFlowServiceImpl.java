@@ -34,18 +34,18 @@ import ds2.taskerville.persistence.entities.TaskFlowEntity;
 public class TaskFlowServiceImpl implements TaskFlowService {
     
     /**
-     * database service.
-     */
-    @Inject
-    private PersistenceService db;
-    /**
      * A dto converter.
      */
     @Inject
     private ConverterService conv;
+    /**
+     * database service.
+     */
+    @Inject
+    private PersistenceService db;
     
     @Override
-    public TaskFlow createFlow(String name) {
+    public TaskFlow createFlow(final String name) {
         TaskFlowEntity t = new TaskFlowEntity();
         t.setName(name);
         t = db.persistObject(t);

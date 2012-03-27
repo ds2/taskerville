@@ -29,19 +29,19 @@ import java.util.Map;
  */
 public interface ExportSettings extends Serializable {
     /**
-     * The username property name.
-     */
-    String PROPERTY_USERNAME = "username";
-    /**
      * The password property name.
      */
     String PROPERTY_PASSWORD = "pw";
-    
-    TaskManagementSystems getManagementSystem();
+    /**
+     * The username property name.
+     */
+    String PROPERTY_USERNAME = "username";
     
     Map<String, Project> getMainComponentMap();
     
-    Map<String, Component> getSubComponentMap();
+    TaskManagementSystems getManagementSystem();
     
     String getProperty(String propertyName);
+    
+    Map<String, Component> getSubComponentMap();
 }

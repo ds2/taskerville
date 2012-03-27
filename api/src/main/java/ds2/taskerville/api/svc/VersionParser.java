@@ -29,7 +29,7 @@ import ds2.taskerville.api.release.Version;
  * @version 0.1
  */
 public interface VersionParser {
-    String toVersion(Version v);
-    
     Version parse(String s);
+    
+    String toVersion(Version v);
 }

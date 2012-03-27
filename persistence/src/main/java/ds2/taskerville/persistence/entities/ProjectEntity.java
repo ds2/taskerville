@@ -69,26 +69,45 @@ public class ProjectEntity implements Project {
      */
     private static final long serialVersionUID = 1L;
     /**
+     * The description.
+     */
+    @Column(name = "description")
+    private String description;
+    
+    /**
+     * The homepage.
+     */
+    @Column(name = "homepage")
+    private URL homepage;
+    /**
+     * The hosting space.
+     */
+    @ManyToOne(targetEntity = HostingSpaceEntity.class)
+    @JoinColumn(name = "space_id")
+    private HostingSpace hostingSpace;
+    /**
      * The id.
      */
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.TABLE, generator = "projectGen")
     private long id;
-    
+    /**
+     * The lead user.
+     */
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "leader_id")
+    private User lead;
     /**
      * The short id.
      */
     @Column(name = "short_id")
     private String shortTitle;
     /**
-     * The supported task types for this project.
+     * The state.
      */
-    @ManyToMany(targetEntity = TaskTypeEntity.class)
-    @JoinTable(name = "TSK_J_PROJECT_TASKTYPE", joinColumns = @JoinColumn(
-        name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(
-        name = "TASKTYPE_ID"))
-    private List<TaskType> supportedTaskTypes;
+    @Embedded
+    private StateAwareEmbed state;
     /**
      * The components of this project.
      */
@@ -98,42 +117,23 @@ public class ProjectEntity implements Project {
         name = "COMPONENT_ID"))
     private List<Component> subComponents;
     /**
-     * The homepage.
+     * The supported task types for this project.
      */
-    @Column(name = "homepage")
-    private URL homepage;
+    @ManyToMany(targetEntity = TaskTypeEntity.class)
+    @JoinTable(name = "TSK_J_PROJECT_TASKTYPE", joinColumns = @JoinColumn(
+        name = "PROJECT_ID"), inverseJoinColumns = @JoinColumn(
+        name = "TASKTYPE_ID"))
+    private List<TaskType> supportedTaskTypes;
     /**
-     * The state.
+     * The time.
      */
     @Embedded
-    private StateAwareEmbed state;
-    /**
-     * The hosting space.
-     */
-    @ManyToOne(targetEntity = HostingSpaceEntity.class)
-    @JoinColumn(name = "space_id")
-    private HostingSpace hostingSpace;
+    private final TimeAwareEmbed time;
     /**
      * The title.
      */
     @Column(name = "title", nullable = false)
     private String title;
-    /**
-     * The description.
-     */
-    @Column(name = "description")
-    private String description;
-    /**
-     * The lead user.
-     */
-    @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "leader_id")
-    private User lead;
-    /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
     
     /**
      * Inits the entity.
@@ -146,8 +146,127 @@ public class ProjectEntity implements Project {
      * {@inheritDoc}
      */
     @Override
+    public final boolean equals(final Object object) {
+        if (!(object instanceof ProjectEntity)) {
+            return false;
+        }
+        final ProjectEntity other = (ProjectEntity) object;
+        if (id != other.id) {
+            return false;
+        }
+        return true;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getCreated() {
+        return time.getCreated();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getDeleted() {
+        return time.getDeleted();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getDescription() {
+        return description;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final EntryStates getEntryState() {
+        return state.getEntryState();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final URL getHomepage() {
+        return homepage;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final HostingSpace getHostingSpace() {
+        return hostingSpace;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final long getId() {
         return id;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final User getLead() {
+        return lead;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final ProcessManagement getManagement() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getModified() {
+        return time.getModified();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getShortTitle() {
+        return shortTitle;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final List<Component> getSubComponents() {
+        return subComponents;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final List<TaskType> getSupportedTaskTypes() {
+        return supportedTaskTypes;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final String getTitle() {
+        return title;
     }
     
     /**
@@ -164,107 +283,8 @@ public class ProjectEntity implements Project {
      * {@inheritDoc}
      */
     @Override
-    public final boolean equals(final Object object) {
-        if (!(object instanceof ProjectEntity)) {
-            return false;
-        }
-        final ProjectEntity other = (ProjectEntity) object;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String toString() {
-        return Objects.toStringHelper(ProjectEntity.class).add("id", id)
-            .add("title", this.title).add("shortTitle", shortTitle)
-            .add("descr", description).add("homepage", homepage)
-            .add("state", state).add("space", hostingSpace).add("lead", lead)
-            .add("times", time).toString();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getShortTitle() {
-        return shortTitle;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final List<TaskType> getSupportedTaskTypes() {
-        return supportedTaskTypes;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final List<Component> getSubComponents() {
-        return subComponents;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final URL getHomepage() {
-        return homepage;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final ProcessManagement getManagement() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final EntryStates getEntryState() {
-        return state.getEntryState();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final HostingSpace getHostingSpace() {
-        return hostingSpace;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getTitle() {
-        return title;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final String getDescription() {
-        return description;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final User getLead() {
-        return lead;
+    public final void setDeleted(final Date d) {
+        time.setDeleted(d);
     }
     
     /**
@@ -279,32 +299,12 @@ public class ProjectEntity implements Project {
      * {@inheritDoc}
      */
     @Override
-    public final Date getCreated() {
-        return time.getCreated();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getModified() {
-        return time.getModified();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getDeleted() {
-        return time.getDeleted();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final void setDeleted(final Date d) {
-        time.setDeleted(d);
+    public final String toString() {
+        return Objects.toStringHelper(ProjectEntity.class).add("id", id)
+            .add("title", title).add("shortTitle", shortTitle)
+            .add("descr", description).add("homepage", homepage)
+            .add("state", state).add("space", hostingSpace).add("lead", lead)
+            .add("times", time).toString();
     }
     
     /**

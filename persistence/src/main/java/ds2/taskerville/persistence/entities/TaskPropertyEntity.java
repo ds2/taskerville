@@ -74,12 +74,14 @@ public class TaskPropertyEntity implements TaskProperty {
         typeParserId = i0;
     }
     
-    public void setName(final String name) {
-        this.name = name;
+    @Override
+    public int compareTo(final TaskProperty t) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
     
-    public void setTypeParserId(final int typeParserId) {
-        this.typeParserId = typeParserId;
+    @Override
+    public long getId() {
+        return id;
     }
     
     @Override
@@ -92,13 +94,11 @@ public class TaskPropertyEntity implements TaskProperty {
         return typeParserId;
     }
     
-    @Override
-    public long getId() {
-        return id;
+    public void setName(final String name) {
+        this.name = name;
     }
     
-    @Override
-    public int compareTo(final TaskProperty t) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void setTypeParserId(final int typeParserId) {
+        this.typeParserId = typeParserId;
     }
 }

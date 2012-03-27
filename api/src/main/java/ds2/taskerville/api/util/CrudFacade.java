@@ -17,6 +17,14 @@ import ds2.taskerville.api.PersistableObject;
  */
 public interface CrudFacade<E extends PersistableObject> {
     /**
+     * Deletes an entity.
+     * 
+     * @param id
+     *            the id of the entity
+     */
+    void delete(long id);
+    
+    /**
      * Get all entities.
      * 
      * @return all valid entities
@@ -51,12 +59,4 @@ public interface CrudFacade<E extends PersistableObject> {
      * @return the updated entity
      */
     E update(long id, E delta);
-    
-    /**
-     * Deletes an entity.
-     * 
-     * @param id
-     *            the id of the entity
-     */
-    void delete(long id);
 }

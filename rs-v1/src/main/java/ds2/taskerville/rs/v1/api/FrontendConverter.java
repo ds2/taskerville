@@ -33,8 +33,8 @@ import ds2.taskerville.rs.v1.dto.ProjectDto;
  */
 public interface FrontendConverter {
     
-    List<ProjectDto> toProjects(List<Project> allProjects);
-    
     ProjectDto toProject(Project byId);
+    
+    List<ProjectDto> toProjects(List<Project> allProjects);
     
 }

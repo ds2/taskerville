@@ -26,15 +26,15 @@ package ds2.taskerville.api.dev;
  */
 public enum CiTypes {
     /**
-     * The hudson ci. Can also be used by jenkins.
+     * Atlassian Bamboo.
      */
-    Hudson,
+    Bamboo,
     /**
      * Apache CruiseControl.
      */
     CruiseControl,
     /**
-     * Atlassian Bamboo.
+     * The hudson ci. Can also be used by jenkins.
      */
-    Bamboo;
+    Hudson;
 }

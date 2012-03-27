@@ -28,11 +28,17 @@ import ds2.taskerville.api.PersistableObject;
  * @version 0.1
  */
 public final class JpaSupport {
-    /**
-     * Would init the class.
-     */
-    private JpaSupport() {
-        // nothing special to do
+    public static <E extends PersistableObject> boolean deleteEntity(
+        final EntityManager em, final E e) {
+        em.remove(e);
+        return true;
+    }
+    
+    public static <E extends PersistableObject> E findById(
+        final EntityManager em, final Class<E> c, final long id) {
+        E rc = null;
+        rc = em.find(c, id);
+        return rc;
     }
     
     /**
@@ -53,23 +59,17 @@ public final class JpaSupport {
         return rc;
     }
     
-    public static <E extends PersistableObject> boolean deleteEntity(
-        EntityManager em, E e) {
-        em.remove(e);
-        return true;
-    }
-    
-    public static <E extends PersistableObject> E findById(EntityManager em,
-        Class<E> c, long id) {
-        E rc = null;
-        rc = em.find(c, id);
-        return rc;
-    }
-    
     public static <E extends PersistableObject> E updateEntity(
-        EntityManager em, E e) {
+        final EntityManager em, final E e) {
         E rc = e;
         rc = em.merge(rc);
         return rc;
+    }
+    
+    /**
+     * Would init the class.
+     */
+    private JpaSupport() {
+        // nothing special to do
     }
 }

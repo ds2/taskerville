@@ -32,11 +32,11 @@ import ds2.taskerville.api.TimeAware;
  */
 public interface ContinuousIntegrationSystem extends StateAware, TimeAware {
     /**
-     * Returns the type of the CI.
+     * Returns the project, this ci job belongs to.
      * 
-     * @return the type
+     * @return the project
      */
-    CiTypes getType();
+    Project getProject();
     
     /**
      * Returns the base url of the ci.
@@ -46,9 +46,9 @@ public interface ContinuousIntegrationSystem extends StateAware, TimeAware {
     URL getProjectHomeUrl();
     
     /**
-     * Returns the project, this ci job belongs to.
+     * Returns the type of the CI.
      * 
-     * @return the project
+     * @return the type
      */
-    Project getProject();
+    CiTypes getType();
 }

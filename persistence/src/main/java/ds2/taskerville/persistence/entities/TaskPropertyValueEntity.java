@@ -58,16 +58,6 @@ public class TaskPropertyValueEntity implements TaskPropertyValue {
      */
     private static final long serialVersionUID = 1650408815442784793L;
     /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
-     * The state.
-     */
-    @Embedded
-    private StateAwareEmbed state;
-    /**
      * The id.
      */
     @Id
@@ -80,6 +70,16 @@ public class TaskPropertyValueEntity implements TaskPropertyValue {
     @ManyToOne(targetEntity = TaskPropertyEntity.class)
     @JoinColumn(name = "property_id", nullable = false)
     private TaskProperty property;
+    /**
+     * The state.
+     */
+    @Embedded
+    private final StateAwareEmbed state;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
     /**
      * The value.
      */
@@ -105,47 +105,11 @@ public class TaskPropertyValueEntity implements TaskPropertyValue {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getModified()
-     */
-    @Override
-    public Date getModified() {
-        return time.getModified();
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.TimeAware#getDeleted()
      */
     @Override
     public Date getDeleted() {
         return time.getDeleted();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
-     */
-    @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#touchModified()
-     */
-    @Override
-    public void touchModified() {
-        time.touchModified();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.PersistableObject#getId()
-     */
-    @Override
-    public long getId() {
-        return id;
     }
     
     /*
@@ -159,13 +123,20 @@ public class TaskPropertyValueEntity implements TaskPropertyValue {
     
     /*
      * (non-Javadoc)
-     * @see
-     * ds2.taskerville.api.StateAware#setEntryState(ds2.taskerville.api.EntryStates
-     * )
+     * @see ds2.taskerville.api.PersistableObject#getId()
      */
     @Override
-    public void setEntryState(EntryStates s) {
-        state.setEntryState(s);
+    public long getId() {
+        return id;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#getModified()
+     */
+    @Override
+    public Date getModified() {
+        return time.getModified();
     }
     
     /*
@@ -184,6 +155,35 @@ public class TaskPropertyValueEntity implements TaskPropertyValue {
     @Override
     public String getValue() {
         return value;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
+     */
+    @Override
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see
+     * ds2.taskerville.api.StateAware#setEntryState(ds2.taskerville.api.EntryStates
+     * )
+     */
+    @Override
+    public void setEntryState(final EntryStates s) {
+        state.setEntryState(s);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#touchModified()
+     */
+    @Override
+    public void touchModified() {
+        time.touchModified();
     }
     
 }

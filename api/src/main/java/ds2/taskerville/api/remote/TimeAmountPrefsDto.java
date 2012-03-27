@@ -29,6 +29,11 @@ import ds2.taskerville.api.TimeAmountPrefs;
 public class TimeAmountPrefsDto implements TimeAmountPrefs {
     
     /**
+     * The svuid.
+     */
+    private static final long serialVersionUID = 6260688006819170374L;
+    
+    /**
      * Inits the dto.
      */
     public TimeAmountPrefsDto() {

@@ -37,16 +37,16 @@ public interface TaskFlow extends TimeAware, StateAware {
     String getName();
     
     /**
-     * Returns the start state of this flow.
-     * 
-     * @return the start state
-     */
-    TaskState getStartState();
-    
-    /**
      * Returns the project this flow belongs to.
      * 
      * @return the project
      */
     Project getProject();
+    
+    /**
+     * Returns the start state of this flow.
+     * 
+     * @return the start state
+     */
+    TaskState getStartState();
 }

@@ -30,6 +30,13 @@ package ds2.taskerville.api.release;
  */
 public interface MajorMinorVersion extends Version {
     /**
+     * Returns the build number of this release.
+     * 
+     * @return the build number
+     */
+    int getBuild();
+    
+    /**
      * Returns the major revision number.
      * 
      * @return the major revision
@@ -42,11 +49,4 @@ public interface MajorMinorVersion extends Version {
      * @return the minor revision
      */
     int getMinor();
-    
-    /**
-     * Returns the build number of this release.
-     * 
-     * @return the build number
-     */
-    int getBuild();
 }

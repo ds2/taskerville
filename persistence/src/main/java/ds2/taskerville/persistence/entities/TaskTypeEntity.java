@@ -61,17 +61,23 @@ public class TaskTypeEntity implements TaskType {
      */
     private static final long serialVersionUID = 3254852477224424464L;
     /**
+     * The description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
+     * The flow.
+     */
+    @OneToOne(targetEntity = TaskFlowEntity.class)
+    @JoinColumn(name = "flow_id")
+    private TaskFlow flow;
+    /**
      * The id.
      */
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(generator = "taskTypeGen", strategy = GenerationType.TABLE)
     private long id;
-    /**
-     * The state.
-     */
-    @Embedded
-    private StateAwareEmbed state;
     /**
      * The required properties.
      */
@@ -81,21 +87,15 @@ public class TaskTypeEntity implements TaskType {
         name = "PROP_ID"))
     private List<TaskProperty> requiredProperties;
     /**
-     * The description.
+     * The state.
      */
-    @Column(name = "description")
-    private String description;
+    @Embedded
+    private final StateAwareEmbed state;
     /**
      * The title.
      */
     @Column(name = "title", nullable = false)
     private String title;
-    /**
-     * The flow.
-     */
-    @OneToOne(targetEntity = TaskFlowEntity.class)
-    @JoinColumn(name = "flow_id")
-    private TaskFlow flow;
     
     /**
      * Inits the entity.
@@ -105,8 +105,8 @@ public class TaskTypeEntity implements TaskType {
     }
     
     @Override
-    public final long getId() {
-        return id;
+    public final String getDescription() {
+        return description;
     }
     
     @Override
@@ -115,13 +115,18 @@ public class TaskTypeEntity implements TaskType {
     }
     
     @Override
-    public final void setEntryState(final EntryStates s) {
-        state.setEntryState(s);
+    public final TaskFlow getFlow() {
+        return flow;
     }
     
     @Override
-    public final TaskFlow getFlow() {
-        return flow;
+    public final long getId() {
+        return id;
+    }
+    
+    @Override
+    public final List<TaskProperty> getRequiredProperties() {
+        return requiredProperties;
     }
     
     @Override
@@ -130,13 +135,8 @@ public class TaskTypeEntity implements TaskType {
     }
     
     @Override
-    public final String getDescription() {
-        return description;
-    }
-    
-    @Override
-    public final List<TaskProperty> getRequiredProperties() {
-        return requiredProperties;
+    public final void setEntryState(final EntryStates s) {
+        state.setEntryState(s);
     }
     
 }

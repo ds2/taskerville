@@ -29,6 +29,15 @@ import ds2.taskerville.api.user.HostingSpace;
 public interface ConverterService {
     
     /**
+     * Converts a given hosting space dto into another dto.
+     * 
+     * @param e
+     *            the origin
+     * @return the copy
+     */
+    HostingSpace toHostingSpace(HostingSpace e);
+    
+    /**
      * Converts a string into a int value.
      * 
      * @param s
@@ -38,15 +47,6 @@ public interface ConverterService {
      * @return the default value, or the converted value
      */
     int toInt(String s, int defValue);
-    
-    /**
-     * Converts a given hosting space dto into another dto.
-     * 
-     * @param e
-     *            the origin
-     * @return the copy
-     */
-    HostingSpace toHostingSpace(HostingSpace e);
     
     /**
      * Converts a given task flow dto into another dto.

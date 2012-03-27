@@ -50,16 +50,16 @@ public class UserRoleEntity implements UserRole {
      */
     private static final long serialVersionUID = 3652736272564474777L;
     /**
+     * The description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
      * The id.
      */
     @Id
     @GeneratedValue(generator = "userRoleGen", strategy = GenerationType.TABLE)
     private long id;
-    /**
-     * The description.
-     */
-    @Column(name = "description")
-    private String description;
     /**
      * The title.
      */
@@ -74,13 +74,13 @@ public class UserRoleEntity implements UserRole {
     }
     
     @Override
-    public final long getId() {
-        return id;
+    public final String getDescription() {
+        return description;
     }
     
     @Override
-    public final String getDescription() {
-        return description;
+    public final long getId() {
+        return id;
     }
     
     @Override

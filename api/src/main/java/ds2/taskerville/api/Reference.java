@@ -28,18 +28,18 @@ import ds2.taskerville.api.flow.TaskState;
 public interface Reference extends TimeAware {
     
     /**
-     * Returns the referenced task.
-     * 
-     * @return the referenced task
-     */
-    Task getReferencedTask();
-    
-    /**
      * Returns the original task.
      * 
      * @return the original task
      */
     Task getOriginalTask();
+    
+    /**
+     * Returns the referenced task.
+     * 
+     * @return the referenced task
+     */
+    Task getReferencedTask();
     
     /**
      * Returns the type of the reference.

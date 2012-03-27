@@ -59,6 +59,16 @@ public class AttachmentEntity implements Attachment {
      */
     private static final long serialVersionUID = -7838144343178000193L;
     /**
+     * The description.
+     */
+    @Column(name = "description", updatable = true, nullable = false)
+    private String description;
+    /**
+     * The file name.
+     */
+    @Column(name = "filename", nullable = false)
+    private String fileName;
+    /**
      * The id.
      */
     @Id
@@ -67,6 +77,23 @@ public class AttachmentEntity implements Attachment {
         strategy = GenerationType.TABLE,
         generator = "attachmentGen")
     private long id;
+    /**
+     * The mime type.
+     */
+    @Transient
+    private MimeType type;
+    /**
+     * The upload date.
+     */
+    @Column(name = "uploaded", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date uploadDate;
+    /**
+     * The uploader.
+     */
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "uploaded_by", nullable = false, updatable = true)
+    private User uploader;
     /**
      * The version.
      */
@@ -77,47 +104,12 @@ public class AttachmentEntity implements Attachment {
      */
     @Column(name = "version", nullable = false, updatable = false)
     private String versionStr;
-    /**
-     * The upload date.
-     */
-    @Column(name = "uploaded", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date uploadDate;
-    /**
-     * The mime type.
-     */
-    @Transient
-    private MimeType type;
-    /**
-     * The file name.
-     */
-    @Column(name = "filename", nullable = false)
-    private String fileName;
-    /**
-     * The description.
-     */
-    @Column(name = "description", updatable = true, nullable = false)
-    private String description;
-    /**
-     * The uploader.
-     */
-    @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "uploaded_by", nullable = false, updatable = true)
-    private User uploader;
     
     /**
      * Inits the entity.
      */
     public AttachmentEntity() {
         // TODO Auto-generated constructor stub
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final long getId() {
-        return id;
     }
     
     @Override
@@ -128,6 +120,14 @@ public class AttachmentEntity implements Attachment {
     @Override
     public final String getFileName() {
         return fileName;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final long getId() {
+        return id;
     }
     
     @Override
@@ -141,12 +141,12 @@ public class AttachmentEntity implements Attachment {
     }
     
     @Override
-    public final Version getVersion() {
-        return version;
+    public final User getUploader() {
+        return uploader;
     }
     
     @Override
-    public final User getUploader() {
-        return uploader;
+    public final Version getVersion() {
+        return version;
     }
 }

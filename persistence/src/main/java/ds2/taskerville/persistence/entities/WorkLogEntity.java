@@ -56,15 +56,9 @@ import ds2.taskerville.api.user.User;
     pkColumnValue = "workLog")
 public class WorkLogEntity implements WorkLog {
     /**
-     * The time.
+     * The svuid.
      */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
-     * The time spent.
-     */
-    @Transient
-    private TimeAmount timeSpent;
+    private static final long serialVersionUID = -8414550892909832143L;
     /**
      * The comment.
      */
@@ -72,92 +66,35 @@ public class WorkLogEntity implements WorkLog {
     @JoinColumn(name = "COMMENT_ID")
     private Comment comment;
     /**
-     * The worker.
-     */
-    @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "USER_ID")
-    private User worker;
-    /**
      * The id.
      */
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(generator = "worklogGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
+     * The time spent.
+     */
+    @Transient
+    private TimeAmount timeSpent;
     
     /**
-     * The svuid.
+     * The worker.
      */
-    private static final long serialVersionUID = -8414550892909832143L;
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "USER_ID")
+    private User worker;
     
     /**
      * Inits the entity.
      */
     public WorkLogEntity() {
         time = new TimeAwareEmbed();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getCreated()
-     */
-    @Override
-    public Date getCreated() {
-        return time.getCreated();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getModified()
-     */
-    @Override
-    public Date getModified() {
-        return time.getModified();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getDeleted()
-     */
-    @Override
-    public Date getDeleted() {
-        return time.getDeleted();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
-     */
-    @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#touchModified()
-     */
-    @Override
-    public void touchModified() {
-        time.touchModified();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.PersistableObject#getId()
-     */
-    @Override
-    public long getId() {
-        return id;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.WorkLog#getWorker()
-     */
-    @Override
-    public User getWorker() {
-        return worker;
     }
     
     /*
@@ -171,11 +108,74 @@ public class WorkLogEntity implements WorkLog {
     
     /*
      * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#getCreated()
+     */
+    @Override
+    public Date getCreated() {
+        return time.getCreated();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#getDeleted()
+     */
+    @Override
+    public Date getDeleted() {
+        return time.getDeleted();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.PersistableObject#getId()
+     */
+    @Override
+    public long getId() {
+        return id;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#getModified()
+     */
+    @Override
+    public Date getModified() {
+        return time.getModified();
+    }
+    
+    /*
+     * (non-Javadoc)
      * @see ds2.taskerville.api.WorkLog#getTimeSpent()
      */
     @Override
     public TimeAmount getTimeSpent() {
         return timeSpent;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.WorkLog#getWorker()
+     */
+    @Override
+    public User getWorker() {
+        return worker;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
+     */
+    @Override
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#touchModified()
+     */
+    @Override
+    public void touchModified() {
+        time.touchModified();
     }
     
 }

@@ -32,11 +32,12 @@ import ds2.taskerville.api.TaskProperty;
 public interface TaskState extends PersistableObject {
     
     /**
-     * Returns the title of the state.
+     * Returns a list of required properties to enter this state. If the given
+     * properties are not part of the task, then the task may become invalid.
      * 
-     * @return the title
+     * @return a list of required properties for this state.
      */
-    String getStateTitle();
+    List<TaskProperty> getRequiredProperties();
     
     /**
      * Returns a possible description of the state.
@@ -46,10 +47,9 @@ public interface TaskState extends PersistableObject {
     String getStateDescription();
     
     /**
-     * Returns a list of required properties to enter this state. If the given
-     * properties are not part of the task, then the task may become invalid.
+     * Returns the title of the state.
      * 
-     * @return a list of required properties for this state.
+     * @return the title
      */
-    List<TaskProperty> getRequiredProperties();
+    String getStateTitle();
 }

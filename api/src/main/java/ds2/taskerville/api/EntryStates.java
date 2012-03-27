@@ -34,6 +34,10 @@ public enum EntryStates {
      */
     Deleted(3),
     /**
+     * The entry has just been created. Perhaps needs approval.
+     */
+    Initial(0),
+    /**
      * The entry is locked. It can be found, but not changed, or edited some
      * way.
      */
@@ -41,16 +45,30 @@ public enum EntryStates {
     /**
      * The entry is valid.
      */
-    Valid(1),
-    /**
-     * The entry has just been created. Perhaps needs approval.
-     */
-    Initial(0);
+    Valid(1);
     
     /**
      * A caching state map.
      */
     private static Map<Integer, EntryStates> statesMap = new HashMap<>();
+    static {
+        statesMap.put(Initial.getStateId(), Initial);
+        statesMap.put(Valid.getStateId(), Valid);
+        statesMap.put(Locked.getStateId(), Locked);
+        statesMap.put(Deleted.getStateId(), Deleted);
+    }
+    
+    /**
+     * Returns the entry state with the given id.
+     * 
+     * @param stateId2
+     *            the id of the state
+     * @return the state, or null if unknown
+     */
+    public static EntryStates getById(final int stateId2) {
+        return statesMap.get(Integer.valueOf(stateId2));
+    }
+    
     /**
      * the state id.
      */
@@ -73,23 +91,5 @@ public enum EntryStates {
      */
     public int getStateId() {
         return stateId;
-    }
-    
-    /**
-     * Returns the entry state with the given id.
-     * 
-     * @param stateId2
-     *            the id of the state
-     * @return the state, or null if unknown
-     */
-    public static EntryStates getById(final int stateId2) {
-        return statesMap.get(Integer.valueOf(stateId2));
-    }
-    
-    static {
-        statesMap.put(Initial.getStateId(), Initial);
-        statesMap.put(Valid.getStateId(), Valid);
-        statesMap.put(Locked.getStateId(), Locked);
-        statesMap.put(Deleted.getStateId(), Deleted);
     }
 }

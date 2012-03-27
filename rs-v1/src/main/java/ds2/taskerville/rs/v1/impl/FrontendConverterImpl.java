@@ -27,17 +27,6 @@ public class FrontendConverterImpl implements FrontendConverter {
     /*
      * (non-Javadoc)
      * @see
-     * ds2.taskerville.rs.v1.api.FrontendConverter#toProjects(java.util.List)
-     */
-    @Override
-    public List<ProjectDto> toProjects(final List<Project> allProjects) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see
      * ds2.taskerville.rs.v1.api.FrontendConverter#toProject(ds2.taskerville
      * .api.Project)
      */
@@ -48,6 +37,17 @@ public class FrontendConverterImpl implements FrontendConverter {
         }
         final ProjectDto rc = new ProjectDto();
         return rc;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see
+     * ds2.taskerville.rs.v1.api.FrontendConverter#toProjects(java.util.List)
+     */
+    @Override
+    public List<ProjectDto> toProjects(final List<Project> allProjects) {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }

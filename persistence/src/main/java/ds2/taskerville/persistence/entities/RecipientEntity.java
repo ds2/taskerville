@@ -58,10 +58,12 @@ public class RecipientEntity implements Recipient {
      */
     private static final long serialVersionUID = -7659920615565958903L;
     /**
-     * The time.
+     * The id.
      */
-    @Embedded
-    private TimeAwareEmbed time;
+    @Id
+    @Column(name = "id", unique = true)
+    @GeneratedValue(generator = "recipientGen", strategy = GenerationType.TABLE)
+    private long id;
     /**
      * The team.
      */
@@ -69,18 +71,16 @@ public class RecipientEntity implements Recipient {
     @JoinColumn(name = "team_id")
     private Team team;
     /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
      * The user.
      */
     @OneToOne(targetEntity = UserEntity.class)
     @JoinColumn(name = "user_id")
     private User user;
-    /**
-     * The id.
-     */
-    @Id
-    @Column(name = "id", unique = true)
-    @GeneratedValue(generator = "recipientGen", strategy = GenerationType.TABLE)
-    private long id;
     
     /**
      * Inits the entity.
@@ -100,38 +100,11 @@ public class RecipientEntity implements Recipient {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getModified()
-     */
-    @Override
-    public Date getModified() {
-        return time.getModified();
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.TimeAware#getDeleted()
      */
     @Override
     public Date getDeleted() {
         return time.getDeleted();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
-     */
-    @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#touchModified()
-     */
-    @Override
-    public void touchModified() {
-        time.touchModified();
     }
     
     /*
@@ -145,11 +118,11 @@ public class RecipientEntity implements Recipient {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.user.Recipient#getUser()
+     * @see ds2.taskerville.api.TimeAware#getModified()
      */
     @Override
-    public User getUser() {
-        return user;
+    public Date getModified() {
+        return time.getModified();
     }
     
     /*
@@ -159,6 +132,33 @@ public class RecipientEntity implements Recipient {
     @Override
     public Team getTeam() {
         return team;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.user.Recipient#getUser()
+     */
+    @Override
+    public User getUser() {
+        return user;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
+     */
+    @Override
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#touchModified()
+     */
+    @Override
+    public void touchModified() {
+        time.touchModified();
     }
     
 }

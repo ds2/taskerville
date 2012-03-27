@@ -78,15 +78,15 @@ public interface ServerAdminService {
         List<TaskProperty> reqProps, long projId);
     
     /**
-     * Sets the state of a type.
+     * Sets the state of a category.
      * 
-     * @param typeId
-     *            the id of the type
+     * @param categoryId
+     *            the category id
      * @param newState
-     *            the new state of the type
-     * @return the updated type
+     *            the new state of the category
+     * @return the updated category
      */
-    TaskType setTypeState(long typeId, EntryStates newState);
+    ProjectCategory setCategoryState(long categoryId, EntryStates newState);
     
     /**
      * Sets the state of a project.
@@ -100,13 +100,13 @@ public interface ServerAdminService {
     Project setProjectState(long projId, EntryStates newState);
     
     /**
-     * Sets the state of a category.
+     * Sets the state of a type.
      * 
-     * @param categoryId
-     *            the category id
+     * @param typeId
+     *            the id of the type
      * @param newState
-     *            the new state of the category
-     * @return the updated category
+     *            the new state of the type
+     * @return the updated type
      */
-    ProjectCategory setCategoryState(long categoryId, EntryStates newState);
+    TaskType setTypeState(long typeId, EntryStates newState);
 }

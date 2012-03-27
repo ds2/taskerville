@@ -60,12 +60,11 @@ public class NextStatePolicyEntity implements NextStatePolicy {
      */
     private static final long serialVersionUID = 1L;
     /**
-     * The id.
+     * The current state.
      */
-    @Id
-    @Column(name = "id", unique = true)
-    @GeneratedValue(generator = "nextStateGen", strategy = GenerationType.TABLE)
-    private long id;
+    @ManyToOne(targetEntity = TaskStateEntity.class)
+    @JoinColumn(name = "curr_id", nullable = false)
+    private TaskState currentState;
     /**
      * The origin flow.
      */
@@ -74,15 +73,12 @@ public class NextStatePolicyEntity implements NextStatePolicy {
         name = "POLICY_ID"), inverseJoinColumns = @JoinColumn(name = "FLOW_ID"))
     private TaskFlow flow;
     /**
-     * The required recipients.
+     * The id.
      */
-    @Transient
-    private List<Recipient> requiredAuthorities;
-    /**
-     * the switch title.
-     */
-    @Column(name = "title", nullable = false)
-    private String switchTitle;
+    @Id
+    @Column(name = "id", unique = true)
+    @GeneratedValue(generator = "nextStateGen", strategy = GenerationType.TABLE)
+    private long id;
     /**
      * The next state.
      */
@@ -90,11 +86,18 @@ public class NextStatePolicyEntity implements NextStatePolicy {
     @JoinColumn(name = "next_id", nullable = true)
     private TaskState nextState;
     /**
-     * The current state.
+     * The required recipients.
      */
-    @ManyToOne(targetEntity = TaskStateEntity.class)
-    @JoinColumn(name = "curr_id", nullable = false)
-    private TaskState currentState;
+    @Transient
+    private List<Recipient> requiredAuthorities;
+    /**
+     * The authorized teams.
+     */
+    @ManyToMany(targetEntity = TeamEntity.class)
+    @JoinTable(name = "TSK_J_NEXTSTATE_TEAMS", joinColumns = @JoinColumn(
+        name = "NEXTSTATE_ID"), inverseJoinColumns = @JoinColumn(
+        name = "TEAM_ID"))
+    private List<Team> requiredAuthorityTeams;
     /**
      * The authorized users.
      */
@@ -104,13 +107,10 @@ public class NextStatePolicyEntity implements NextStatePolicy {
         name = "USER_ID"))
     private List<User> requiredAuthorityUsers;
     /**
-     * The authorized teams.
+     * the switch title.
      */
-    @ManyToMany(targetEntity = TeamEntity.class)
-    @JoinTable(name = "TSK_J_NEXTSTATE_TEAMS", joinColumns = @JoinColumn(
-        name = "NEXTSTATE_ID"), inverseJoinColumns = @JoinColumn(
-        name = "TEAM_ID"))
-    private List<Team> requiredAuthorityTeams;
+    @Column(name = "title", nullable = false)
+    private String switchTitle;
     
     /**
      * Inits the entity.
@@ -125,13 +125,8 @@ public class NextStatePolicyEntity implements NextStatePolicy {
     }
     
     @Override
-    public final TaskState getNextState() {
-        return nextState;
-    }
-    
-    @Override
-    public final String getSwitchTitle() {
-        return switchTitle;
+    public final TaskFlow getFlow() {
+        return flow;
     }
     
     @Override
@@ -140,8 +135,13 @@ public class NextStatePolicyEntity implements NextStatePolicy {
     }
     
     @Override
-    public final TaskFlow getFlow() {
-        return flow;
+    public final TaskState getNextState() {
+        return nextState;
+    }
+    
+    @Override
+    public final List<Team> getRequiredAuthorityTeams() {
+        return requiredAuthorityTeams;
     }
     
     @Override
@@ -150,7 +150,7 @@ public class NextStatePolicyEntity implements NextStatePolicy {
     }
     
     @Override
-    public final List<Team> getRequiredAuthorityTeams() {
-        return requiredAuthorityTeams;
+    public final String getSwitchTitle() {
+        return switchTitle;
     }
 }

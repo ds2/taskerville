@@ -69,15 +69,15 @@ public class UserEntity implements User {
     @GeneratedValue(generator = "userGen", strategy = GenerationType.TABLE)
     private long id;
     /**
-     * The recipient base.
-     */
-    @Embedded
-    private RecipientEmbeddable recipient;
-    /**
      * The teams this user is a member of.
      */
     @ManyToMany(targetEntity = TeamEntity.class, mappedBy = "members")
     private List<Team> memberTeams;
+    /**
+     * The recipient base.
+     */
+    @Embedded
+    private final RecipientEmbeddable recipient;
     /**
      * The roles of this user.
      */
@@ -91,6 +91,25 @@ public class UserEntity implements User {
      */
     public UserEntity() {
         recipient = new RecipientEmbeddable();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.user.Recipient#getEmailAddress()
+     */
+    @Override
+    public String getEmailAddress() {
+        return recipient.getEmailAddress();
+    }
+    
+    @Override
+    public EntryStates getEntryState() {
+        return recipient.getEntryState();
+    }
+    
+    @Override
+    public HostingSpace getHostingSpace() {
+        return recipient.getHostingSpace();
     }
     
     /**
@@ -112,24 +131,6 @@ public class UserEntity implements User {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.user.User#getRoles()
-     */
-    @Override
-    public List<UserRole> getRoles() {
-        return roles;
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.user.Recipient#getEmailAddress()
-     */
-    @Override
-    public String getEmailAddress() {
-        return recipient.getEmailAddress();
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.user.Recipient#getName()
      */
     @Override
@@ -146,18 +147,17 @@ public class UserEntity implements User {
         return recipient.getProfilePhoto();
     }
     
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.user.User#getRoles()
+     */
     @Override
-    public HostingSpace getHostingSpace() {
-        return recipient.getHostingSpace();
+    public List<UserRole> getRoles() {
+        return roles;
     }
     
     @Override
-    public EntryStates getEntryState() {
-        return recipient.getEntryState();
-    }
-    
-    @Override
-    public void setEntryState(EntryStates s) {
+    public void setEntryState(final EntryStates s) {
         recipient.setEntryState(s);
     }
 }

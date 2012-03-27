@@ -60,11 +60,6 @@ public class ReferenceEntity implements Reference {
      */
     private static final long serialVersionUID = -5845596535978625086L;
     /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
      * The id.
      */
     @Id
@@ -72,17 +67,17 @@ public class ReferenceEntity implements Reference {
     @GeneratedValue(generator = "refGen", strategy = GenerationType.TABLE)
     private long id;
     /**
-     * The referenced task.
-     */
-    @ManyToOne(targetEntity = TaskEntity.class)
-    @JoinColumn(name = "ref_task", nullable = false)
-    private Task referencedTask;
-    /**
      * The origin task.
      */
     @ManyToOne(targetEntity = TaskEntity.class)
     @JoinColumn(name = "origin_task", nullable = false)
     private Task originalTask;
+    /**
+     * The referenced task.
+     */
+    @ManyToOne(targetEntity = TaskEntity.class)
+    @JoinColumn(name = "ref_task", nullable = false)
+    private Task referencedTask;
     /**
      * The reference type of these two tasks.
      */
@@ -95,6 +90,11 @@ public class ReferenceEntity implements Reference {
     @ManyToOne(targetEntity = TaskStateEntity.class)
     @JoinColumn(name = "req_ref_state")
     private TaskState requiredReferenceState;
+    /**
+     * The time.
+     */
+    @Embedded
+    private TimeAwareEmbed time;
     
     /**
      * Inits the entity.
@@ -114,38 +114,11 @@ public class ReferenceEntity implements Reference {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getModified()
-     */
-    @Override
-    public Date getModified() {
-        return time.getModified();
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.TimeAware#getDeleted()
      */
     @Override
     public Date getDeleted() {
         return time.getDeleted();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
-     */
-    @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#touchModified()
-     */
-    @Override
-    public void touchModified() {
-        time.touchModified();
     }
     
     /*
@@ -159,11 +132,11 @@ public class ReferenceEntity implements Reference {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.Reference#getReferencedTask()
+     * @see ds2.taskerville.api.TimeAware#getModified()
      */
     @Override
-    public Task getReferencedTask() {
-        return referencedTask;
+    public Date getModified() {
+        return time.getModified();
     }
     
     /*
@@ -173,6 +146,15 @@ public class ReferenceEntity implements Reference {
     @Override
     public Task getOriginalTask() {
         return originalTask;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.Reference#getReferencedTask()
+     */
+    @Override
+    public Task getReferencedTask() {
+        return referencedTask;
     }
     
     /*
@@ -191,6 +173,24 @@ public class ReferenceEntity implements Reference {
     @Override
     public TaskState getRequiredReferenceState() {
         return requiredReferenceState;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
+     */
+    @Override
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#touchModified()
+     */
+    @Override
+    public void touchModified() {
+        time.touchModified();
     }
     
 }

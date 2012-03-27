@@ -26,16 +26,16 @@ package ds2.taskerville.api;
  */
 public interface WorkPackage extends TimeAware {
     /**
-     * Returns the possible time amount for this work package.
-     * 
-     * @return the possible time amount
-     */
-    TimeAmount getTimeAmount();
-    
-    /**
      * Returns a possible description of this work package.
      * 
      * @return a description
      */
     Comment getDescription();
+    
+    /**
+     * Returns the possible time amount for this work package.
+     * 
+     * @return the possible time amount
+     */
+    TimeAmount getTimeAmount();
 }

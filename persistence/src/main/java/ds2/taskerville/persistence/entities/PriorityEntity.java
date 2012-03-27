@@ -54,6 +54,11 @@ public class PriorityEntity implements Priority {
      */
     private static final long serialVersionUID = -5029249773368488368L;
     /**
+     * The description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
      * The id.
      */
     @Id
@@ -61,20 +66,15 @@ public class PriorityEntity implements Priority {
     @GeneratedValue(generator = "prioGen", strategy = GenerationType.TABLE)
     private long id;
     /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
      * The title.
      */
     @Column(name = "title", nullable = false)
     private String title;
-    /**
-     * The description.
-     */
-    @Column(name = "description")
-    private String description;
-    /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
     /**
      * The weight.
      */
@@ -90,30 +90,22 @@ public class PriorityEntity implements Priority {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.PersistableObject#getId()
-     */
-    @Override
-    public long getId() {
-        return id;
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see java.lang.Comparable#compareTo(java.lang.Object)
      */
     @Override
-    public int compareTo(Priority o) {
+    public int compareTo(final Priority o) {
         // TODO Auto-generated method stub
         return 0;
     }
     
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.Priority#getTitle()
-     */
     @Override
-    public String getTitle() {
-        return title;
+    public Date getCreated() {
+        return time.getCreated();
+    }
+    
+    @Override
+    public Date getDeleted() {
+        return time.getDeleted();
     }
     
     /*
@@ -125,9 +117,13 @@ public class PriorityEntity implements Priority {
         return description;
     }
     
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.PersistableObject#getId()
+     */
     @Override
-    public Date getCreated() {
-        return time.getCreated();
+    public long getId() {
+        return id;
     }
     
     @Override
@@ -135,24 +131,28 @@ public class PriorityEntity implements Priority {
         return time.getModified();
     }
     
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.Priority#getTitle()
+     */
     @Override
-    public Date getDeleted() {
-        return time.getDeleted();
+    public String getTitle() {
+        return title;
     }
     
     @Override
-    public void setDeleted(Date d) {
+    public float getWeight() {
+        return weight;
+    }
+    
+    @Override
+    public void setDeleted(final Date d) {
         time.setDeleted(d);
     }
     
     @Override
     public void touchModified() {
         time.touchModified();
-    }
-    
-    @Override
-    public float getWeight() {
-        return weight;
     }
     
 }

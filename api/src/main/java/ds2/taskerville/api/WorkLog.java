@@ -29,13 +29,6 @@ import ds2.taskerville.api.user.User;
 public interface WorkLog extends TimeAware {
     
     /**
-     * Returns the user who performed this work.
-     * 
-     * @return the user
-     */
-    User getWorker();
-    
-    /**
      * Returns a possible comment of the work done.
      * 
      * @return a possible comment
@@ -48,4 +41,11 @@ public interface WorkLog extends TimeAware {
      * @return the time amount
      */
     TimeAmount getTimeSpent();
+    
+    /**
+     * Returns the user who performed this work.
+     * 
+     * @return the user
+     */
+    User getWorker();
 }

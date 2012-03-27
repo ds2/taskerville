@@ -29,13 +29,6 @@ import java.util.Date;
  */
 public interface Schedulable extends Serializable {
     /**
-     * Returns the start date of the task.
-     * 
-     * @return the start date
-     */
-    Date getStartDate();
-    
-    /**
      * Returns the possible due date for this task.
      * 
      * @return the due date
@@ -43,12 +36,11 @@ public interface Schedulable extends Serializable {
     Date getDueDate();
     
     /**
-     * Sets the new start date.
+     * Returns the start date of the task.
      * 
-     * @param d
-     *            the start date
+     * @return the start date
      */
-    void setStartDate(Date d);
+    Date getStartDate();
     
     /**
      * Sets a new due date.
@@ -57,5 +49,13 @@ public interface Schedulable extends Serializable {
      *            the new due date
      */
     void setDueDate(Date d);
+    
+    /**
+     * Sets the new start date.
+     * 
+     * @param d
+     *            the start date
+     */
+    void setStartDate(Date d);
     
 }

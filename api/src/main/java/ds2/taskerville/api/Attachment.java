@@ -34,18 +34,11 @@ import ds2.taskerville.api.user.User;
  */
 public interface Attachment extends PersistableObject {
     /**
-     * Returns the upload date for this attachment.
+     * Returns the plain text description of this attachment.
      * 
-     * @return the upload date
+     * @return the description.
      */
-    Date getUploadDate();
-    
-    /**
-     * Returns the possible mime type for this attachment.
-     * 
-     * @return the mime type
-     */
-    MimeType getType();
+    String getDescription();
     
     /**
      * Returns the possible file name for this attachment.
@@ -55,18 +48,18 @@ public interface Attachment extends PersistableObject {
     String getFileName();
     
     /**
-     * Returns the version of this attachment.
+     * Returns the possible mime type for this attachment.
      * 
-     * @return the version
+     * @return the mime type
      */
-    Version getVersion();
+    MimeType getType();
     
     /**
-     * Returns the plain text description of this attachment.
+     * Returns the upload date for this attachment.
      * 
-     * @return the description.
+     * @return the upload date
      */
-    String getDescription();
+    Date getUploadDate();
     
     /**
      * Returns the one who uploaded the photo.
@@ -74,4 +67,11 @@ public interface Attachment extends PersistableObject {
      * @return the uploader
      */
     User getUploader();
+    
+    /**
+     * Returns the version of this attachment.
+     * 
+     * @return the version
+     */
+    Version getVersion();
 }

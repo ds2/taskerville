@@ -50,19 +50,19 @@ public class TimeAwareEmbed implements TimeAware {
      */
     @Column(name = "created", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
-    private Date created;
-    /**
-     * The modification date.
-     */
-    @Column(name = "modified", nullable = false, updatable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date modified;
+    private final Date created;
     /**
      * The deletion date.
      */
     @Column(name = "deleted", nullable = true, updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date deleted;
+    /**
+     * The modification date.
+     */
+    @Column(name = "modified", nullable = false, updatable = true)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modified;
     
     /**
      * Inits the embeddable.
@@ -84,16 +84,24 @@ public class TimeAwareEmbed implements TimeAware {
      * {@inheritDoc}
      */
     @Override
-    public final Date getModified() {
-        return modified;
+    public final Date getDeleted() {
+        return deleted;
     }
     
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Date getDeleted() {
-        return deleted;
+    public final long getId() {
+        return 0;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final Date getModified() {
+        return modified;
     }
     
     /**
@@ -112,13 +120,5 @@ public class TimeAwareEmbed implements TimeAware {
     @Override
     public final void touchModified() {
         modified = new Date();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final long getId() {
-        return 0;
     }
 }

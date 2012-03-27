@@ -42,31 +42,23 @@ public class ScheduleEmbed implements Schedulable {
      */
     private static final long serialVersionUID = 8159458319128155701L;
     /**
-     * The start date.
-     */
-    @Column(name = "schedule_start", nullable = true, updatable = true)
-    @Temporal(TemporalType.DATE)
-    private Date startDate;
-    /**
      * The due date.
      */
     @Column(name = "schedule_due", nullable = true, updatable = true)
     @Temporal(TemporalType.DATE)
     private Date dueDate;
+    /**
+     * The start date.
+     */
+    @Column(name = "schedule_start", nullable = true, updatable = true)
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
     
     /**
      * Inits the embeddable.
      */
     public ScheduleEmbed() {
         // nothing special to do
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getStartDate() {
-        return startDate;
     }
     
     /**
@@ -81,8 +73,8 @@ public class ScheduleEmbed implements Schedulable {
      * {@inheritDoc}
      */
     @Override
-    public final void setStartDate(final Date d) {
-        startDate = d;
+    public final Date getStartDate() {
+        return startDate;
     }
     
     /**
@@ -91,6 +83,14 @@ public class ScheduleEmbed implements Schedulable {
     @Override
     public final void setDueDate(final Date d) {
         dueDate = d;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final void setStartDate(final Date d) {
+        startDate = d;
     }
     
 }

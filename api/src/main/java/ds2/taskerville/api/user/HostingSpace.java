@@ -34,18 +34,18 @@ import ds2.taskerville.api.TimeAware;
 public interface HostingSpace extends StateAware, TimeAware {
     
     /**
+     * Returns all known project categories for this hosting space.
+     * 
+     * @return all project categories for this space
+     */
+    List<ProjectCategory> getCategories();
+    
+    /**
      * Returns the name of this hosting space.
      * 
      * @return the name
      */
     String getName();
-    
-    /**
-     * Returns all registered users for this hosting space.
-     * 
-     * @return all known users
-     */
-    List<User> getUsers();
     
     /**
      * Returns all registered teams for this hosting space.
@@ -55,9 +55,9 @@ public interface HostingSpace extends StateAware, TimeAware {
     List<Team> getTeams();
     
     /**
-     * Returns all known project categories for this hosting space.
+     * Returns all registered users for this hosting space.
      * 
-     * @return all project categories for this space
+     * @return all known users
      */
-    List<ProjectCategory> getCategories();
+    List<User> getUsers();
 }

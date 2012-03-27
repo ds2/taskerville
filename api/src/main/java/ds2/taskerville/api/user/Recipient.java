@@ -30,16 +30,16 @@ import ds2.taskerville.api.TimeAware;
  */
 public interface Recipient extends TimeAware {
     /**
-     * Returns the user.
-     * 
-     * @return the user
-     */
-    User getUser();
-    
-    /**
      * Returns the team.
      * 
      * @return the team
      */
     Team getTeam();
+    
+    /**
+     * Returns the user.
+     * 
+     * @return the user
+     */
+    User getUser();
 }

@@ -56,40 +56,10 @@ public class ScmInformationEntity implements ScmInformation {
      */
     private static final long serialVersionUID = 7006183195711513501L;
     /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
-     * The scm type.
-     */
-    @Column(name = "scm", nullable = false)
-    private ScmType type;
-    /**
      * The developer branch.
      */
     @Column(name = "dev_branch", nullable = false)
     private String developerBranch;
-    /**
-     * The prerelease tags.
-     */
-    @Transient
-    private List<String> prereleaseTags;
-    /**
-     * The prerelease branch.
-     */
-    @Column(name = "prerelease_branch")
-    private String prereleaseBranch;
-    /**
-     * The final live tag.
-     */
-    @Column(name = "live_tag")
-    private String liveTag;
-    /**
-     * The live branch.
-     */
-    @Column(name = "live_branch")
-    private String liveBranch;
     /**
      * The id.
      */
@@ -97,21 +67,42 @@ public class ScmInformationEntity implements ScmInformation {
     @Column(name = "id", unique = true)
     @GeneratedValue(generator = "scmGen", strategy = GenerationType.TABLE)
     private long id;
+    /**
+     * The live branch.
+     */
+    @Column(name = "live_branch")
+    private String liveBranch;
+    /**
+     * The final live tag.
+     */
+    @Column(name = "live_tag")
+    private String liveTag;
+    /**
+     * The prerelease branch.
+     */
+    @Column(name = "prerelease_branch")
+    private String prereleaseBranch;
+    /**
+     * The prerelease tags.
+     */
+    @Transient
+    private List<String> prereleaseTags;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
+     * The scm type.
+     */
+    @Column(name = "scm", nullable = false)
+    private ScmType type;
     
     /**
      * Inits the entity.
      */
     public ScmInformationEntity() {
         time = new TimeAwareEmbed();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.PersistableObject#getId()
-     */
-    @Override
-    public long getId() {
-        return id;
     }
     
     /*
@@ -125,47 +116,11 @@ public class ScmInformationEntity implements ScmInformation {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#getModified()
-     */
-    @Override
-    public Date getModified() {
-        return time.getModified();
-    }
-    
-    /*
-     * (non-Javadoc)
      * @see ds2.taskerville.api.TimeAware#getDeleted()
      */
     @Override
     public Date getDeleted() {
         return time.getDeleted();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
-     */
-    @Override
-    public void setDeleted(Date d) {
-        time.setDeleted(d);
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.TimeAware#touchModified()
-     */
-    @Override
-    public void touchModified() {
-        time.touchModified();
-    }
-    
-    /*
-     * (non-Javadoc)
-     * @see ds2.taskerville.api.dev.ScmInformation#getType()
-     */
-    @Override
-    public ScmType getType() {
-        return type;
     }
     
     /*
@@ -179,20 +134,20 @@ public class ScmInformationEntity implements ScmInformation {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.dev.ScmInformation#getPrereleaseTags()
+     * @see ds2.taskerville.api.PersistableObject#getId()
      */
     @Override
-    public List<String> getPrereleaseTags() {
-        return prereleaseTags;
+    public long getId() {
+        return id;
     }
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.dev.ScmInformation#getPrereleaseBranch()
+     * @see ds2.taskerville.api.dev.ScmInformation#getLiveBranch()
      */
     @Override
-    public String getPrereleaseBranch() {
-        return prereleaseBranch;
+    public String getLiveBranch() {
+        return liveBranch;
     }
     
     /*
@@ -206,11 +161,56 @@ public class ScmInformationEntity implements ScmInformation {
     
     /*
      * (non-Javadoc)
-     * @see ds2.taskerville.api.dev.ScmInformation#getLiveBranch()
+     * @see ds2.taskerville.api.TimeAware#getModified()
      */
     @Override
-    public String getLiveBranch() {
-        return liveBranch;
+    public Date getModified() {
+        return time.getModified();
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.dev.ScmInformation#getPrereleaseBranch()
+     */
+    @Override
+    public String getPrereleaseBranch() {
+        return prereleaseBranch;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.dev.ScmInformation#getPrereleaseTags()
+     */
+    @Override
+    public List<String> getPrereleaseTags() {
+        return prereleaseTags;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.dev.ScmInformation#getType()
+     */
+    @Override
+    public ScmType getType() {
+        return type;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#setDeleted(java.util.Date)
+     */
+    @Override
+    public void setDeleted(final Date d) {
+        time.setDeleted(d);
+    }
+    
+    /*
+     * (non-Javadoc)
+     * @see ds2.taskerville.api.TimeAware#touchModified()
+     */
+    @Override
+    public void touchModified() {
+        time.touchModified();
     }
     
 }

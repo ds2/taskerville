@@ -28,9 +28,9 @@ import ds2.taskerville.api.processmanagement.ProcessState;
  */
 public interface WorkflowService {
     
-    ProcessState createState(String name, String descr);
-    
     ProcessState addNextState(long currentStateId, long nextStateId);
+    
+    ProcessState createState(String name, String descr);
     
     ProcessState removeNextState(long currentStateId, long nextStateId);
 }

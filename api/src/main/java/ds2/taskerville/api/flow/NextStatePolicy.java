@@ -32,18 +32,18 @@ import ds2.taskerville.api.user.User;
 public interface NextStatePolicy extends PersistableObject {
     
     /**
-     * Returns the flow for this policy.
-     * 
-     * @return the flow
-     */
-    TaskFlow getFlow();
-    
-    /**
      * Returns the state for this resolver.
      * 
      * @return this state
      */
     TaskState getCurrentState();
+    
+    /**
+     * Returns the flow for this policy.
+     * 
+     * @return the flow
+     */
+    TaskFlow getFlow();
     
     /**
      * The next state.
@@ -53,11 +53,11 @@ public interface NextStatePolicy extends PersistableObject {
     TaskState getNextState();
     
     /**
-     * Returns the title for this switch.
+     * Returns the teams that are allowed to switch to this next state.
      * 
-     * @return the switch title, or null if not required.
+     * @return the teams
      */
-    String getSwitchTitle();
+    List<Team> getRequiredAuthorityTeams();
     
     /**
      * Returns the users that are able to perform this task state switch. If
@@ -68,9 +68,9 @@ public interface NextStatePolicy extends PersistableObject {
     List<User> getRequiredAuthorityUsers();
     
     /**
-     * Returns the teams that are allowed to switch to this next state.
+     * Returns the title for this switch.
      * 
-     * @return the teams
+     * @return the switch title, or null if not required.
      */
-    List<Team> getRequiredAuthorityTeams();
+    String getSwitchTitle();
 }

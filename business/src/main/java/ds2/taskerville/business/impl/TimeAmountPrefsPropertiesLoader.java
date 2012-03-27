@@ -38,23 +38,23 @@ import ds2.taskerville.api.util.ConverterService;
 public class TimeAmountPrefsPropertiesLoader implements TimeAmountPrefs {
     
     /**
+     * A logger.
+     */
+    private static final Logger log = Logger
+        .getLogger(TimeAmountPrefsPropertiesLoader.class.getName());
+    /**
      * the svuid.
      */
     private static final long serialVersionUID = 7544432949692500699L;
-    /**
-     * The loaded properties.
-     */
-    private final Properties props;
     /**
      * A converter for converting numbers etc.
      */
     @Inject
     private ConverterService conv;
     /**
-     * A logger.
+     * The loaded properties.
      */
-    private static final Logger log = Logger
-        .getLogger(TimeAmountPrefsPropertiesLoader.class.getName());
+    private final Properties props;
     
     /**
      * Inits the prefs by loading the given properties.

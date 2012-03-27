@@ -34,20 +34,6 @@ import ds2.taskerville.api.user.User;
  */
 public interface TaskerVilleService {
     /**
-     * Returns all project categories of this installation.
-     * 
-     * @return all project categories.
-     */
-    List<ProjectCategory> getAllCategories();
-    
-    /**
-     * Returns all known task groups.
-     * 
-     * @return all known task groups
-     */
-    List<Project> getAllProjects();
-    
-    /**
      * Creates a task.
      * 
      * @param title
@@ -78,4 +64,18 @@ public interface TaskerVilleService {
      *         successful), otherwise FALSE.
      */
     boolean deleteTask(long taskId);
+    
+    /**
+     * Returns all project categories of this installation.
+     * 
+     * @return all project categories.
+     */
+    List<ProjectCategory> getAllCategories();
+    
+    /**
+     * Returns all known task groups.
+     * 
+     * @return all known task groups
+     */
+    List<Project> getAllProjects();
 }

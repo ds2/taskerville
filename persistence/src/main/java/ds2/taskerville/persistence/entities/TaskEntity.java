@@ -77,16 +77,13 @@ public class TaskEntity implements Task {
      */
     private static final long serialVersionUID = 1L;
     /**
-     * The id of the task.
+     * The components.
      */
-    @Id
-    @GeneratedValue(generator = "taskGen", strategy = GenerationType.TABLE)
-    private long id;
-    /**
-     * The schedule embed.
-     */
-    @Embedded
-    private ScheduleEmbed schedule;
+    @ManyToMany(targetEntity = ComponentEntity.class)
+    @JoinTable(name = "TSK_J_TASK_COMPONENT", joinColumns = @JoinColumn(
+        name = "TASK_ID"), inverseJoinColumns = @JoinColumn(
+        name = "COMPONENT_ID"))
+    private List<Component> affectedComponents;
     /**
      * The affected releases.
      */
@@ -96,118 +93,6 @@ public class TaskEntity implements Task {
         joinColumns = @JoinColumn(name = "TASK_ID"),
         inverseJoinColumns = @JoinColumn(name = "RELEASE_ID"))
     private List<TargetRelease> affectedReleases;
-    /**
-     * The time.
-     */
-    @Embedded
-    private TimeAwareEmbed time;
-    /**
-     * The components.
-     */
-    @ManyToMany(targetEntity = ComponentEntity.class)
-    @JoinTable(name = "TSK_J_TASK_COMPONENT", joinColumns = @JoinColumn(
-        name = "TASK_ID"), inverseJoinColumns = @JoinColumn(
-        name = "COMPONENT_ID"))
-    private List<Component> affectedComponents;
-    /**
-     * The creator.
-     */
-    @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "creator_id")
-    private User creator;
-    /**
-     * The task description.
-     */
-    @Column(name = "description")
-    private String description;
-    
-    /**
-     * The state.
-     */
-    @Embedded
-    private StateAwareEmbed state;
-    /**
-     * The work estimation.
-     */
-    @OneToOne(targetEntity = WorkPackageEntity.class)
-    @JoinColumn(name = "estimation_id")
-    private WorkPackage estimation;
-    /**
-     * The priority.
-     */
-    @ManyToOne(targetEntity = PriorityEntity.class)
-    @JoinColumn(name = "priority_id")
-    private Priority priority;
-    /**
-     * The process state.
-     */
-    @Transient
-    private ProcessState processState;
-    /**
-     * The project.
-     */
-    @ManyToOne(targetEntity = ProjectEntity.class)
-    @JoinColumn(name = "project_id")
-    private Project project;
-    /**
-     * The task id.
-     */
-    @Column(name = "task_id")
-    private long projectTaskId;
-    /**
-     * The solution.
-     */
-    @Column(name = "solution")
-    private Solutions solution;
-    /**
-     * The task state.
-     */
-    @ManyToOne(targetEntity = TaskStateEntity.class)
-    @JoinColumn(name = "taskstate_id")
-    private TaskState taskState;
-    /**
-     * Some tags.
-     */
-    @Transient
-    private List<String> tags;
-    /**
-     * The target releases.
-     */
-    @ManyToMany(targetEntity = TargetReleaseEntity.class)
-    @JoinTable(
-        name = "TSK_J_TASK_RELEASE",
-        joinColumns = @JoinColumn(name = "TASK_ID"),
-        inverseJoinColumns = @JoinColumn(name = "RELEASE_ID"))
-    private List<TargetRelease> targetReleases;
-    /**
-     * The task title.
-     */
-    @Column(name = "title", nullable = false)
-    private String title;
-    /**
-     * The task type.
-     */
-    @ManyToOne(targetEntity = TaskTypeEntity.class)
-    @JoinColumn(name = "type_id", nullable = false)
-    private TaskType type;
-    /**
-     * The watchers.
-     */
-    @ManyToMany(targetEntity = UserEntity.class)
-    @JoinTable(
-        name = "TSK_J_TASK_WATCHERS",
-        joinColumns = @JoinColumn(name = "TASK_ID"),
-        inverseJoinColumns = @JoinColumn(name = "WATCHER_ID"))
-    private List<User> watchers;
-    /**
-     * The work logs.
-     */
-    @OneToMany(targetEntity = WorkLogEntity.class)
-    @JoinTable(
-        name = "TSK_J_TASK_WORKLOG",
-        joinColumns = @JoinColumn(name = "TASK_ID"),
-        inverseJoinColumns = @JoinColumn(name = "WORKLOG_ID"))
-    private List<WorkLog> workLogs;
     /**
      * The assignees.
      */
@@ -240,6 +125,52 @@ public class TaskEntity implements Task {
     @Temporal(TemporalType.DATE)
     private Date completed;
     /**
+     * The creator.
+     */
+    @ManyToOne(targetEntity = UserEntity.class)
+    @JoinColumn(name = "creator_id")
+    private User creator;
+    
+    /**
+     * The task description.
+     */
+    @Column(name = "description")
+    private String description;
+    /**
+     * The work estimation.
+     */
+    @OneToOne(targetEntity = WorkPackageEntity.class)
+    @JoinColumn(name = "estimation_id")
+    private WorkPackage estimation;
+    /**
+     * The id of the task.
+     */
+    @Id
+    @GeneratedValue(generator = "taskGen", strategy = GenerationType.TABLE)
+    private long id;
+    /**
+     * The priority.
+     */
+    @ManyToOne(targetEntity = PriorityEntity.class)
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
+    /**
+     * The process state.
+     */
+    @Transient
+    private ProcessState processState;
+    /**
+     * The project.
+     */
+    @ManyToOne(targetEntity = ProjectEntity.class)
+    @JoinColumn(name = "project_id")
+    private Project project;
+    /**
+     * The task id.
+     */
+    @Column(name = "task_id")
+    private long projectTaskId;
+    /**
      * A set of properties.
      */
     @OneToMany(targetEntity = TaskPropertyValueEntity.class)
@@ -248,6 +179,75 @@ public class TaskEntity implements Task {
         joinColumns = @JoinColumn(name = "TASK_ID"),
         inverseJoinColumns = @JoinColumn(name = "PROPVAL_ID"))
     private List<TaskPropertyValue> properties;
+    /**
+     * The schedule embed.
+     */
+    @Embedded
+    private final ScheduleEmbed schedule;
+    /**
+     * The solution.
+     */
+    @Column(name = "solution")
+    private Solutions solution;
+    /**
+     * The state.
+     */
+    @Embedded
+    private final StateAwareEmbed state;
+    /**
+     * Some tags.
+     */
+    @Transient
+    private List<String> tags;
+    /**
+     * The target releases.
+     */
+    @ManyToMany(targetEntity = TargetReleaseEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_RELEASE",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "RELEASE_ID"))
+    private List<TargetRelease> targetReleases;
+    /**
+     * The task state.
+     */
+    @ManyToOne(targetEntity = TaskStateEntity.class)
+    @JoinColumn(name = "taskstate_id")
+    private TaskState taskState;
+    /**
+     * The time.
+     */
+    @Embedded
+    private final TimeAwareEmbed time;
+    /**
+     * The task title.
+     */
+    @Column(name = "title", nullable = false)
+    private String title;
+    /**
+     * The task type.
+     */
+    @ManyToOne(targetEntity = TaskTypeEntity.class)
+    @JoinColumn(name = "type_id", nullable = false)
+    private TaskType type;
+    /**
+     * The watchers.
+     */
+    @ManyToMany(targetEntity = UserEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_WATCHERS",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "WATCHER_ID"))
+    private List<User> watchers;
+    /**
+     * The work logs.
+     */
+    @OneToMany(targetEntity = WorkLogEntity.class)
+    @JoinTable(
+        name = "TSK_J_TASK_WORKLOG",
+        joinColumns = @JoinColumn(name = "TASK_ID"),
+        inverseJoinColumns = @JoinColumn(name = "WORKLOG_ID"))
+    private List<WorkLog> workLogs;
     
     /**
      * Inits the entity.
@@ -342,6 +342,14 @@ public class TaskEntity implements Task {
      * {@inheritDoc}
      */
     @Override
+    public final Date getDueDate() {
+        return schedule.getDueDate();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final EntryStates getEntryState() {
         return state.getEntryState();
     }
@@ -352,6 +360,14 @@ public class TaskEntity implements Task {
     @Override
     public final WorkPackage getEstimation() {
         return estimation;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public final long getId() {
+        return id;
     }
     
     /**
@@ -414,6 +430,14 @@ public class TaskEntity implements Task {
      * {@inheritDoc}
      */
     @Override
+    public final Date getStartDate() {
+        return schedule.getStartDate();
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public final TaskState getState() {
         return taskState;
     }
@@ -470,14 +494,6 @@ public class TaskEntity implements Task {
      * {@inheritDoc}
      */
     @Override
-    public final long getId() {
-        return id;
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public final void setDeleted(final Date d) {
         time.setDeleted(d);
     }
@@ -486,24 +502,8 @@ public class TaskEntity implements Task {
      * {@inheritDoc}
      */
     @Override
-    public final void touchModified() {
-        time.touchModified();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getStartDate() {
-        return schedule.getStartDate();
-    }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public final Date getDueDate() {
-        return schedule.getDueDate();
+    public final void setDueDate(final Date d) {
+        schedule.setDueDate(d);
     }
     
     /**
@@ -519,7 +519,7 @@ public class TaskEntity implements Task {
      * {@inheritDoc}
      */
     @Override
-    public final void setDueDate(final Date d) {
-        schedule.setDueDate(d);
+    public final void touchModified() {
+        time.touchModified();
     }
 }
