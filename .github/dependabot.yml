@@ -2,19 +2,19 @@ version: 2
 updates:
 - package-ecosystem: maven
   directory: "/"
-    schedule:
-      interval: "daily"
-      time: "09:00"
-      timezone: "Europe/Berlin"
-    open-pull-requests-limit: 20
-    reviewers: # you can also use assignees
-      - "lexxy23"
-    commit-message:
-      prefix: "⬆️"
-    # here you define the labels, if required. You may also omit them to rely on dependabots default values!
-    labels:
-      - "java"  # you may also use java, rust, go, pip-dependencies
-      - "dependencies"
+  schedule:
+    interval: "daily"
+    time: "09:00"
+    timezone: "Europe/Berlin"
+  open-pull-requests-limit: 20
+  reviewers: # you can also use assignees
+    - "lexxy23"
+  commit-message:
+    prefix: "⬆️"
+  # here you define the labels, if required. You may also omit them to rely on dependabots default values!
+  labels:
+    - "java"  # you may also use java, rust, go, pip-dependencies
+    - "dependencies"
 - package-ecosystem: "github-actions" # See documentation for possible values
   directory: "/" # Location of package manifests
   schedule:
